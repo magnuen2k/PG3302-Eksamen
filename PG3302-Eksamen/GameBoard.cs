@@ -24,8 +24,8 @@ namespace PG3302_Eksamen
                         Value = value
                     });
                 }
-                Console.WriteLine(count);
             }
+            Console.WriteLine(count);
 
             return _cards;
         }

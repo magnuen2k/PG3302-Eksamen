@@ -8,6 +8,12 @@ namespace PG3302_Eksamen
     {
         static void Main(string[] args)
         {
+            
+            Console.WriteLine("Hi, and welcome to this wonderful card game! :3");
+            Console.WriteLine("How many players? (2-4)");
+
+            int playerAmount = Convert.ToInt32(Console.ReadLine());
+            
             Card card = new Card();
             card.Suit = Suit.Clubs;
             card.Value = Value.King;
