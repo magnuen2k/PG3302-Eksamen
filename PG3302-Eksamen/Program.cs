@@ -12,7 +12,7 @@ namespace PG3302_Eksamen
             Console.WriteLine("Hi, and welcome to this wonderful card game! :3");
             Console.WriteLine("How many players? (2-4)");
 
-            int playerAmount;
+            
             
             /*while (true)
             {
@@ -32,8 +32,9 @@ namespace PG3302_Eksamen
                     Console.WriteLine("Nope, try again. How many players? (2-4)");
                 }
             }*/
+            int playerAmount;
 
-            while (!int.TryParse(Console.ReadLine(), out playerAmount))
+            while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= 2 && playerAmount <= 4))
             {
                 Console.WriteLine("Nope, try again. How many players? (2-4)");
             }
