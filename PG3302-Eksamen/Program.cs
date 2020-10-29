@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace PG3302_Eksamen
 {
@@ -18,9 +20,20 @@ namespace PG3302_Eksamen
             player1.Name = "Yionk";
             player1.setHand(card);
             player1.setHand(card2);
+
+            Queue<Card> cards = GameBoard.GenerateDeck();
+            
+            StringBuilder hand = new StringBuilder();
+
+            foreach (Card card1 in cards)
+            {
+                hand.Append(card1.Value + " of " + card1.Suit);
+            }
+
             
             Console.WriteLine(card.ToString());
             Console.WriteLine(player1.ToString());
+            Console.WriteLine(hand);
         }
     }
 }
