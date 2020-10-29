@@ -14,7 +14,7 @@ namespace PG3302_Eksamen
 
             int playerAmount;
             
-            while (true)
+            /*while (true)
             {
                 var c = Console.ReadLine();
                 
@@ -31,7 +31,13 @@ namespace PG3302_Eksamen
                 {
                     Console.WriteLine("Nope, try again. How many players? (2-4)");
                 }
+            }*/
+
+            while (!int.TryParse(Console.ReadLine(), out playerAmount))
+            {
+                Console.WriteLine("Nope, try again. How many players? (2-4)");
             }
+            Console.WriteLine("Good job u know how to get that input slap");
 
             Card card = new Card();
             card.Suit = Suit.Clubs;
