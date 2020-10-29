@@ -14,7 +14,16 @@ namespace PG3302_Eksamen
 
             int playerAmount = Convert.ToInt32(Console.ReadLine());
             
-            Card card = new Card();
+            if (playerAmount >= 2 && playerAmount <= 4)
+            {
+                Console.WriteLine("Good job u know how to get that input slap");
+            }
+            else
+            {
+                Console.WriteLine("Nope");
+            }
+
+                Card card = new Card();
             card.Suit = Suit.Clubs;
             card.Value = Value.King;
             
