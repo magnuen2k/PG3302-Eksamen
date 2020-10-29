@@ -6,7 +6,11 @@ namespace PG3302_Eksamen
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Card card = new Card();
+            card.Suit = Suit.Clubs;
+            card.Value = Value.King;
+            
+            Console.WriteLine(card.ToString());
         }
     }
 }
