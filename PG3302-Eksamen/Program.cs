@@ -9,29 +9,24 @@ namespace PG3302_Eksamen
         static void Main(string[] args)
         {
             
+                                               
+                                    
+            Console.WriteLine("  ,___________________________________");
+            Console.WriteLine(" /      _____ _  _                    \\");
+            Console.WriteLine("||     / ____| || |                   ||");
+            Console.WriteLine("||    | |    | || |_                  ||");
+            Console.WriteLine("||    | |    |__   _|                 ||");
+            Console.WriteLine("||    | |____   | |      The game!    ||");
+            Console.WriteLine("||     \\_____|  |_|                   ||");
+            Console.WriteLine(" \\   ______________________________   /");
+            Console.WriteLine("  -=|          by Team RP          |=-");
+            Console.WriteLine("    |______________________________|");
+            Console.WriteLine("");
+            
             Console.WriteLine("Hi, and welcome to this wonderful card game! :3");
             Console.WriteLine("How many players? (2-4)");
 
             
-            
-            /*while (true)
-            {
-                var c = Console.ReadLine();
-                
-                if (Int32.TryParse(c, out playerAmount))
-                {
-                    if (playerAmount >= 2 && playerAmount <= 4)
-                    {
-                        Console.WriteLine("Good job u know how to get that input slap");
-                        break;
-                    }
-                    Console.WriteLine("2-4 you fool! Try again (2-4)");
-                }
-                else
-                {
-                    Console.WriteLine("Nope, try again. How many players? (2-4)");
-                }
-            }*/
             int playerAmount;
 
             while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= 2 && playerAmount <= 4))
