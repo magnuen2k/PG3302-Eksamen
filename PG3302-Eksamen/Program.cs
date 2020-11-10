@@ -10,26 +10,24 @@ namespace PG3302_Eksamen
         private static readonly Object _thisLock = new Object();
         private static int cardsInDeck = 52;
         
-        public static void fightForCards()
+        public static void FightForCards()
         {
             for (int i = 0; i < 100; i++)
             {
-                takeCard();
+                TakeCard();
             }
         }
 
-        public static void takeCard()
+        public static void TakeCard()
         {
             lock (_thisLock)
-            
-            if (cardsInDeck <= 0)
             {
-                return;
-                //throw new Exception("No more cards");
-            }
-            
-            
-            {
+                if (cardsInDeck <= 0)
+                {
+                    return;
+                    //throw new Exception("No more cards");
+                }
+                
                 Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
                 cardsInDeck--;
                 Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
@@ -73,7 +71,7 @@ namespace PG3302_Eksamen
             Thread[] threads = new Thread[playerAmount];
             for (int i = 0; i < playerAmount; i++)
             {
-                Thread t = new Thread(new ThreadStart(Game.fightForCards));
+                Thread t = new Thread(new ThreadStart(Game.FightForCards));
                 t.Name = "player" + (i + 1);
                 threads[i] = t;
             }
