@@ -6,4 +6,10 @@
         <RootNamespace>PG3302_Eksamen</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Value.cs" />
+      <Compile Remove="Suit.cs" />
+      <Compile Remove="GameBoard.cs" />
+    </ItemGroup>
+
 </Project>

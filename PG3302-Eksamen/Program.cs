@@ -6,10 +6,12 @@ using System.Threading;
 
 namespace PG3302_Eksamen
 {
-    class Game
+    /*class Game
     {
         private static readonly Object _thisLock = new Object();
         private static int cardsInDeck = 52;
+
+        static Random _randomTimeout = new Random();
         
         public static void FightForCards()
         {
@@ -32,19 +34,21 @@ namespace PG3302_Eksamen
                 Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
                 cardsInDeck--;
                 Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
-                Console.WriteLine(Thread.CurrentThread.Name + " is sleeping a bit :)");
-                Thread.Sleep(1500);
-                Console.WriteLine("");
             }
+
+            int sleepy = _randomTimeout.Next(400, 2000);
+            Console.WriteLine(Thread.CurrentThread.Name + " is sleeping for " + sleepy + "ms");
+            Console.WriteLine("");
+            Thread.Sleep(sleepy);
         }
-    }
+    }*/
+
     class Program
     {
  
         
         static void Main(string[] args)
         {
-            
             const int minPlayers = 2;
             const int maxPlayers = 4;                     
                                     
@@ -71,14 +75,22 @@ namespace PG3302_Eksamen
             }
             Console.WriteLine("Good job u know how to get that input slap");
             Console.WriteLine("");
-
-            List<Player> players = new List<Player>();
+            
+            Game game = new Game(playerAmount);
+            game.Run();
+            
+            /*List<Player> players = new List<Player>();
             for (int i = 0; i < playerAmount; i++)
             {
                 // TODO change from "player"+(i+1) to a random name from a premade array?
-                players.Add(new Player("player" + (i + 1)));
-            }
+                players.Add(new Player("Player" + (i + 1)));
+            }*/
             
+            /*// Initialize game
+            Dealer.DealCards(players);
+            
+            // Create threads
+
             Thread[] threads = new Thread[players.Count];
             for (int i = 0; i < players.Count; i++)
             {
@@ -86,11 +98,11 @@ namespace PG3302_Eksamen
                 //t.Name = "player" + (i + 1);
                 t.Name = players[i].Name;
                 threads[i] = t;
-            }
+            }*/
 
             for (int i = 0; i < playerAmount; i++)
             {
-                threads[i].Start();
+                /*threads[i].Start();*/
             }
 
             /*Card card = new Card();
@@ -121,4 +133,33 @@ namespace PG3302_Eksamen
             Console.WriteLine(hand);*/
         }
     }
+
+    /*public class Dealer2
+    {
+        private const int InitHandAmount = 4;
+        // TODO should be factory (static)
+        public static GameBoard _cards = GameBoard.createBoard();
+        
+        private static readonly Random r = new Random();
+        
+        public static void DealCards(List<Player> players)
+        {
+            for (int i = 0; i < InitHandAmount; i++)
+            {
+                foreach (Player player in players)
+                {
+                    Card card = _cards[r.Next(0, _cards.Count)];
+                    player.SetHand(card);
+                    _cards.Remove(card);
+                    Console.WriteLine(player.Name + " receiving card: " + card);
+                }
+            }
+            Console.WriteLine(_cards.Count);
+            Console.WriteLine("");
+            foreach (Player player in players)
+            {
+                Console.WriteLine(player);
+            }
+        }
+    }*/
 }
