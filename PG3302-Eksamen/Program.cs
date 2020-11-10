@@ -1,11 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace PG3302_Eksamen
 {
+    class Game
+    {
+        private static readonly Object _thisLock = new Object();
+        private static int cardsInDeck = 52;
+        
+        public static void fightForCards()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                takeCard();
+            }
+        }
+
+        public static void takeCard()
+        {
+            if (cardsInDeck <= 0)
+            {
+                throw new Exception("No more cards");
+            }
+            
+            lock (_thisLock)
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
+                cardsInDeck--;
+                Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
+                Thread.Sleep(500);
+            }
+        }
+    }
     class Program
     {
+ 
+        
         static void Main(string[] args)
         {
             
@@ -28,14 +60,27 @@ namespace PG3302_Eksamen
             Console.WriteLine($"How many players? ({minPlayers}-{maxPlayers})");
 
 
-
-            while (!int.TryParse(Console.ReadLine(), out var playerAmount) || !(playerAmount >= minPlayers && playerAmount <= maxPlayers))
+            int playerAmount;
+            while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= minPlayers && playerAmount <= maxPlayers))
             {
                 Console.WriteLine($"Nope, try again. How many players? ({minPlayers}-{maxPlayers})");
             }
             Console.WriteLine("Good job u know how to get that input slap");
+            
+            Thread[] threads = new Thread[playerAmount];
+            for (int i = 0; i < playerAmount; i++)
+            {
+                Thread t = new Thread(new ThreadStart(Game.fightForCards));
+                t.Name = "player" + (i + 1);
+                threads[i] = t;
+            }
 
-            Card card = new Card();
+            for (int i = 0; i < playerAmount; i++)
+            {
+                threads[i].Start();
+            }
+
+            /*Card card = new Card();
             card.Suit = Suit.Clubs;
             card.Value = Value.King;
             
@@ -60,7 +105,7 @@ namespace PG3302_Eksamen
             
             Console.WriteLine(card.ToString());
             Console.WriteLine(player1.ToString());
-            Console.WriteLine(hand);
+            Console.WriteLine(hand);*/
         }
     }
 }
