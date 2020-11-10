@@ -44,11 +44,8 @@ namespace PG3302_Eksamen
     }
     class Program
     {
- 
-        
         static void Main(string[] args)
         {
-            
             const int minPlayers = 2;
             const int maxPlayers = 4;                     
                                     
@@ -75,6 +72,7 @@ namespace PG3302_Eksamen
             }
             Console.WriteLine("Good job u know how to get that input slap");
             Console.WriteLine("");
+            
 
             List<Player> players = new List<Player>();
             for (int i = 0; i < playerAmount; i++)
@@ -83,6 +81,10 @@ namespace PG3302_Eksamen
                 players.Add(new Player("player" + (i + 1)));
             }
             
+            // Initialize game
+            Dealer.DealCards(players);
+            
+            // Create threads
             Thread[] threads = new Thread[players.Count];
             for (int i = 0; i < players.Count; i++)
             {
@@ -94,7 +96,7 @@ namespace PG3302_Eksamen
 
             for (int i = 0; i < playerAmount; i++)
             {
-                threads[i].Start();
+                /*threads[i].Start();*/
             }
 
             /*Card card = new Card();
@@ -123,6 +125,31 @@ namespace PG3302_Eksamen
             Console.WriteLine(card.ToString());
             Console.WriteLine(player1.ToString());
             Console.WriteLine(hand);*/
+        }
+    }
+
+    public class Dealer
+    {
+        private const int InitHandAmount = 4;
+        // TODO should be factory (static)
+        public static List<Card> _cards = GameBoard.GenerateDeck();
+        
+        private static readonly Random r = new Random();
+        
+        public static void DealCards(List<Player> players)
+        {
+            foreach (Player player in players)
+            {
+                for (int i = 0; i < InitHandAmount; i++)
+                {
+                    Card card = _cards[r.Next(0, _cards.Count)];
+                    player.SetHand(card);
+                    _cards.Remove(card);
+                }       
+                Console.WriteLine("Player: " + player);
+            }
+
+            Console.WriteLine(_cards.Count);
         }
     }
 }
