@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,18 +6,18 @@ namespace PG3302_Eksamen
 {
     public class GameBoard
     {
-        private static Queue<Card> _cards;
+        private static List<Card> _cards;
 
-        public static Queue<Card> GenerateDeck()
+        public static List<Card> GenerateDeck()
         {
             int count = 0;
-            _cards = new Queue<Card>();
+            _cards = new List<Card>();
             foreach (Value value in Enum.GetValues(typeof(Value)))
             {
                 foreach (Suit suit in Enum.GetValues(typeof(Suit)))
                 {
                     count++;
-                    _cards.Enqueue(new Card()
+                    _cards.Add(new Card()
                     {
                         Suit = suit,
                         Value = value
