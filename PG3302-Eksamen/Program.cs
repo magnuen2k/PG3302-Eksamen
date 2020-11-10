@@ -20,17 +20,20 @@ namespace PG3302_Eksamen
 
         public static void takeCard()
         {
+            lock (_thisLock)
+            
             if (cardsInDeck <= 0)
             {
-                throw new Exception("No more cards");
+                return;
+                //throw new Exception("No more cards");
             }
             
-            lock (_thisLock)
+            
             {
                 Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
                 cardsInDeck--;
                 Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
-                Thread.Sleep(500);
+                Thread.Sleep(300);
             }
         }
     }
