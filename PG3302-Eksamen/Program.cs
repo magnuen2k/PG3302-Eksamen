@@ -9,7 +9,8 @@ namespace PG3302_Eksamen
         static void Main(string[] args)
         {
             
-                                               
+            const int minPlayers = 2;
+            const int maxPlayers = 4;                     
                                     
             Console.WriteLine("  ,___________________________________");
             Console.WriteLine(" /      _____ _  _                    \\");
@@ -24,14 +25,13 @@ namespace PG3302_Eksamen
             Console.WriteLine("");
             
             Console.WriteLine("Hi, and welcome to this wonderful card game! :3");
-            Console.WriteLine("How many players? (2-4)");
+            Console.WriteLine($"How many players? ({minPlayers}-{maxPlayers})");
 
-            
-            int playerAmount;
 
-            while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= 2 && playerAmount <= 4))
+
+            while (!int.TryParse(Console.ReadLine(), out var playerAmount) || !(playerAmount >= minPlayers && playerAmount <= maxPlayers))
             {
-                Console.WriteLine("Nope, try again. How many players? (2-4)");
+                Console.WriteLine($"Nope, try again. How many players? ({minPlayers}-{maxPlayers})");
             }
             Console.WriteLine("Good job u know how to get that input slap");
 
