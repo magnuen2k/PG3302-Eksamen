@@ -78,7 +78,7 @@ namespace PG3302_Eksamen
             for (int i = 0; i < playerAmount; i++)
             {
                 // TODO change from "player"+(i+1) to a random name from a premade array?
-                players.Add(new Player("player" + (i + 1)));
+                players.Add(new Player("Player" + (i + 1)));
             }
             
             // Initialize game
@@ -138,18 +138,22 @@ namespace PG3302_Eksamen
         
         public static void DealCards(List<Player> players)
         {
-            foreach (Player player in players)
+            for (int i = 0; i < InitHandAmount; i++)
             {
-                for (int i = 0; i < InitHandAmount; i++)
+                foreach (Player player in players)
                 {
                     Card card = _cards[r.Next(0, _cards.Count)];
                     player.SetHand(card);
                     _cards.Remove(card);
-                }       
-                Console.WriteLine("Player: " + player);
+                    Console.WriteLine(player.Name + " receiving card: " + card);
+                }
             }
-
             Console.WriteLine(_cards.Count);
+            Console.WriteLine("");
+            foreach (Player player in players)
+            {
+                Console.WriteLine(player);
+            }
         }
     }
 }
