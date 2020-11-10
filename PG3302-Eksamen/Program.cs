@@ -75,6 +75,7 @@ namespace PG3302_Eksamen
             List<Player> players = new List<Player>();
             for (int i = 0; i < playerAmount; i++)
             {
+                // TODO change from "player"+(i+1) to a random name from a premade array?
                 players.Add(new Player("player" + (i + 1)));
             }
             
