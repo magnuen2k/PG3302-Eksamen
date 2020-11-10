@@ -11,14 +11,14 @@ namespace PG3302_Eksamen
        
         public string Name { get; set; }
 
-        public ArrayList _hand = new ArrayList();
+        public List<Card> _hand = new List<Card>();
 
         public Player(string name)
         {
             this.Name = name;
         }
 
-        public ArrayList getHand()
+        public List<Card> getHand()
         {
             return _hand;
         }

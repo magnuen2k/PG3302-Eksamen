@@ -29,6 +29,7 @@ namespace PG3302_Eksamen
             return _cards;
         }
 
+
         public override string ToString()
         {
             StringBuilder hand = new StringBuilder();
