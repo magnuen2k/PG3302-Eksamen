@@ -10,6 +10,8 @@ namespace PG3302_Eksamen
     {
         private static readonly Object _thisLock = new Object();
         private static int cardsInDeck = 52;
+
+        static Random _randomTimeout = new Random();
         
         public static void FightForCards()
         {
@@ -32,10 +34,12 @@ namespace PG3302_Eksamen
                 Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
                 cardsInDeck--;
                 Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
-                Console.WriteLine(Thread.CurrentThread.Name + " is sleeping a bit :)");
-                Thread.Sleep(1500);
-                Console.WriteLine("");
             }
+
+            int sleepy = _randomTimeout.Next(400, 2000);
+            Console.WriteLine(Thread.CurrentThread.Name + " is sleeping for " + sleepy + "ms");
+            Console.WriteLine("");
+            Thread.Sleep(sleepy);
         }
     }
     class Program
