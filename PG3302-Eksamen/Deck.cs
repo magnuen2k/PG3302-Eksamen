@@ -4,22 +4,23 @@ using System.Text;
 
 namespace PG3302_Eksamen
 {
-    public class GameBoard
+    public class Deck
     {
-        private static List<Card> _cards;
+   
+        private List<Card> _cards;
 
-        private static GameBoard _gameBoard = null;
-
-        public static GameBoard createBoard()
+        public Card GetNextCard()
         {
-            if (_gameBoard == null)
-            {
-                _gameBoard = new GameBoard();
-                _gameBoard.GenerateDeck();
-            }
-
-            return _gameBoard;
+            Card card = _cards[0];
+            _cards.Remove(card);
+            return card;
         }
+        
+        public void RestoreCard(Card card)
+        {
+            _cards.Add(card);
+        }
+        
 
         public List<Card> GenerateDeck()
         {
@@ -47,8 +48,9 @@ namespace PG3302_Eksamen
             {
                 hand.Append(card.Value + " of " + card.Suit);
             }
-            
+        
             return hand.ToString();
         }
     }
 }
+    

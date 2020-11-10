@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace PG3302_Eksamen
 {
-    class Game
+    /*class Game
     {
         private static readonly Object _thisLock = new Object();
         private static int cardsInDeck = 52;
@@ -41,7 +41,7 @@ namespace PG3302_Eksamen
             Console.WriteLine("");
             Thread.Sleep(sleepy);
         }
-    }
+    }*/
     class Program
     {
         static void Main(string[] args)
@@ -73,15 +73,17 @@ namespace PG3302_Eksamen
             Console.WriteLine("Good job u know how to get that input slap");
             Console.WriteLine("");
             
-
-            List<Player> players = new List<Player>();
+            Game game = new Game(playerAmount);
+            game.Run();
+            
+            /*List<Player> players = new List<Player>();
             for (int i = 0; i < playerAmount; i++)
             {
                 // TODO change from "player"+(i+1) to a random name from a premade array?
                 players.Add(new Player("Player" + (i + 1)));
-            }
+            }*/
             
-            // Initialize game
+            /*// Initialize game
             Dealer.DealCards(players);
             
             // Create threads
@@ -92,7 +94,7 @@ namespace PG3302_Eksamen
                 //t.Name = "player" + (i + 1);
                 t.Name = players[i].Name;
                 threads[i] = t;
-            }
+            }*/
 
             for (int i = 0; i < playerAmount; i++)
             {
@@ -128,11 +130,11 @@ namespace PG3302_Eksamen
         }
     }
 
-    public class Dealer
+    /*public class Dealer2
     {
         private const int InitHandAmount = 4;
         // TODO should be factory (static)
-        public static List<Card> _cards = GameBoard.GenerateDeck();
+        public static GameBoard _cards = GameBoard.createBoard();
         
         private static readonly Random r = new Random();
         
@@ -155,5 +157,5 @@ namespace PG3302_Eksamen
                 Console.WriteLine(player);
             }
         }
-    }
+    }*/
 }
