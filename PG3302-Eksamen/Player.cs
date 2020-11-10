@@ -28,11 +28,6 @@ namespace PG3302_Eksamen
             _hand.Add(card);
         }
 
-        public String getName()
-        {
-            return Name;
-        }
-
         public override string ToString()
         {
             StringBuilder hand = new StringBuilder();
