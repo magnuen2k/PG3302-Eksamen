@@ -31,7 +31,9 @@ namespace PG3302_Eksamen
                 Console.WriteLine(Thread.CurrentThread.Name + " is pulling a card!");
                 cardsInDeck--;
                 Console.WriteLine($"New amount of cards in deck: {cardsInDeck}");
-                Thread.Sleep(300);
+                Console.WriteLine(Thread.CurrentThread.Name + " is sleeping a bit :)");
+                Thread.Sleep(1500);
+                Console.WriteLine("");
             }
         }
     }
