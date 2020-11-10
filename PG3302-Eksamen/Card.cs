@@ -33,7 +33,7 @@ namespace PG3302_Eksamen
         Karantene,
         Joker
     }
-    
+
     public class Card
     {
         public Suit Suit { get; set; }

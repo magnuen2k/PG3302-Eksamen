@@ -42,8 +42,11 @@ namespace PG3302_Eksamen
             Thread.Sleep(sleepy);
         }
     }*/
+
     class Program
     {
+ 
+        
         static void Main(string[] args)
         {
             const int minPlayers = 2;
@@ -87,6 +90,7 @@ namespace PG3302_Eksamen
             Dealer.DealCards(players);
             
             // Create threads
+
             Thread[] threads = new Thread[players.Count];
             for (int i = 0; i < players.Count; i++)
             {

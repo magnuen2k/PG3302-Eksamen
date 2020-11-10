@@ -6,7 +6,9 @@ using System.Text;
 
 namespace PG3302_Eksamen
 {
+
     class Player : ThreadProxy
+
     {
        
         public string Name { get; set; }
@@ -43,7 +45,7 @@ namespace PG3302_Eksamen
             }
             return Name + " has hand: " + hand;
         }
-
+        
         protected override void Play()
         {
             Dealer dealer = Dealer.GetDealer();
