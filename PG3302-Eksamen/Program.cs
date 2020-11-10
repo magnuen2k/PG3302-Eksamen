@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -48,7 +49,7 @@ namespace PG3302_Eksamen
             const int maxPlayers = 4;                     
                                     
             Console.WriteLine("  ,___________________________________");
-            Console.WriteLine(" /      _____ _  _                    \\");
+            Console.WriteLine(" /      _____ _  _       poki <3      \\");
             Console.WriteLine("||     / ____| || |                   ||");
             Console.WriteLine("||    | |    | || |_                  ||");
             Console.WriteLine("||    | |    |__   _|                 ||");
@@ -69,12 +70,20 @@ namespace PG3302_Eksamen
                 Console.WriteLine($"Nope, try again. How many players? ({minPlayers}-{maxPlayers})");
             }
             Console.WriteLine("Good job u know how to get that input slap");
-            
-            Thread[] threads = new Thread[playerAmount];
+            Console.WriteLine("");
+
+            List<Player> players = new List<Player>();
             for (int i = 0; i < playerAmount; i++)
             {
+                players.Add(new Player("player" + (i + 1)));
+            }
+            
+            Thread[] threads = new Thread[playerAmount];
+            for (int i = 0; i < players.Count; i++)
+            {
                 Thread t = new Thread(new ThreadStart(Game.FightForCards));
-                t.Name = "player" + (i + 1);
+                //t.Name = "player" + (i + 1);
+                t.Name = players[i].Name;
                 threads[i] = t;
             }
 

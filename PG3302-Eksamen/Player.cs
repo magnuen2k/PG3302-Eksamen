@@ -13,6 +13,11 @@ namespace PG3302_Eksamen
 
         public ArrayList _hand = new ArrayList();
 
+        public Player(string name)
+        {
+            this.Name = name;
+        }
+
         public ArrayList getHand()
         {
             return _hand;
@@ -21,6 +26,11 @@ namespace PG3302_Eksamen
         public void setHand(Card card)
         {
             _hand.Add(card);
+        }
+
+        public String getName()
+        {
+            return Name;
         }
 
         public override string ToString()
