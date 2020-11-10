@@ -78,7 +78,7 @@ namespace PG3302_Eksamen
                 players.Add(new Player("player" + (i + 1)));
             }
             
-            Thread[] threads = new Thread[playerAmount];
+            Thread[] threads = new Thread[players.Count];
             for (int i = 0; i < players.Count; i++)
             {
                 Thread t = new Thread(new ThreadStart(Game.FightForCards));
