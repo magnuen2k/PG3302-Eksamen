@@ -11,19 +11,19 @@ namespace PG3302_Eksamen
        
         public string Name { get; set; }
 
-        public List<Card> _hand = new List<Card>();
+        private readonly List<Card> _hand = new List<Card>();
 
         public Player(string name)
         {
             this.Name = name;
         }
 
-        public List<Card> getHand()
+        public List<Card> GetHand()
         {
             return _hand;
         }
 
-        public void setHand(Card card)
+        public void SetHand(Card card)
         {
             _hand.Add(card);
         }
