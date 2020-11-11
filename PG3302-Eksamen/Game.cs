@@ -35,6 +35,15 @@ namespace PG3302_Eksamen
                     Console.WriteLine(player.Name + " receiving card: " + card);
                 }
             }
+
+            Console.WriteLine("");
+            // print hands after cards are dealt for console
+            foreach (Player player in players)
+            {
+                Console.WriteLine(player);
+            }
+
+            Console.WriteLine("");
             
             // Start threads
             for (int i = 0; i < _players; i++)
