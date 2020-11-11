@@ -52,16 +52,6 @@ namespace PG3302_Eksamen
             }
 
             dealer.Started = true;
-            while (!dealer.GameEnded)
-            {
-                Thread.Sleep(100);
-            }
-            
-            /*for (int i = 0; i < _players; i++)
-            {
-                players[i].Stop();
-            }*/
-
         }
     }
 }
