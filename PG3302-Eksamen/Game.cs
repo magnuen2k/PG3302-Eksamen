@@ -30,9 +30,16 @@ namespace PG3302_Eksamen
             {
                 foreach (Player player in players)
                 {
-                    Card card = dealer.GetCard();
-                    player.GiveCard(card);
-                    Console.WriteLine(player.Name + " receiving card: " + card);
+                    while (true)
+                    {
+                        Card card = dealer.GetCard();
+                        if (card.CardType == CardType.Normal)
+                        {
+                            player.GiveCard(card);
+                            Console.WriteLine(player.Name + " receiving card: " + card);
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -44,7 +51,8 @@ namespace PG3302_Eksamen
             }
 
             Console.WriteLine("");
-            
+
+
             // Start threads
             for (int i = 0; i < _players; i++)
             {

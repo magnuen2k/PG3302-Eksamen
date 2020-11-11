@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace PG3302_Eksamen
@@ -52,6 +53,7 @@ namespace PG3302_Eksamen
                 return true;
             }
         }
+        
 
         public Card GetCard()
         {
@@ -69,6 +71,11 @@ namespace PG3302_Eksamen
             }
             return true;
         }
+
+        public Deck GetDeck()
+        {
+            return _deck;
+        }
         
         public void CloseAccess()
         {
@@ -76,7 +83,6 @@ namespace PG3302_Eksamen
             {
                 _activePlayer = 0;
             }
-            
         }
     }
 }

@@ -28,9 +28,9 @@ namespace PG3302_Eksamen
     public enum CardType
     {
         Normal,
-        Bombe,
-        Gribb,
-        Karantene,
+        Bomb,
+        Vulture,
+        Quarantine,
         Joker
     }
 
@@ -54,7 +54,7 @@ namespace PG3302_Eksamen
 
         public override string ToString()
         {
-            return Value + " of " + Suit;
+            return Value + " of " + Suit + " with type " + CardType;
         }
     }
 }

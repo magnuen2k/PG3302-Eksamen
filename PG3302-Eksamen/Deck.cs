@@ -37,6 +37,19 @@ namespace PG3302_Eksamen
             Console.WriteLine(count);
             Shuffle(_cards);
 
+            // generates special cards based on cards in the Enum type
+            foreach (CardType type in Enum.GetValues(typeof(CardType)))
+            {
+                if (type == CardType.Normal)
+                    continue;
+                
+                Card card = GetNextCard();
+                card.CardType = type;
+                Console.WriteLine(card); // print the special card assigned
+                RestoreCard(card);
+            }
+
+            Shuffle(_cards);
             return _cards;
         }
         
@@ -53,6 +66,23 @@ namespace PG3302_Eksamen
                 list[n] = value;  
             }
         }
+        
+        /*public void GenerateSpecialCards()
+        {
+            foreach (CardType type in Enum.GetValues(typeof(CardType)))
+            {
+                if (type == CardType.Normal)
+                {
+                    continue;
+                }
+
+                Card card = GetNextCard();
+                card.CardType = type;
+                Console.WriteLine(card);
+                RestoreCard(card);
+            }
+            Shuffle(_cards);
+        }*/
 
 
         public override string ToString()
