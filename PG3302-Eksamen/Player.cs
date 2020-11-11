@@ -61,7 +61,7 @@ namespace PG3302_Eksamen
                     _hand.Add(newCard);
                     Console.WriteLine(Name + " drew card: " + newCard);
 
-                    Console.WriteLine(this);
+                    Console.WriteLine(this); // TODO this is for debugging
 
                     int numOfDiamonds = 0;
                     int numOfSpades = 0;
