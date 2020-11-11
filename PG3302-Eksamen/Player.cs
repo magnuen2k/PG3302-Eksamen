@@ -61,6 +61,8 @@ namespace PG3302_Eksamen
                     _hand.Add(newCard);
                     Console.WriteLine(Name + " drew card: " + newCard);
 
+                    Console.WriteLine(this);
+
                     int numOfDiamonds = 0;
                     int numOfSpades = 0;
                     int numOfClubs = 0;
@@ -138,7 +140,9 @@ namespace PG3302_Eksamen
                         Card returnCard = _hand[i];
                         dealer.ReturnCard(returnCard);
                         _hand.Remove(returnCard);
+                        Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                         Console.WriteLine(Name + " returned card: " + returnCard);
+                        Console.WriteLine("");  // TODO: temp for debugging
                     }
                 }
             }
