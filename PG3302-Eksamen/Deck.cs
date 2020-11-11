@@ -22,7 +22,7 @@ namespace PG3302_Eksamen
         }
         
 
-        public List<Card> GenerateDeck()
+        public void GenerateDeck()
         {
             int count = 0;
             _cards = new List<Card>();
@@ -51,7 +51,7 @@ namespace PG3302_Eksamen
             }*/
 
             Shuffle(_cards);
-            return _cards;
+            //return _cards;
         }
         
         private Random rng = new Random();
