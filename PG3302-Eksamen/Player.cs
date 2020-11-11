@@ -27,7 +27,7 @@ namespace PG3302_Eksamen
             return _hand;
         }
 
-        public void SetHand(Card card)
+        public void GiveCard(Card card)
         {
             _hand.Add(card);
         }

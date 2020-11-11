@@ -31,7 +31,7 @@ namespace PG3302_Eksamen
                 foreach (Player player in players)
                 {
                     Card card = dealer.GetCard();
-                    player.SetHand(card);
+                    player.GiveCard(card);
                     Console.WriteLine(player.Name + " receiving card: " + card);
                 }
             }
