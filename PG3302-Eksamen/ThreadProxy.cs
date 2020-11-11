@@ -34,6 +34,5 @@ namespace PG3302_Eksamen
             _running = false;
             _thread.Join();
         }
-
     }
 }

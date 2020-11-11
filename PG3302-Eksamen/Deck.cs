@@ -40,10 +40,10 @@ namespace PG3302_Eksamen
             return _cards;
         }
         
-        private static Random rng = new Random();  
+        private Random rng = new Random();
 
-        public static void Shuffle<T>(IList<T> list)  
-        {  
+        private void Shuffle<T>(IList<T> list)  
+        {
             int n = list.Count;  
             while (n > 1) {  
                 n--;  
@@ -51,7 +51,7 @@ namespace PG3302_Eksamen
                 T value = list[k];  
                 list[k] = list[n];  
                 list[n] = value;  
-            }  
+            }
         }
 
 

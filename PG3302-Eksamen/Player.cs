@@ -12,12 +12,14 @@ namespace PG3302_Eksamen
     {
        
         public string Name { get; set; }
+        public int id { get; set; }
 
         private readonly List<Card> _hand = new List<Card>();
 
-        public Player(string name)
+        public Player(string name, int id)
         {
             this.Name = name;
+            this.id = id;
         }
 
         public List<Card> GetHand()
@@ -143,6 +145,7 @@ namespace PG3302_Eksamen
                         Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                         Console.WriteLine(Name + " returned card: " + returnCard);
                         Console.WriteLine("");  // TODO: temp for debugging
+                        dealer.CloseAccess();
                     }
                 }
             }
