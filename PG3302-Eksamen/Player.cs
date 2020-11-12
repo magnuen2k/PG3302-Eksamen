@@ -138,7 +138,7 @@ namespace PG3302_Eksamen
                             {
                                 Card newCardAfterBomb = dealer.GetCard();
                                 _hand.Add(newCardAfterBomb);
-                                Console.WriteLine(Name + " drew card:(bomb) " + newCardAfterBomb);
+                                Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
                                 // TODO this should handle special cards when drawing
                             }
 
