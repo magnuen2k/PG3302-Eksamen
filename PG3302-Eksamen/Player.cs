@@ -14,7 +14,6 @@ namespace PG3302_Eksamen
         public string Name { get; set; }
         public int id { get; set; }
         private bool IsQuarantined { get; set; }
-        private bool HasVulture { get; set; }
 
         private readonly List<Card> _hand = new List<Card>();
 
@@ -83,8 +82,6 @@ namespace PG3302_Eksamen
                     int numOfHearts = 0;
                     
 
-
-
                     foreach (Card card in _hand)
                     {
                         // Skip normal cards here to avoid checking more if's - redundant?
@@ -126,6 +123,15 @@ namespace PG3302_Eksamen
                             }
                         }
 
+                        if (card.CardType == CardType.Vulture)
+                        {
+                            Console.WriteLine(Name + " got the vulture! awoooooo");
+                            Card newVultureCard = dealer.GetCard();
+                            _hand.Add(newVultureCard);
+                            Console.WriteLine(Name + " drew card: " + newVultureCard);
+                            _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                        }
+
                         if (card.CardType == CardType.Quarantine)
                         {
                             IsQuarantined = true;
@@ -142,7 +148,6 @@ namespace PG3302_Eksamen
                         if (card.CardType == CardType.Bomb)
                         {
                             Console.WriteLine(Name + " has to throw away all his cards :(");
-                            Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                             /*foreach (Card c in _hand)
                             {
                                 Console.WriteLine(c);
@@ -177,7 +182,7 @@ namespace PG3302_Eksamen
                     foreach (Card card in _hand)
                     {
                         // Ignore special cards when counting
-                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine || card.CardType == CardType.Bomb)
+                        if (card.CardType != CardType.Normal)
                         {
                             continue;
                         }
@@ -207,6 +212,11 @@ namespace PG3302_Eksamen
                     }
                     else
                     {
+                        if (newCard.CardType == CardType.Vulture)
+                        {
+                            dealer.CloseAccess();
+                            return;
+                        }
                         int minCount = 100;
                         Suit minSuit = _hand[0].Suit;
                         if (numOfDiamonds > 0 && numOfDiamonds < minCount)
