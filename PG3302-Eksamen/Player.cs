@@ -86,6 +86,25 @@ namespace PG3302_Eksamen
                                 .Item2;
                             Console.WriteLine(max);
 
+                            switch (max)
+                            {
+                                case "numOfDiamonds":
+                                    numOfDiamonds++;
+                                    card.Suit = Suit.Diamonds;
+                                    break;
+                                case "numOfSpades":
+                                    numOfSpades++;
+                                    card.Suit = Suit.Spades;
+                                    break;
+                                case "numOfClubs":
+                                    numOfClubs++;
+                                    card.Suit = Suit.Clubs;
+                                    break;
+                                case "numOfHearts":
+                                    numOfHearts++;
+                                    card.Suit = Suit.Hearts;
+                                    break;
+                            }
                         }
                         else
                         {
@@ -144,9 +163,10 @@ namespace PG3302_Eksamen
                         int i = 0;
                         while (_hand[i].Suit != minSuit)
                         {
+                            Console.WriteLine(_hand[i]);
                             i++;
                         }
-
+                        
                         Card returnCard = _hand[i];
                         dealer.ReturnCard(returnCard);
                         _hand.Remove(returnCard);
