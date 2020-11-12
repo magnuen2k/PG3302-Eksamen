@@ -208,7 +208,7 @@ namespace PG3302_Eksamen
                         _hand.Remove(returnCard);
                         Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                         Console.WriteLine(Name + " returned card: " + returnCard);
-                        Console.WriteLine("");  // TODO: temp for debugging
+                        Console.WriteLine("");
                         dealer.CloseAccess();
                     }
                 }
