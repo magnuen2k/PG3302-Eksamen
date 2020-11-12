@@ -14,6 +14,7 @@ namespace PG3302_Eksamen
         public string Name { get; set; }
         public int id { get; set; }
         private bool IsQuarantined { get; set; }
+        private int MaxHandSize { get; set; }
 
         private readonly List<Card> _hand = new List<Card>();
 
@@ -22,6 +23,7 @@ namespace PG3302_Eksamen
             this.Name = name;
             this.id = id;
             IsQuarantined = false;
+            MaxHandSize = 4;
         }
 
         public List<Card> GetHand()
@@ -94,9 +96,10 @@ namespace PG3302_Eksamen
                         {
                             Console.WriteLine(Name + " got the vulture! awoooooo");
                             Card newVultureCard = dealer.GetCard();
-                            _hand.Add(newVultureCard);
+                            GiveCard(newVultureCard);
                             Console.WriteLine(Name + " drew card: " + newVultureCard);
                             _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                            MaxHandSize++;
                             Console.WriteLine(this);
                             break;
                         }
@@ -128,18 +131,26 @@ namespace PG3302_Eksamen
                             {
                                 var c = _hand[i];
                                 dealer.ReturnCard(c);
-                                //Console.WriteLine("Returns card " + c + " to dealer");
                                 _hand.Remove(c);
                                 Console.WriteLine(Name + " returned card: " + c);
                             }
 
                             Console.WriteLine(Name + " draws a new hand...");
-                            for (int i = 0; i < 4; i++)
+                            
+                            // by hardcoding this to 4, it means bomb will also blow up the vulture card and NOT return it to the deck
+                            for (int i = 0; i < MaxHandSize; i++)
                             {
-                                Card newCardAfterBomb = dealer.GetCard();
-                                _hand.Add(newCardAfterBomb);
-                                Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
-                                // TODO this should handle special cards when drawing
+                                // New hand can not give special cards
+                                while (true)
+                                {
+                                    Card newCardAfterBomb = dealer.GetCard();
+                                    if (newCardAfterBomb.CardType == CardType.Normal)
+                                    {
+                                        GiveCard(newCardAfterBomb);
+                                        Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
+                                        break;
+                                    }
+                                }
                             }
 
                             Console.WriteLine(this);
@@ -208,6 +219,8 @@ namespace PG3302_Eksamen
                             }
                         }
                     }
+                    
+                    Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
 
                     // If player has 4 or more cards of same suit
                     if (numOfDiamonds > 3 || numOfClubs > 3 || numOfHearts > 3 || numOfSpades > 3)
@@ -260,7 +273,6 @@ namespace PG3302_Eksamen
                         Card returnCard = _hand[i];
                         dealer.ReturnCard(returnCard);
                         _hand.Remove(returnCard);
-                        Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                         Console.WriteLine(Name + " returned card: " + returnCard);
                         Console.WriteLine("");
                         dealer.CloseAccess();
