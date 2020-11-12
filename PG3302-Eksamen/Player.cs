@@ -190,6 +190,11 @@ namespace PG3302_Eksamen
 
                             }
                             
+                            numOfDiamonds = 0;
+                            numOfSpades = 0;
+                            numOfClubs = 0;
+                            numOfHearts = 0;
+                            
                             Console.WriteLine(this);
                             
                             foreach (Card cardX in _hand)
@@ -216,8 +221,12 @@ namespace PG3302_Eksamen
                                         break;
                                 }
                             }
+                            break;
                         }
                     }
+
+                    //Console.WriteLine("Ok we got to here. JAgsy will make new music");
+                    //Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
 
                     // If player has 4 or more cards of same suit
                     if (numOfDiamonds > 3 || numOfClubs > 3 || numOfHearts > 3 || numOfSpades > 3)
