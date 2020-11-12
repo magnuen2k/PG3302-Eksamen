@@ -192,20 +192,29 @@ namespace PG3302_Eksamen
                             
                             Console.WriteLine(this);
                             
-                            switch (card.Suit)
+                            foreach (Card cardX in _hand)
                             {
-                                case Suit.Clubs:
-                                    numOfClubs++;
-                                    break;
-                                case Suit.Diamonds:
-                                    numOfDiamonds++;
-                                    break;
-                                case Suit.Hearts:
-                                    numOfHearts++;
-                                    break;
-                                case Suit.Spades:
-                                    numOfSpades++;
-                                    break;
+                                // Ignore special cards when counting
+                                /*if (cardX.CardType == CardType.Joker || cardX.CardType == CardType.Quarantine || cardX.CardType == CardType.Bomb)
+                                {
+                                    continue;
+                                }*/
+
+                                switch (cardX.Suit)
+                                {
+                                    case Suit.Clubs:
+                                        numOfClubs++;
+                                        break;
+                                    case Suit.Diamonds:
+                                        numOfDiamonds++;
+                                        break;
+                                    case Suit.Hearts:
+                                        numOfHearts++;
+                                        break;
+                                    case Suit.Spades:
+                                        numOfSpades++;
+                                        break;
+                                }
                             }
                         }
                     }
