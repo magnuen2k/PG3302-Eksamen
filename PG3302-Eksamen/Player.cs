@@ -36,6 +36,11 @@ namespace PG3302_Eksamen
             _hand.Add(card);
         }
 
+        public void RemoveCard(Card card)
+        {
+            _hand.Remove(card);
+        }
+
         public override string ToString()
         {
             StringBuilder hand = new StringBuilder();
@@ -73,7 +78,7 @@ namespace PG3302_Eksamen
                     
                     // TODO handle special cards
                     
-                    _hand.Add(newCard);
+                    GiveCard(newCard);
                     Console.WriteLine(Name + " drew card: " + newCard);
 
                     Console.WriteLine(this); // TODO this is for debugging
@@ -104,7 +109,7 @@ namespace PG3302_Eksamen
                                     break;
                                 }
                             }
-                            _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                            RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
                             MaxHandSize++;
                             Console.WriteLine("New max hand size: " + MaxHandSize);
                             Console.WriteLine(this);
@@ -115,7 +120,7 @@ namespace PG3302_Eksamen
                         {
                             IsQuarantined = true;
                             dealer.ReturnCard(card);
-                            _hand.Remove(card);
+                            RemoveCard(card);
                             Console.WriteLine(Name + " is now quarantined!");
                             Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                             Console.WriteLine(Name + " returned card: " + card);
@@ -138,7 +143,7 @@ namespace PG3302_Eksamen
                             {
                                 var c = _hand[i];
                                 dealer.ReturnCard(c);
-                                _hand.Remove(c);
+                                RemoveCard(c);
                                 Console.WriteLine(Name + " returned card: " + c);
                             }
 
@@ -279,7 +284,7 @@ namespace PG3302_Eksamen
                         
                         Card returnCard = _hand[i];
                         dealer.ReturnCard(returnCard);
-                        _hand.Remove(returnCard);
+                        RemoveCard(returnCard);
                         Console.WriteLine(Name + " returned card: " + returnCard);
                         Console.WriteLine("");
                         dealer.CloseAccess();
