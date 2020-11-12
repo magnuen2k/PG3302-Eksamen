@@ -62,14 +62,13 @@ namespace PG3302_Eksamen
                 return _deck.GetNextCard();
             }
         }
-        public Boolean ReturnCard(Card card)
+        public void ReturnCard(Card card)
         {
             
             lock (_lock)
             {
                 _deck.RestoreCard(card);
             }
-            return true;
         }
 
         public Deck GetDeck()
