@@ -78,10 +78,10 @@ namespace PG3302_Eksamen
                         {
                             var max = new[]
                                 {
-                                    Tuple.Create(numOfDiamonds, numOfDiamonds),
-                                    Tuple.Create(numOfSpades, numOfSpades),
-                                    Tuple.Create(numOfClubs, numOfClubs),
-                                    Tuple.Create(numOfHearts, numOfHearts)
+                                    Tuple.Create(numOfDiamonds, "numOfDiamonds"),
+                                    Tuple.Create(numOfSpades, "numOfSpades"),
+                                    Tuple.Create(numOfClubs, "numOfClubs"),
+                                    Tuple.Create(numOfHearts, "numOfHearts")
                                 }.Max()
                                 .Item2;
                             Console.WriteLine(max);
