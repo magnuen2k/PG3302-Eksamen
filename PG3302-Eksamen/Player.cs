@@ -47,14 +47,10 @@ namespace PG3302_Eksamen
             
             for (int i = 0; i < _hand.Count; i++)
             {
-                hand.Append(_hand[i]);
+                hand.Append(_hand[i] + ", ");
                 
-                if (i < (_hand.Count - 1))
-                {
-                    hand.Append(", ");
-                }
             }
-            return Name + " has hand: " + hand;
+            return Name + " has hand: " + hand.ToString().TrimEnd(',', ' ');
         }
 
         protected override void Play()
