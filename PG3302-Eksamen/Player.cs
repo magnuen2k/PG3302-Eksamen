@@ -85,7 +85,7 @@ namespace PG3302_Eksamen
                     foreach (Card card in _hand)
                     {
                         // Ignore special cards when counting
-                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine)
+                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine || card.CardType == CardType.Bomb)
                         {
                             continue;
                         }
@@ -159,6 +159,35 @@ namespace PG3302_Eksamen
                             Console.WriteLine("");
                             dealer.CloseAccess();
                             return;
+                        }
+
+                        if (card.CardType == CardType.Bomb)
+                        {
+                            Console.WriteLine(Name + " has to throw away all his cards :(");
+                            Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
+                            /*foreach (Card c in _hand)
+                            {
+                                Console.WriteLine(c);
+                                dealer.ReturnCard(c);
+                                //_hand.Remove(c);
+                                Console.WriteLine(Name + " returned card: " + c);
+                            }*/
+                            for (int i = _hand.Count; i > 0; i--)
+                            {
+                                dealer.ReturnCard(_hand[i]);
+                                _hand.Remove(_hand[i]);
+                                Console.WriteLine(Name + " returned card: " + _hand[i]);
+                            }
+
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Card newCardAfterBomb = dealer.GetCard();
+                                _hand.Add(newCardAfterBomb);
+                                Console.WriteLine(Name + " drew card: " + newCard);
+                                //Console.WriteLine(this);
+                            }
+                            
+                            Console.WriteLine(this);
                         }
                     }
 
