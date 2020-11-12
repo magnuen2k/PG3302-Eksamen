@@ -76,6 +76,30 @@ namespace PG3302_Eksamen
                     {
                         if (card.CardType == CardType.Joker)
                         {
+                            continue;
+                        }
+
+                        switch (card.Suit)
+                        {
+                            case Suit.Clubs:
+                                numOfClubs++;
+                                break;
+                            case Suit.Diamonds:
+                                numOfDiamonds++;
+                                break;
+                            case Suit.Hearts:
+                                numOfHearts++;
+                                break;
+                            case Suit.Spades:
+                                numOfSpades++;
+                                break;
+                        }
+                    }
+
+                    foreach (Card card in _hand)
+                    {
+                        if (card.CardType == CardType.Joker)
+                        {
                             var max = new[]
                                 {
                                     Tuple.Create(numOfDiamonds, "numOfDiamonds"),
@@ -84,7 +108,7 @@ namespace PG3302_Eksamen
                                     Tuple.Create(numOfHearts, "numOfHearts")
                                 }.Max()
                                 .Item2;
-                            Console.WriteLine(max);
+                            Console.WriteLine("Max: " + max);
 
                             switch (max)
                             {
@@ -103,24 +127,6 @@ namespace PG3302_Eksamen
                                 case "numOfHearts":
                                     numOfHearts++;
                                     card.Suit = Suit.Hearts;
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            switch (card.Suit)
-                            {
-                                case Suit.Clubs:
-                                    numOfClubs++;
-                                    break;
-                                case Suit.Diamonds:
-                                    numOfDiamonds++;
-                                    break;
-                                case Suit.Hearts:
-                                    numOfHearts++;
-                                    break;
-                                case Suit.Spades:
-                                    numOfSpades++;
                                     break;
                             }
                         }
@@ -163,7 +169,7 @@ namespace PG3302_Eksamen
                         int i = 0;
                         while (_hand[i].Suit != minSuit)
                         {
-                            Console.WriteLine(_hand[i]);
+                            //Console.WriteLine(_hand[i]);
                             i++;
                         }
                         
