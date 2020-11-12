@@ -72,7 +72,7 @@ namespace PG3302_Eksamen
                     // TODO handle special cards
                     
                     _hand.Add(newCard);
-                    Console.WriteLine(Name + " drew card: " + newCard);
+                    Console.WriteLine(Name + " drew card:(init) " + newCard);
 
                     Console.WriteLine(this); // TODO this is for debugging
 
@@ -128,8 +128,9 @@ namespace PG3302_Eksamen
                             Console.WriteLine(Name + " got the vulture! awoooooo");
                             Card newVultureCard = dealer.GetCard();
                             _hand.Add(newVultureCard);
-                            Console.WriteLine(Name + " drew card: " + newVultureCard);
+                            Console.WriteLine(Name + " drew card:(vulture) " + newVultureCard);
                             _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                            Console.WriteLine("");
                             break;
                         }
 
@@ -170,7 +171,7 @@ namespace PG3302_Eksamen
                             {
                                 Card newCardAfterBomb = dealer.GetCard();
                                 _hand.Add(newCardAfterBomb);
-                                Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
+                                Console.WriteLine(Name + " drew card:(bomb) " + newCardAfterBomb);
 
                             }
 
