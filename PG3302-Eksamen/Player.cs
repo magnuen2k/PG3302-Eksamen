@@ -72,7 +72,7 @@ namespace PG3302_Eksamen
                     // TODO handle special cards
                     
                     _hand.Add(newCard);
-                    Console.WriteLine(Name + " drew card:(init) " + newCard);
+                    Console.WriteLine(Name + " drew card: " + newCard);
 
                     Console.WriteLine(this); // TODO this is for debugging
 
@@ -85,51 +85,19 @@ namespace PG3302_Eksamen
                     foreach (Card card in _hand)
                     {
                         // Skip normal cards here to avoid checking more if's - redundant?
-                        if (card.CardType == CardType.Normal)
+                        if (card.CardType == CardType.Normal || card.CardType == CardType.Joker)
                         {
                             continue;
                         }
                         
-                        if (card.CardType == CardType.Joker)
-                        {
-                            var highestSuit = new[]
-                                {
-                                    Tuple.Create(numOfDiamonds, "diamonds"),
-                                    Tuple.Create(numOfSpades, "spades"),
-                                    Tuple.Create(numOfClubs, "clubs"),
-                                    Tuple.Create(numOfHearts, "hearts")
-                                }.Max()
-                                .Item2;
-                            Console.WriteLine("Max: " + highestSuit);
-
-                            switch (highestSuit)
-                            {
-                                case "diamonds":
-                                    numOfDiamonds++;
-                                    card.Suit = Suit.Diamonds;
-                                    break;
-                                case "spades":
-                                    numOfSpades++;
-                                    card.Suit = Suit.Spades;
-                                    break;
-                                case "clubs":
-                                    numOfClubs++;
-                                    card.Suit = Suit.Clubs;
-                                    break;
-                                case "hearts":
-                                    numOfHearts++;
-                                    card.Suit = Suit.Hearts;
-                                    break;
-                            }
-                        }
-
                         if (card.CardType == CardType.Vulture)
                         {
                             Console.WriteLine(Name + " got the vulture! awoooooo");
                             Card newVultureCard = dealer.GetCard();
                             _hand.Add(newVultureCard);
-                            Console.WriteLine(Name + " drew card:(vulture) " + newVultureCard);
+                            Console.WriteLine(Name + " drew card: " + newVultureCard);
                             _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                            Console.WriteLine(this);
                             break;
                         }
 
@@ -171,7 +139,7 @@ namespace PG3302_Eksamen
                                 Card newCardAfterBomb = dealer.GetCard();
                                 _hand.Add(newCardAfterBomb);
                                 Console.WriteLine(Name + " drew card:(bomb) " + newCardAfterBomb);
-
+                                // TODO this should handle special cards when drawing
                             }
 
                             Console.WriteLine(this);
@@ -202,6 +170,42 @@ namespace PG3302_Eksamen
                             case Suit.Spades:
                                 numOfSpades++;
                                 break;
+                        }
+                    }
+
+                    foreach (Card card in _hand)
+                    {
+                        if (card.CardType == CardType.Joker)
+                        {
+                            var highestSuit = new[]
+                                {
+                                    Tuple.Create(numOfDiamonds, "diamonds"),
+                                    Tuple.Create(numOfSpades, "spades"),
+                                    Tuple.Create(numOfClubs, "clubs"),
+                                    Tuple.Create(numOfHearts, "hearts")
+                                }.Max()
+                                .Item2;
+                            Console.WriteLine("Max: " + highestSuit);
+
+                            switch (highestSuit)
+                            {
+                                case "diamonds":
+                                    numOfDiamonds++;
+                                    card.Suit = Suit.Diamonds;
+                                    break;
+                                case "spades":
+                                    numOfSpades++;
+                                    card.Suit = Suit.Spades;
+                                    break;
+                                case "clubs":
+                                    numOfClubs++;
+                                    card.Suit = Suit.Clubs;
+                                    break;
+                                case "hearts":
+                                    numOfHearts++;
+                                    card.Suit = Suit.Hearts;
+                                    break;
+                            }
                         }
                     }
 
