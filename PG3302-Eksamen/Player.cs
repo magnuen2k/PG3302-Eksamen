@@ -13,6 +13,7 @@ namespace PG3302_Eksamen
        
         public string Name { get; set; }
         public int id { get; set; }
+        public bool IsQuarantined { get; set; }
 
         private readonly List<Card> _hand = new List<Card>();
 
@@ -20,6 +21,7 @@ namespace PG3302_Eksamen
         {
             this.Name = name;
             this.id = id;
+            IsQuarantined = false;
         }
 
         public List<Card> GetHand()
@@ -55,6 +57,15 @@ namespace PG3302_Eksamen
             {
                 if (dealer.GetAccess(this))
                 {
+                    if (IsQuarantined)
+                    {
+                        Console.WriteLine(Name + " is quarantined, sitting out this round :(");
+                        Console.WriteLine("");
+                        IsQuarantined = false;
+                        dealer.CloseAccess();
+                        return;
+                    }
+                    
                     // Draw card
                     Card newCard = dealer.GetCard();
                     
@@ -71,10 +82,10 @@ namespace PG3302_Eksamen
                     int numOfHearts = 0;
                     
 
-
                     foreach (Card card in _hand)
                     {
-                        if (card.CardType == CardType.Joker)
+                        // Ignore special cards when counting
+                        if (card.CardType != CardType.Normal)
                         {
                             continue;
                         }
@@ -98,37 +109,56 @@ namespace PG3302_Eksamen
 
                     foreach (Card card in _hand)
                     {
+                        // Skip normal cards here to avoid checking more if's - redundant?
+                        if (card.CardType == CardType.Normal)
+                        {
+                            continue;
+                        }
+                        
                         if (card.CardType == CardType.Joker)
                         {
-                            var max = new[]
+                            var highestSuit = new[]
                                 {
-                                    Tuple.Create(numOfDiamonds, "numOfDiamonds"),
-                                    Tuple.Create(numOfSpades, "numOfSpades"),
-                                    Tuple.Create(numOfClubs, "numOfClubs"),
-                                    Tuple.Create(numOfHearts, "numOfHearts")
+                                    Tuple.Create(numOfDiamonds, "diamonds"),
+                                    Tuple.Create(numOfSpades, "spades"),
+                                    Tuple.Create(numOfClubs, "clubs"),
+                                    Tuple.Create(numOfHearts, "hearts")
                                 }.Max()
                                 .Item2;
-                            Console.WriteLine("Max: " + max);
+                            Console.WriteLine("Max: " + highestSuit);
 
-                            switch (max)
+                            switch (highestSuit)
                             {
-                                case "numOfDiamonds":
+                                case "diamonds":
                                     numOfDiamonds++;
                                     card.Suit = Suit.Diamonds;
                                     break;
-                                case "numOfSpades":
+                                case "spades":
                                     numOfSpades++;
                                     card.Suit = Suit.Spades;
                                     break;
-                                case "numOfClubs":
+                                case "clubs":
                                     numOfClubs++;
                                     card.Suit = Suit.Clubs;
                                     break;
-                                case "numOfHearts":
+                                case "hearts":
                                     numOfHearts++;
                                     card.Suit = Suit.Hearts;
                                     break;
                             }
+                        }
+
+                        if (card.CardType == CardType.Quarantine)
+                        {
+                            IsQuarantined = true;
+                            dealer.ReturnCard(card);
+                            _hand.Remove(card);
+                            Console.WriteLine(Name + " is now quarantined!");
+                            Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
+                            Console.WriteLine(Name + " returned card: " + card);
+                            Console.WriteLine("");
+                            dealer.CloseAccess();
+                            return;
                         }
                     }
 
