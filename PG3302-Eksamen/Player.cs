@@ -13,7 +13,8 @@ namespace PG3302_Eksamen
        
         public string Name { get; set; }
         public int id { get; set; }
-        public bool IsQuarantined { get; set; }
+        private bool IsQuarantined { get; set; }
+        private bool HasVulture { get; set; }
 
         private readonly List<Card> _hand = new List<Card>();
 
@@ -82,30 +83,7 @@ namespace PG3302_Eksamen
                     int numOfHearts = 0;
                     
 
-                    foreach (Card card in _hand)
-                    {
-                        // Ignore special cards when counting
-                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine || card.CardType == CardType.Bomb)
-                        {
-                            continue;
-                        }
 
-                        switch (card.Suit)
-                        {
-                            case Suit.Clubs:
-                                numOfClubs++;
-                                break;
-                            case Suit.Diamonds:
-                                numOfDiamonds++;
-                                break;
-                            case Suit.Hearts:
-                                numOfHearts++;
-                                break;
-                            case Suit.Spades:
-                                numOfSpades++;
-                                break;
-                        }
-                    }
 
                     foreach (Card card in _hand)
                     {
@@ -189,44 +167,37 @@ namespace PG3302_Eksamen
                                 Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
 
                             }
-                            
-                            numOfDiamonds = 0;
-                            numOfSpades = 0;
-                            numOfClubs = 0;
-                            numOfHearts = 0;
-                            
+
                             Console.WriteLine(this);
                             
-                            foreach (Card cardX in _hand)
-                            {
-                                // Ignore special cards when counting
-                                /*if (cardX.CardType == CardType.Joker || cardX.CardType == CardType.Quarantine || cardX.CardType == CardType.Bomb)
-                                {
-                                    continue;
-                                }*/
-
-                                switch (cardX.Suit)
-                                {
-                                    case Suit.Clubs:
-                                        numOfClubs++;
-                                        break;
-                                    case Suit.Diamonds:
-                                        numOfDiamonds++;
-                                        break;
-                                    case Suit.Hearts:
-                                        numOfHearts++;
-                                        break;
-                                    case Suit.Spades:
-                                        numOfSpades++;
-                                        break;
-                                }
-                            }
                             break;
                         }
                     }
+                    
+                    foreach (Card card in _hand)
+                    {
+                        // Ignore special cards when counting
+                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine || card.CardType == CardType.Bomb)
+                        {
+                            continue;
+                        }
 
-                    //Console.WriteLine("Ok we got to here. JAgsy will make new music");
-                    //Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
+                        switch (card.Suit)
+                        {
+                            case Suit.Clubs:
+                                numOfClubs++;
+                                break;
+                            case Suit.Diamonds:
+                                numOfDiamonds++;
+                                break;
+                            case Suit.Hearts:
+                                numOfHearts++;
+                                break;
+                            case Suit.Spades:
+                                numOfSpades++;
+                                break;
+                        }
+                    }
 
                     // If player has 4 or more cards of same suit
                     if (numOfDiamonds > 3 || numOfClubs > 3 || numOfHearts > 3 || numOfSpades > 3)
