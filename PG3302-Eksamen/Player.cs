@@ -216,6 +216,7 @@ namespace PG3302_Eksamen
                     {
                         if (newCard.CardType == CardType.Vulture)
                         {
+                            Console.WriteLine("Because card drawn was vulture, we don't throw a card!");
                             dealer.CloseAccess();
                             return;
                         }
