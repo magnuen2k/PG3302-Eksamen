@@ -85,7 +85,7 @@ namespace PG3302_Eksamen
                     foreach (Card card in _hand)
                     {
                         // Ignore special cards when counting
-                        if (card.CardType != CardType.Normal)
+                        if (card.CardType == CardType.Joker || card.CardType == CardType.Quarantine)
                         {
                             continue;
                         }
