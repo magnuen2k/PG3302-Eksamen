@@ -54,6 +54,10 @@ namespace PG3302_Eksamen
 
         public override string ToString()
         {
+            if (CardType != CardType.Normal)
+            {
+                return "The " + CardType;
+            }
             return Value + " of " + Suit + " with type " + CardType;
         }
     }

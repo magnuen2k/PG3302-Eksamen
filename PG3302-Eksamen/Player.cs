@@ -47,7 +47,7 @@ namespace PG3302_Eksamen
             }
             return Name + " has hand: " + hand;
         }
-        
+
         protected override void Play()
         {
             Dealer dealer = Dealer.GetDealer();
@@ -69,15 +69,23 @@ namespace PG3302_Eksamen
                     int numOfSpades = 0;
                     int numOfClubs = 0;
                     int numOfHearts = 0;
+                    
+
 
                     foreach (Card card in _hand)
                     {
                         if (card.CardType == CardType.Joker)
                         {
-                            numOfDiamonds++;
-                            numOfClubs++;
-                            numOfHearts++;
-                            numOfSpades++;
+                            var max = new[]
+                                {
+                                    Tuple.Create(numOfDiamonds, numOfDiamonds),
+                                    Tuple.Create(numOfSpades, numOfSpades),
+                                    Tuple.Create(numOfClubs, numOfClubs),
+                                    Tuple.Create(numOfHearts, numOfHearts)
+                                }.Max()
+                                .Item2;
+                            Console.WriteLine(max);
+
                         }
                         else
                         {
