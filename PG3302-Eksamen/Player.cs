@@ -100,6 +100,7 @@ namespace PG3302_Eksamen
                             Console.WriteLine(Name + " drew card: " + newVultureCard);
                             _hand.Remove(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
                             MaxHandSize++;
+                            Console.WriteLine("New max hand size: " + MaxHandSize);
                             Console.WriteLine(this);
                             break;
                         }
