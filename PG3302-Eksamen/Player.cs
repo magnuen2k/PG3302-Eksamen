@@ -172,22 +172,41 @@ namespace PG3302_Eksamen
                                 //_hand.Remove(c);
                                 Console.WriteLine(Name + " returned card: " + c);
                             }*/
-                            for (int i = _hand.Count; i > 0; i--)
+                            for (int i = _hand.Count - 1; i >= 0; i--)
                             {
-                                dealer.ReturnCard(_hand[i]);
-                                _hand.Remove(_hand[i]);
-                                Console.WriteLine(Name + " returned card: " + _hand[i]);
+                                var c = _hand[i];
+                                dealer.ReturnCard(c);
+                                //Console.WriteLine("Returns card " + c + " to dealer");
+                                _hand.Remove(c);
+                                Console.WriteLine(Name + " returned card: " + c);
                             }
 
+                            Console.WriteLine(Name + " draws a new hand...");
                             for (int i = 0; i < 4; i++)
                             {
                                 Card newCardAfterBomb = dealer.GetCard();
                                 _hand.Add(newCardAfterBomb);
-                                Console.WriteLine(Name + " drew card: " + newCard);
-                                //Console.WriteLine(this);
+                                Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
+
                             }
                             
                             Console.WriteLine(this);
+                            
+                            switch (card.Suit)
+                            {
+                                case Suit.Clubs:
+                                    numOfClubs++;
+                                    break;
+                                case Suit.Diamonds:
+                                    numOfDiamonds++;
+                                    break;
+                                case Suit.Hearts:
+                                    numOfHearts++;
+                                    break;
+                                case Suit.Spades:
+                                    numOfSpades++;
+                                    break;
+                            }
                         }
                     }
 
