@@ -10,25 +10,25 @@ namespace PG3302_Eksamen
     {
         static void Main(string[] args)
         {
+            //These values could be changed if you want to add fewer or more players
             const int minPlayers = 2;
             const int maxPlayers = 4;                     
                                     
-            Console.WriteLine("  ,___________________________________");
-            Console.WriteLine(" /      _____ _  _       poki <3      \\");
-            Console.WriteLine("||     / ____| || |                   ||");
-            Console.WriteLine("||    | |    | || |_                  ||");
-            Console.WriteLine("||    | |    |__   _|                 ||");
-            Console.WriteLine("||    | |____   | |      The game!    ||");
-            Console.WriteLine("||     \\_____|  |_|                   ||");
-            Console.WriteLine(" \\   ______________________________   /");
-            Console.WriteLine("  -=|          by Team RP          |=-");
-            Console.WriteLine("    |______________________________|");
-            Console.WriteLine("");
+            Console.WriteLine
+            ("  ,___________________________________\n" +
+             " /      _____ _  _       poki <3      \\\n" +
+             "||     / ____| || |                   ||\n" +
+             "||    | |    | || |_                  ||\n" +
+             "||    | |    |__   _|                 ||\n" +
+             "||    | |____   | |      The game!    ||\n" +
+             "||     \\_____|  |_|                   ||\n" +
+             " \\   ______________________________  //\n" +
+             "  -=|          by Team RP          |=-\n" +
+             "    |______________________________|\n" +
+             "Hi, and welcome to this wonderful card game! :3\n" +
+             $"How many players? ({minPlayers}-{maxPlayers})"
+            );
             
-            Console.WriteLine("Hi, and welcome to this wonderful card game! :3");
-            Console.WriteLine($"How many players? ({minPlayers}-{maxPlayers})");
-
-
             int playerAmount;
             while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= minPlayers && playerAmount <= maxPlayers))
             {
