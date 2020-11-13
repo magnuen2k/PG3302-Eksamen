@@ -38,6 +38,7 @@ namespace PG3302_Eksamen
     {
         CardType GetCardType();
         void SetSuit(Suit suit);
+        void SetCardType(CardType cardType);
         Suit GetSuit();
         Value GetValue();
     }

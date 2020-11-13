@@ -6,6 +6,7 @@ namespace PG3302_Eksamen
         
         public JokerCard(ICard originalCard) : base(originalCard)
         {
+            SetCardType(CardType);
         }
 
         public override CardType GetCardType()

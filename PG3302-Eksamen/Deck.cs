@@ -6,25 +6,25 @@ namespace PG3302_Eksamen
 {
     public class Deck
     {
-        public List<ICard> Cards { get; set; }
+        private List<ICard> _cards;
         private readonly Random _rng = new Random();
         private readonly List<int> _ranNums = new List<int>();
         
         public ICard GetNextCard()
         {
-            ICard card = Cards[0];
-            Cards.Remove(card);
+            ICard card = _cards[0];
+            _cards.Remove(card);
             return card;
         }
 
         public void RestoreCard(ICard card)
         {
-            Cards.Add(card);
+            _cards.Add(card);
         }
 
         public void GenerateDeck()
         {
-            Cards = DeckFactory.CreateDeck();
+            _cards = DeckFactory.CreateDeck();
         }
 
 
@@ -32,7 +32,7 @@ namespace PG3302_Eksamen
         {
             StringBuilder hand = new StringBuilder();
 
-            foreach (ICard card in Cards)
+            foreach (ICard card in _cards)
             {
                 hand.Append(card.GetValue() + " of " + card.GetSuit() + " of type " + card.GetCardType() + ", ");
             }

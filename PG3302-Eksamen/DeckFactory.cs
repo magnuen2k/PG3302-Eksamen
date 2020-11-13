@@ -37,14 +37,14 @@ namespace PG3302_Eksamen
                 
                 ICard card = GetRandomCard();
 
-                card = type switch
-                {
-                    CardType.Joker => new JokerCard(card),
-                    CardType.Bomb => new BombCard(card),
-                    CardType.Vulture => new VultureCard(card),
-                    CardType.Quarantine => new QuarantineCard(card),
-                    _ => card
-                };
+                if (type == CardType.Joker)
+                    card = new JokerCard(card);
+                else if (type == CardType.Bomb)
+                    card = new BombCard(card);
+                else if (type == CardType.Vulture)
+                    card = new VultureCard(card);
+                else if (type == CardType.Quarantine)
+                    card = new QuarantineCard(card);
 
                 Console.WriteLine(card + " " + card.GetSuit() + " " + card.GetValue());
             }

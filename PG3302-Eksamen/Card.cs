@@ -4,7 +4,7 @@ namespace PG3302_Eksamen
     {
         private Suit _suit;
         private readonly Value _value;
-        private readonly CardType _cardType;
+        private CardType _cardType;
 
         public Card(Suit suit, Value value)
         {
@@ -16,6 +16,11 @@ namespace PG3302_Eksamen
         public void SetSuit(Suit suit)
         {
             _suit = suit;
+        }
+
+        public void SetCardType(CardType cardType)
+        {
+            _cardType = cardType;
         }
 
         public Suit GetSuit()
