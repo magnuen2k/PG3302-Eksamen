@@ -1,10 +1,10 @@
 namespace PG3302_Eksamen
 {
-    public class JokerCard : CardDecorator
+    public class BombCard : CardDecorator
     {
-        private const CardType CardType = PG3302_Eksamen.CardType.Joker;
-        
-        public JokerCard(ICard originalCard) : base(originalCard)
+        private const CardType CardType = PG3302_Eksamen.CardType.Bomb;
+
+        public BombCard(ICard originalCard) : base(originalCard)
         {
         }
 

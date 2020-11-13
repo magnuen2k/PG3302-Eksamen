@@ -14,11 +14,6 @@ namespace PG3302_Eksamen
             return _originalCard.GetCardType();
         }
 
-        public void SetCardType(CardType cardType)
-        {
-            _originalCard.SetCardType(cardType);
-        }
-
         public void SetSuit(Suit suit)
         {
             _originalCard.SetSuit(suit);

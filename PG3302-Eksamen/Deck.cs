@@ -63,17 +63,6 @@ namespace PG3302_Eksamen
 
         private void GenerateSpecialCards()
         {
-            /*foreach (CardType type in Enum.GetValues(typeof(CardType)))
-            {
-                if (type == CardType.Normal)
-                    continue;
-
-                Card card = GetNextCard();
-                card.SetCardType(type);
-                Console.WriteLine(card);
-                RestoreCard(card);
-            }*/
-            
             foreach (CardType type in Enum.GetValues(typeof(CardType)))
             {
                 if (type == CardType.Normal)
@@ -85,9 +74,20 @@ namespace PG3302_Eksamen
                 {
                     card = new JokerCard(card);
                     RestoreSpecialCard(card);
+                } else if (type == CardType.Bomb)
+                {
+                    card = new BombCard(card);
+                    RestoreCard(card);
+                } else if (type == CardType.Vulture)
+                {
+                    card = new VultureCard(card);
+                    RestoreCard(card);
+                } else if (type == CardType.Quarantine)
+                {
+                    card = new QuarantineCard(card);
+                    RestoreCard(card);
                 }
-                
-                
+
                 Console.WriteLine(card + " " + card.GetSuit() + " " + card.GetValue());
             }
         }
