@@ -83,5 +83,17 @@ namespace PG3302_Eksamen
                 _activePlayer = 0;
             }
         }
+
+        public void GetNormalCard(Player player)
+        {
+            while (true)
+            {
+                Card card = GetCard();
+                if (card.CardType != CardType.Normal) continue;
+                player.TakeCard(card);
+                Console.WriteLine(player.Name + " receives card: " + card);
+                break;
+            }
+        }
     }
 }

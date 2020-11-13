@@ -129,16 +129,7 @@ namespace PG3302_Eksamen
                         for (int i = 0; i < _hand.MaxHandSize; i++)
                         {
                             // New hand can not give special cards
-                            while (true)
-                            {
-                                Card newCardAfterBomb = dealer.GetCard();
-                                if (newCardAfterBomb.CardType == CardType.Normal)
-                                {
-                                    _hand.GiveCard(newCardAfterBomb);
-                                    Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
-                                    break;
-                                }
-                            }
+                            dealer.GetNormalCard(this);
                         }
 
                         Console.WriteLine(this);
