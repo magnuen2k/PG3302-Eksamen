@@ -19,16 +19,20 @@ namespace PG3302_Eksamen
 
         public ICard GetRandomCard()
         {
-            ICard card = _cards[rng.Next(_cards.Count)];
-            return card;
+            List<int> ranNums = new List<int>();
+            while (true)
+            {
+                int num = rng.Next(_cards.Count);
+                if (!ranNums.Contains(num))
+                {
+                    ICard card = _cards[num];
+                    ranNums.Add(num);
+                    return card;
+                }
+            }
         }
         
         public void RestoreCard(ICard card)
-        {
-            _cards.Add(card);
-        }
-        
-        private void RestoreSpecialCard(ICard card)
         {
             _cards.Add(card);
         }
