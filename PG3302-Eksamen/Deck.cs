@@ -8,6 +8,7 @@ namespace PG3302_Eksamen
     {
    
         private List<Card> _cards;
+        private readonly Random rng = new Random();
 
         public Card GetNextCard()
         {
@@ -39,22 +40,10 @@ namespace PG3302_Eksamen
 
             // generates special cards based on cards in the Enum type
             GenerateSpecialCards();
-            /*foreach (CardType type in Enum.GetValues(typeof(CardType)))
-            {
-                if (type == CardType.Normal)
-                    continue;
-                
-                Card card = GetNextCard();
-                card.CardType = type;
-                Console.WriteLine(card); // print the special card assigned
-                RestoreCard(card);
-            }*/
-
+      
             Shuffle(_cards);
-            //return _cards;
         }
         
-        private Random rng = new Random();
 
         private void Shuffle<T>(IList<T> list)  
         {
@@ -73,9 +62,7 @@ namespace PG3302_Eksamen
             foreach (CardType type in Enum.GetValues(typeof(CardType)))
             {
                 if (type == CardType.Normal)
-                {
                     continue;
-                }
 
                 Card card = GetNextCard();
                 card.CardType = type;
