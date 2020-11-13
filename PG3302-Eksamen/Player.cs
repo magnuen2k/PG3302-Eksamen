@@ -48,6 +48,12 @@ namespace PG3302_Eksamen
                     dealer.CloseAccess();
                     return;
                 }
+
+                /*if (IsQuarantined)
+                    IsQuarantined = false;
+                else
+                    handleAccess();
+                dealer.CloseAccess();*/
                     
                 // Draw card
                 ICard newCard = dealer.GetCard();

@@ -1,39 +1,5 @@
 namespace PG3302_Eksamen
 {
-    public enum Suit
-    {
-        Diamonds,
-        Hearts,
-        Spades,
-        Clubs
-    }
-    
-    public enum Value
-    {
-        Ace,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six,
-        Seven,
-        Eight,
-        Nine,
-        Ten,
-        Jack,
-        Queen,
-        King
-    }
-
-    public enum CardType
-    {
-        Normal,
-        Bomb,
-        Vulture,
-        Quarantine,
-        Joker
-    }
-
     public class Card : ICard
     {
         private Suit _suit;
@@ -85,6 +51,5 @@ namespace PG3302_Eksamen
             }
             return _value + " of " + _suit + " with type " + _cardType;
         }
-
     }
 }
