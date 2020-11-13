@@ -30,7 +30,7 @@ namespace PG3302_Eksamen
             {
                 foreach (Player player in players)
                 {
-                   dealer.GetNormalCard(player);
+                   dealer.DrawNormalCard(player);
                 }
             }
 

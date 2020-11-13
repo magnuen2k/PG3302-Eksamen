@@ -19,6 +19,7 @@ namespace PG3302_Eksamen
             _lock = new object();
             _deck = new Deck();
             _deck.GenerateDeck();
+            Console.WriteLine("HER KOMMER STOKKEN: " + _deck);
             Started = false;
             GameEnded = false;
         }
@@ -55,14 +56,14 @@ namespace PG3302_Eksamen
         }
         
 
-        public Card GetCard()
+        public ICard GetCard()
         {
             lock (_lock)
             {
                 return _deck.GetNextCard();
             }
         }
-        public void ReturnCard(Card card)
+        public void ReturnCard(ICard card)
         {
             
             lock (_lock)
@@ -84,12 +85,12 @@ namespace PG3302_Eksamen
             }
         }
 
-        public void GetNormalCard(Player player)
+        public void DrawNormalCard(Player player)
         {
             while (true)
             {
-                Card card = GetCard();
-                if (card.CardType != CardType.Normal) continue;
+                ICard card = GetCard();
+                if (card.GetCardType() != CardType.Normal) continue;
                 player.TakeCard(card);
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;

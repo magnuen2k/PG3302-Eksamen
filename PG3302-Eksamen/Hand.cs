@@ -5,12 +5,12 @@ namespace PG3302_Eksamen
 {
     class Hand
     {
-        private readonly List<Card> _hand;
+        private readonly List<ICard> _hand;
         public int MaxHandSize { get; set; }
 
         public Hand()
         {
-            _hand = new List<Card>();
+            _hand = new List<ICard>();
             MaxHandSize = 4;
         }
 
@@ -26,12 +26,12 @@ namespace PG3302_Eksamen
             return hand.ToString().TrimEnd(',', ' ');
         }
 
-        public void GiveCard(Card card)
+        public void GiveCard(ICard card)
         {
             _hand.Add(card);
         }
 
-        public void RemoveCard(Card card)
+        public void RemoveCard(ICard card)
         {
             _hand.Remove(card);
         }
@@ -41,7 +41,7 @@ namespace PG3302_Eksamen
             return _hand.Count;
         }
 
-        public List<Card> GetHand()
+        public List<ICard> GetHand()
         {
             return _hand;
         }
