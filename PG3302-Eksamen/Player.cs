@@ -23,15 +23,11 @@ namespace PG3302_Eksamen
             _hand = new Hand();
         }
 
-        public void GiveCard(Card card)
+        public void TakeCard(Card card)
         {
-            _hand.Add(card);
+            _hand.GiveCard(card);
         }
-
-        private void RemoveCard(Card card)
-        {
-            _hand.Remove(card);
-        }
+        
 
         public override string ToString()
         {
@@ -58,7 +54,7 @@ namespace PG3302_Eksamen
                     
                 // TODO handle special cards
                     
-                GiveCard(newCard);
+                _hand.GiveCard(newCard);
                 Console.WriteLine(Name + " drew card: " + newCard);
 
                 Console.WriteLine(this); // TODO this is for debugging
@@ -84,12 +80,12 @@ namespace PG3302_Eksamen
                             Card newVultureCard = dealer.GetCard();
                             if (newVultureCard.CardType == CardType.Normal)
                             {
-                                GiveCard(newVultureCard);
+                                _hand.GiveCard(newVultureCard);
                                 Console.WriteLine(Name + " drew card: " + newVultureCard);
                                 break;
                             }
                         }
-                        RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+                        _hand.RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
                         _hand.MaxHandSize++;
                         Console.WriteLine("New max hand size: " + _hand.MaxHandSize);
                         Console.WriteLine(this);
@@ -100,7 +96,7 @@ namespace PG3302_Eksamen
                     {
                         IsQuarantined = true;
                         dealer.ReturnCard(card);
-                        RemoveCard(card);
+                        _hand.RemoveCard(card);
                         Console.WriteLine(Name + " is now quarantined!");
                         Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
                         Console.WriteLine(Name + " returned card: " + card);
@@ -123,7 +119,7 @@ namespace PG3302_Eksamen
                         {
                             var c = _hand.GetHand()[i];
                             dealer.ReturnCard(c);
-                            RemoveCard(c);
+                            _hand.RemoveCard(c);
                             Console.WriteLine(Name + " returned card: " + c);
                         }
 
@@ -138,7 +134,7 @@ namespace PG3302_Eksamen
                                 Card newCardAfterBomb = dealer.GetCard();
                                 if (newCardAfterBomb.CardType == CardType.Normal)
                                 {
-                                    GiveCard(newCardAfterBomb);
+                                    _hand.GiveCard(newCardAfterBomb);
                                     Console.WriteLine(Name + " drew card: " + newCardAfterBomb);
                                     break;
                                 }
@@ -264,7 +260,7 @@ namespace PG3302_Eksamen
                         
                     Card returnCard = _hand.GetHand()[i];
                     dealer.ReturnCard(returnCard);
-                    RemoveCard(returnCard);
+                    _hand.RemoveCard(returnCard);
                     Console.WriteLine(Name + " returned card: " + returnCard);
                     Console.WriteLine("");
                     dealer.CloseAccess();

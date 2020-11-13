@@ -35,7 +35,7 @@ namespace PG3302_Eksamen
                         Card card = dealer.GetCard();
                         if (card.CardType == CardType.Normal)
                         {
-                            player.GiveCard(card);
+                            player.TakeCard(card);
                             Console.WriteLine(player.Name + " receiving card: " + card);
                             break;
                         }
