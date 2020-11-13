@@ -14,43 +14,37 @@ namespace PG3302_Eksamen
         public string Name { get; set; }
         public int id { get; set; }
         private bool IsQuarantined { get; set; }
-        private int MaxHandSize { get; set; }
 
-        private readonly List<Card> _hand = new List<Card>();
+
+        private Hand _hand;
 
         public Player(string name, int id)
         {
-            this.Name = name;
+            Name = name;
             this.id = id;
             IsQuarantined = false;
-            MaxHandSize = 4;
+
+            _hand = new Hand();
         }
 
         public List<Card> GetHand()
         {
-            return _hand;
+            return _hand._hand;
         }
 
         public void GiveCard(Card card)
         {
-            _hand.Add(card);
+            _hand._hand.Add(card);
         }
 
         public void RemoveCard(Card card)
         {
-            _hand.Remove(card);
+            _hand._hand.Remove(card);
         }
 
         public override string ToString()
         {
-            StringBuilder hand = new StringBuilder();
-            
-            for (int i = 0; i < _hand.Count; i++)
-            {
-                hand.Append(_hand[i] + ", ");
-                
-            }
-            return Name + " has hand: " + hand.ToString().TrimEnd(',', ' ');
+            return Name + " has hand: " + _hand;
         }
 
         protected override void Play()
@@ -85,7 +79,7 @@ namespace PG3302_Eksamen
                     int numOfHearts = 0;
                     
 
-                    foreach (Card card in _hand)
+                    foreach (Card card in _hand._hand)
                     {
                         // Skip normal cards here to avoid checking more if's - redundant?
                         if (card.CardType == CardType.Normal || card.CardType == CardType.Joker)
@@ -106,8 +100,8 @@ namespace PG3302_Eksamen
                                 }
                             }
                             RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
-                            MaxHandSize++;
-                            Console.WriteLine("New max hand size: " + MaxHandSize);
+                            _hand.MaxHandSize++;
+                            Console.WriteLine("New max hand size: " + _hand.MaxHandSize);
                             Console.WriteLine(this);
                             break;
                         }
@@ -135,9 +129,9 @@ namespace PG3302_Eksamen
                                 //_hand.Remove(c);
                                 Console.WriteLine(Name + " returned card: " + c);
                             }*/
-                            for (int i = _hand.Count - 1; i >= 0; i--)
+                            for (int i = _hand._hand.Count - 1; i >= 0; i--)
                             {
-                                var c = _hand[i];
+                                var c = _hand._hand[i];
                                 dealer.ReturnCard(c);
                                 RemoveCard(c);
                                 Console.WriteLine(Name + " returned card: " + c);
@@ -146,7 +140,7 @@ namespace PG3302_Eksamen
                             Console.WriteLine(Name + " draws a new hand...");
                             
                             // by hardcoding this to 4, it means bomb will also blow up the vulture card and NOT return it to the deck
-                            for (int i = 0; i < MaxHandSize; i++)
+                            for (int i = 0; i < _hand.MaxHandSize; i++)
                             {
                                 // New hand can not give special cards
                                 while (true)
@@ -167,7 +161,7 @@ namespace PG3302_Eksamen
                         }
                     }
                     
-                    foreach (Card card in _hand)
+                    foreach (Card card in _hand._hand)
                     {
                         // Ignore special cards when counting
                         if (card.CardType != CardType.Normal)
@@ -192,7 +186,7 @@ namespace PG3302_Eksamen
                         }
                     }
 
-                    foreach (Card card in _hand)
+                    foreach (Card card in _hand._hand)
                     {
                         if (card.CardType == CardType.Joker)
                         {
@@ -246,7 +240,7 @@ namespace PG3302_Eksamen
                             return;
                         }
                         int minCount = 100;
-                        Suit minSuit = _hand[0].Suit;
+                        Suit minSuit = _hand._hand[0].Suit;
                         if (numOfDiamonds > 0 && numOfDiamonds < minCount)
                         {
                             minCount = numOfDiamonds;
@@ -272,13 +266,13 @@ namespace PG3302_Eksamen
                         }
 
                         int i = 0;
-                        while (_hand[i].Suit != minSuit)
+                        while (_hand._hand[i].Suit != minSuit)
                         {
                             //Console.WriteLine(_hand[i]);
                             i++;
                         }
                         
-                        Card returnCard = _hand[i];
+                        Card returnCard = _hand._hand[i];
                         dealer.ReturnCard(returnCard);
                         RemoveCard(returnCard);
                         Console.WriteLine(Name + " returned card: " + returnCard);
