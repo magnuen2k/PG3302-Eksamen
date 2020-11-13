@@ -84,12 +84,12 @@ namespace PG3302_Eksamen
             }
         }
 
-        public void GetNormalCard(Player player)
+        public void DrawNormalCard(Player player)
         {
             while (true)
             {
                 Card card = GetCard();
-                if (card.CardType != CardType.Normal) continue;
+                if (card.GetCardType() != CardType.Normal) continue;
                 player.TakeCard(card);
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;

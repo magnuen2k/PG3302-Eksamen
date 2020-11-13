@@ -65,7 +65,7 @@ namespace PG3302_Eksamen
                     continue;
 
                 Card card = GetNextCard();
-                card.CardType = type;
+                card.SetCardType(type);
                 Console.WriteLine(card);
                 RestoreCard(card);
             }
@@ -78,7 +78,7 @@ namespace PG3302_Eksamen
 
             foreach (Card card in _cards)
             {
-                hand.Append(card.Value + " of " + card.Suit);
+                hand.Append(card.GetValue() + " of " + card.GetSuit());
             }
         
             return hand.ToString();

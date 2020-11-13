@@ -34,31 +34,57 @@ namespace PG3302_Eksamen
         Joker
     }
 
-    public class Card
+    public class Card : ICard
     {
-        public Suit Suit { get; set; }
-        public Value Value { get; set; }
-        public CardType CardType { get; set; }
+        private Suit _suit;
+        private readonly Value _value;
+        private CardType _cardType;
 
         public Card(Suit suit, Value value)
         {
-            this.Suit = suit;
-            this.Value = value;
-            CardType = CardType.Normal;
+            this._suit = suit;
+            this._value = value;
+            _cardType = CardType.Normal;
         }
         
         public Card(Suit suit, Value value, CardType cardType) : this(suit, value)
         {
-            this.CardType = cardType;
+            this._cardType = cardType;
+        }
+        
+        public void SetSuit(Suit suit)
+        {
+            _suit = suit;
         }
 
+        public void SetCardType(CardType cardType)
+        {
+            _cardType = cardType;
+        }
+        
+        public Suit GetSuit()
+        {
+            return _suit;
+        }
+
+        public Value GetValue()
+        {
+            return _value;
+        }
+
+        public CardType GetCardType()
+        {
+            return _cardType;
+        }
+        
         public override string ToString()
         {
-            if (CardType != CardType.Normal)
+            if (_cardType != CardType.Normal)
             {
-                return "The " + CardType;
+                return "The " + _cardType;
             }
-            return Value + " of " + Suit + " with type " + CardType;
+            return _value + " of " + _suit + " with type " + _cardType;
         }
+
     }
 }

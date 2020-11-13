@@ -68,17 +68,17 @@ namespace PG3302_Eksamen
                 foreach (Card card in _hand.GetHand())
                 {
                     // Skip normal cards here to avoid checking more if's - redundant?
-                    if (card.CardType == CardType.Normal || card.CardType == CardType.Joker)
+                    if (card.GetCardType() == CardType.Normal || card.GetCardType() == CardType.Joker)
                     {
                         continue;
                     }
                         
-                    if (card.CardType == CardType.Vulture)
+                    if (card.GetCardType() == CardType.Vulture)
                     {
                         while (true)
                         {
                             Card newVultureCard = dealer.GetCard();
-                            if (newVultureCard.CardType == CardType.Normal)
+                            if (newVultureCard.GetCardType() == CardType.Normal)
                             {
                                 _hand.GiveCard(newVultureCard);
                                 Console.WriteLine(Name + " drew card: " + newVultureCard);
@@ -92,7 +92,7 @@ namespace PG3302_Eksamen
                         break;
                     }
 
-                    if (card.CardType == CardType.Quarantine)
+                    if (card.GetCardType() == CardType.Quarantine)
                     {
                         IsQuarantined = true;
                         dealer.ReturnCard(card);
@@ -105,7 +105,7 @@ namespace PG3302_Eksamen
                         return;
                     }
 
-                    if (card.CardType == CardType.Bomb)
+                    if (card.GetCardType() == CardType.Bomb)
                     {
                         Console.WriteLine(Name + " has to throw away all his cards :(");
                         /*foreach (Card c in _hand)
@@ -129,7 +129,7 @@ namespace PG3302_Eksamen
                         for (int i = 0; i < _hand.MaxHandSize; i++)
                         {
                             // New hand can not give special cards
-                            dealer.GetNormalCard(this);
+                            dealer.DrawNormalCard(this);
                         }
 
                         Console.WriteLine(this);
@@ -141,12 +141,12 @@ namespace PG3302_Eksamen
                 foreach (Card card in _hand.GetHand())
                 {
                     // Ignore special cards when counting
-                    if (card.CardType != CardType.Normal)
+                    if (card.GetCardType() != CardType.Normal)
                     {
                         continue;
                     }
 
-                    switch (card.Suit)
+                    switch (card.GetSuit())
                     {
                         case Suit.Clubs:
                             numOfClubs++;
@@ -165,7 +165,7 @@ namespace PG3302_Eksamen
 
                 foreach (Card card in _hand.GetHand())
                 {
-                    if (card.CardType == CardType.Joker)
+                    if (card.GetCardType() == CardType.Joker)
                     {
                         var highestSuit = new[]
                             {
@@ -181,19 +181,19 @@ namespace PG3302_Eksamen
                         {
                             case "diamonds":
                                 numOfDiamonds++;
-                                card.Suit = Suit.Diamonds;
+                                card.SetSuit(Suit.Diamonds);
                                 break;
                             case "spades":
                                 numOfSpades++;
-                                card.Suit = Suit.Spades;
+                                card.SetSuit(Suit.Spades);
                                 break;
                             case "clubs":
                                 numOfClubs++;
-                                card.Suit = Suit.Clubs;
+                                card.SetSuit(Suit.Clubs);
                                 break;
                             case "hearts":
                                 numOfHearts++;
-                                card.Suit = Suit.Hearts;
+                                card.SetSuit(Suit.Hearts);
                                 break;
                         }
                     }
@@ -209,7 +209,7 @@ namespace PG3302_Eksamen
                 }
                 else
                 {
-                    if (newCard.CardType == CardType.Vulture)
+                    if (newCard.GetCardType() == CardType.Vulture)
                     {
                         Console.WriteLine("Because card drawn was vulture, we don't throw a card!");
                         Console.WriteLine("");
@@ -217,7 +217,7 @@ namespace PG3302_Eksamen
                         return;
                     }
                     int minCount = 100;
-                    Suit minSuit = _hand.GetHand()[0].Suit; //??
+                    Suit minSuit = _hand.GetHand()[0].GetSuit(); //??
                     if (numOfDiamonds > 0 && numOfDiamonds < minCount)
                     {
                         minCount = numOfDiamonds;
@@ -243,9 +243,8 @@ namespace PG3302_Eksamen
                     }
 
                     int i = 0;
-                    while (_hand.GetHand()[i].Suit != minSuit)
+                    while (_hand.GetHand()[i].GetSuit() != minSuit)
                     {
-                        //Console.WriteLine(_hand[i]);
                         i++;
                     }
                         
