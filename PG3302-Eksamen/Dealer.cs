@@ -44,12 +44,12 @@ namespace PG3302_Eksamen
                 if (!Started)
                     return false;
                 
-                if (_activePlayer != 0 && _activePlayer != player.id)
+                if (_activePlayer != 0 && _activePlayer != player.Id)
                     return false;
                 
                 // Make each thread sleep before playing round
                 Thread.Sleep(500);
-                _activePlayer = player.id;
+                _activePlayer = player.Id;
                 return true;
             }
         }
@@ -81,6 +81,18 @@ namespace PG3302_Eksamen
             lock (_lock)
             {
                 _activePlayer = 0;
+            }
+        }
+
+        public void GetNormalCard(Player player)
+        {
+            while (true)
+            {
+                Card card = GetCard();
+                if (card.CardType != CardType.Normal) continue;
+                player.TakeCard(card);
+                Console.WriteLine(player.Name + " receives card: " + card);
+                break;
             }
         }
     }
