@@ -16,6 +16,12 @@ namespace PG3302_Eksamen
             _cards.Remove(card);
             return card;
         }
+
+        public ICard GetRandomCard()
+        {
+            ICard card = _cards[rng.Next(_cards.Count)];
+            return card;
+        }
         
         public void RestoreCard(ICard card)
         {
@@ -68,24 +74,20 @@ namespace PG3302_Eksamen
                 if (type == CardType.Normal)
                     continue;
                 
-                ICard card = GetNextCard();
+                ICard card = GetRandomCard();
 
                 if (type == CardType.Joker)
                 {
                     card = new JokerCard(card);
-                    RestoreSpecialCard(card);
                 } else if (type == CardType.Bomb)
                 {
                     card = new BombCard(card);
-                    RestoreCard(card);
                 } else if (type == CardType.Vulture)
                 {
                     card = new VultureCard(card);
-                    RestoreCard(card);
                 } else if (type == CardType.Quarantine)
                 {
                     card = new QuarantineCard(card);
-                    RestoreCard(card);
                 }
 
                 Console.WriteLine(card + " " + card.GetSuit() + " " + card.GetValue());

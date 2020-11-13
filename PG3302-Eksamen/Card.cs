@@ -4,7 +4,7 @@ namespace PG3302_Eksamen
     {
         private Suit _suit;
         private readonly Value _value;
-        private CardType _cardType;
+        private readonly CardType _cardType;
 
         public Card(Suit suit, Value value)
         {
@@ -12,22 +12,12 @@ namespace PG3302_Eksamen
             this._value = value;
             _cardType = CardType.Normal;
         }
-        
-        public Card(Suit suit, Value value, CardType cardType) : this(suit, value)
-        {
-            this._cardType = cardType;
-        }
-        
+
         public void SetSuit(Suit suit)
         {
             _suit = suit;
         }
 
-        public void SetCardType(CardType cardType)
-        {
-            _cardType = cardType;
-        }
-        
         public Suit GetSuit()
         {
             return _suit;
