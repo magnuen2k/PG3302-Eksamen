@@ -23,7 +23,7 @@ namespace PG3302_Eksamen
             _hand = new Hand();
         }
 
-        public void TakeCard(Card card)
+        public void TakeCard(ICard card)
         {
             _hand.GiveCard(card);
         }
@@ -50,7 +50,7 @@ namespace PG3302_Eksamen
                 }
                     
                 // Draw card
-                Card newCard = dealer.GetCard();
+                ICard newCard = dealer.GetCard();
                     
                 // TODO handle special cards
                     
@@ -65,7 +65,7 @@ namespace PG3302_Eksamen
                 int numOfHearts = 0;
                     
 
-                foreach (Card card in _hand.GetHand())
+                foreach (ICard card in _hand.GetHand())
                 {
                     // Skip normal cards here to avoid checking more if's - redundant?
                     if (card.GetCardType() == CardType.Normal || card.GetCardType() == CardType.Joker)
@@ -77,7 +77,7 @@ namespace PG3302_Eksamen
                     {
                         while (true)
                         {
-                            Card newVultureCard = dealer.GetCard();
+                            ICard newVultureCard = dealer.GetCard();
                             if (newVultureCard.GetCardType() == CardType.Normal)
                             {
                                 _hand.GiveCard(newVultureCard);
@@ -138,7 +138,7 @@ namespace PG3302_Eksamen
                     }
                 }
                     
-                foreach (Card card in _hand.GetHand())
+                foreach (ICard card in _hand.GetHand())
                 {
                     // Ignore special cards when counting
                     if (card.GetCardType() != CardType.Normal)
@@ -163,7 +163,7 @@ namespace PG3302_Eksamen
                     }
                 }
 
-                foreach (Card card in _hand.GetHand())
+                foreach (ICard card in _hand.GetHand())
                 {
                     if (card.GetCardType() == CardType.Joker)
                     {
@@ -248,7 +248,7 @@ namespace PG3302_Eksamen
                         i++;
                     }
                         
-                    Card returnCard = _hand.GetHand()[i];
+                    ICard returnCard = _hand.GetHand()[i];
                     dealer.ReturnCard(returnCard);
                     _hand.RemoveCard(returnCard);
                     Console.WriteLine(Name + " returned card: " + returnCard);

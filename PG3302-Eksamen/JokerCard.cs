@@ -9,7 +9,12 @@ namespace PG3302_Eksamen
         public override CardType GetCardType()
         {
             SetCardType(CardType.Joker);
-            return base.GetCardType();
+            return CardType.Joker;
+        }
+
+        public override string ToString()
+        {
+            return "The " + GetCardType();
         }
     }
 }
