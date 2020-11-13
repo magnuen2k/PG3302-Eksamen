@@ -2,23 +2,22 @@ using System.Threading;
 
 namespace PG3302_Eksamen
 {
-    abstract class ThreadProxy {
-
-        protected Thread _thread;
-        protected bool _running;
+    internal abstract class ThreadProxy {
+        private readonly Thread _thread;
+        private bool _running;
 
         public Thread Thread { get => _thread; }
         public bool IsAlive { get => _thread.IsAlive; }
         public bool Running { get => _running; }
 
-        public ThreadProxy () {
+        protected ThreadProxy () {
             _thread = new Thread(new ThreadStart(ThreadLoop));
             _running = false;
         }
 
         protected abstract void Play ();
 
-        protected void ThreadLoop () {
+        private void ThreadLoop () {
             while(_running) {
                 Play();
             }
@@ -30,7 +29,7 @@ namespace PG3302_Eksamen
             while (!_thread.IsAlive) ;
         }
 
-        public void Stop() {
+        protected void Stop() {
             _running = false;
             _thread.Join();
         }
