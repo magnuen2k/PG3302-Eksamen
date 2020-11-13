@@ -34,7 +34,7 @@ namespace PG3302_Eksamen
 
         public void GiveCard(Card card)
         {
-            _hand._hand.Add(card);
+            _hand.Add(card);
         }
 
         public void RemoveCard(Card card)

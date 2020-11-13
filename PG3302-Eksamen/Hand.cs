@@ -25,5 +25,10 @@ namespace PG3302_Eksamen
             }
             return hand.ToString().TrimEnd(',', ' ');
         }
+
+        public void Add(Card card)
+        {
+            _hand.Add(card);
+        }
     }
 }
