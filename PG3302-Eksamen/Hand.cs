@@ -5,7 +5,7 @@ namespace PG3302_Eksamen
 {
     class Hand
     {
-        public List<Card> _hand;
+        private readonly List<Card> _hand;
         public int MaxHandSize { get; set; }
 
         public Hand()
@@ -29,6 +29,21 @@ namespace PG3302_Eksamen
         public void Add(Card card)
         {
             _hand.Add(card);
+        }
+
+        public void Remove(Card card)
+        {
+            _hand.Remove(card);
+        }
+
+        public int Count()
+        {
+            return _hand.Count;
+        }
+
+        public List<Card> GetHand()
+        {
+            return _hand;
         }
     }
 }

@@ -44,12 +44,12 @@ namespace PG3302_Eksamen
                 if (!Started)
                     return false;
                 
-                if (_activePlayer != 0 && _activePlayer != player.id)
+                if (_activePlayer != 0 && _activePlayer != player.Id)
                     return false;
                 
                 // Make each thread sleep before playing round
                 Thread.Sleep(500);
-                _activePlayer = player.id;
+                _activePlayer = player.Id;
                 return true;
             }
         }
