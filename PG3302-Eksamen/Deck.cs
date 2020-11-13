@@ -6,10 +6,10 @@ namespace PG3302_Eksamen
 {
     public class Deck
     {
-   
         private List<ICard> _cards;
         private readonly Random rng = new Random();
-
+        List<int> ranNums = new List<int>();
+        
         public ICard GetNextCard()
         {
             ICard card = _cards[0];
@@ -17,9 +17,8 @@ namespace PG3302_Eksamen
             return card;
         }
 
-        public ICard GetRandomCard()
+        private ICard GetRandomCard()
         {
-            List<int> ranNums = new List<int>();
             while (true)
             {
                 int num = rng.Next(_cards.Count);
