@@ -19,10 +19,9 @@ namespace PG3302_Eksamen
         {
             StringBuilder hand = new StringBuilder();
             
-            for (int i = 0; i < _hand.Count; i++)
+            foreach (var c in _hand)
             {
-                hand.Append(_hand[i] + ", ");
-                
+                hand.Append(c + ", ");
             }
             return hand.ToString().TrimEnd(',', ' ');
         }
