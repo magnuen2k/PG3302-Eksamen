@@ -7,8 +7,8 @@ namespace PG3302_Eksamen
     public class Deck
     {
         private List<ICard> _cards;
-        private readonly Random rng = new Random();
-        List<int> ranNums = new List<int>();
+        private readonly Random _rng = new Random();
+        private readonly List<int> _ranNums = new List<int>();
         
         public ICard GetNextCard()
         {
@@ -21,13 +21,11 @@ namespace PG3302_Eksamen
         {
             while (true)
             {
-                int num = rng.Next(_cards.Count);
-                if (!ranNums.Contains(num))
-                {
-                    ICard card = _cards[num];
-                    ranNums.Add(num);
-                    return card;
-                }
+                int num = _rng.Next(_cards.Count);
+                if (_ranNums.Contains(num)) continue;
+                ICard card = _cards[num];
+                _ranNums.Add(num);
+                return card;
             }
         }
         
@@ -63,7 +61,7 @@ namespace PG3302_Eksamen
             int n = list.Count;  
             while (n > 1) {  
                 n--;  
-                int k = rng.Next(n + 1);  
+                int k = _rng.Next(n + 1);  
                 T value = list[k];  
                 list[k] = list[n];  
                 list[n] = value;  
@@ -79,19 +77,14 @@ namespace PG3302_Eksamen
                 
                 ICard card = GetRandomCard();
 
-                if (type == CardType.Joker)
+                card = type switch
                 {
-                    card = new JokerCard(card);
-                } else if (type == CardType.Bomb)
-                {
-                    card = new BombCard(card);
-                } else if (type == CardType.Vulture)
-                {
-                    card = new VultureCard(card);
-                } else if (type == CardType.Quarantine)
-                {
-                    card = new QuarantineCard(card);
-                }
+                    CardType.Joker => new JokerCard(card),
+                    CardType.Bomb => new BombCard(card),
+                    CardType.Vulture => new VultureCard(card),
+                    CardType.Quarantine => new QuarantineCard(card),
+                    _ => card
+                };
 
                 Console.WriteLine(card + " " + card.GetSuit() + " " + card.GetValue());
             }
@@ -102,7 +95,7 @@ namespace PG3302_Eksamen
         {
             StringBuilder hand = new StringBuilder();
 
-            foreach (var card in _cards)
+            foreach (ICard card in _cards)
             {
                 hand.Append(card.GetValue() + " of " + card.GetSuit() + " of type " + card.GetCardType() + ", ");
             }
