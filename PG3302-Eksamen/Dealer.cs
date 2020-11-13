@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace PG3302_Eksamen
 {
@@ -9,7 +11,7 @@ namespace PG3302_Eksamen
         private Deck _deck = null;
         public Boolean Started { set; get;}
         public Boolean GameEnded { set; get; }
-        private Player _activePlayer = null;
+        private int _activePlayer = 0;
         private readonly object _lock;
 
         private Dealer()
@@ -32,17 +34,26 @@ namespace PG3302_Eksamen
 
         public Boolean GetAccess(Player player)
         {
+            // TODO add this to its own method?
+            // Each thread sleeps a random number of milliseconds to randomize access
+            Random r = new Random();
+            Thread.Sleep(r.Next(100));
+            
             lock (_lock)
             {
                 if (!Started)
                     return false;
                 
-                if (_activePlayer != null && _activePlayer != player)
+                if (_activePlayer != 0 && _activePlayer != player.id)
                     return false;
-                _activePlayer = player;
+                
+                // Make each thread sleep before playing round
+                Thread.Sleep(500);
+                _activePlayer = player.id;
                 return true;
             }
         }
+        
 
         public Card GetCard()
         {
@@ -51,15 +62,26 @@ namespace PG3302_Eksamen
                 return _deck.GetNextCard();
             }
         }
-        public Boolean ReturnCard(Card card)
+        public void ReturnCard(Card card)
         {
             
             lock (_lock)
             {
                 _deck.RestoreCard(card);
-                _activePlayer = null;
             }
-            return true;
+        }
+
+        public Deck GetDeck()
+        {
+            return _deck;
+        }
+        
+        public void CloseAccess()
+        {
+            lock (_lock)
+            {
+                _activePlayer = 0;
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace PG3302_Eksamen
         }
         
 
-        public List<Card> GenerateDeck()
+        public void GenerateDeck()
         {
             int count = 0;
             _cards = new List<Card>();
@@ -35,8 +35,53 @@ namespace PG3302_Eksamen
                 }
             }
             Console.WriteLine(count);
+            Shuffle(_cards);
 
-            return _cards;
+            // generates special cards based on cards in the Enum type
+            GenerateSpecialCards();
+            /*foreach (CardType type in Enum.GetValues(typeof(CardType)))
+            {
+                if (type == CardType.Normal)
+                    continue;
+                
+                Card card = GetNextCard();
+                card.CardType = type;
+                Console.WriteLine(card); // print the special card assigned
+                RestoreCard(card);
+            }*/
+
+            Shuffle(_cards);
+            //return _cards;
+        }
+        
+        private Random rng = new Random();
+
+        private void Shuffle<T>(IList<T> list)  
+        {
+            int n = list.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = rng.Next(n + 1);  
+                T value = list[k];  
+                list[k] = list[n];  
+                list[n] = value;  
+            }
+        }
+
+        private void GenerateSpecialCards()
+        {
+            foreach (CardType type in Enum.GetValues(typeof(CardType)))
+            {
+                if (type == CardType.Normal)
+                {
+                    continue;
+                }
+
+                Card card = GetNextCard();
+                card.CardType = type;
+                Console.WriteLine(card);
+                RestoreCard(card);
+            }
         }
 
 
