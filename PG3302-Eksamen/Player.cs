@@ -90,8 +90,7 @@ namespace PG3302_Eksamen
             dealer.ReturnCard(card);
             player._hand.RemoveCard(card);
             Console.WriteLine(player.Name + " is now quarantined!");
-            Console.WriteLine(player.Name + " returned card: " + card);
-            Console.WriteLine("");
+            Console.WriteLine(player.Name + " returned card: " + card +"\n");
             dealer.CloseAccess();
         }
 
@@ -125,8 +124,7 @@ namespace PG3302_Eksamen
                 if (!dealer.GetAccess(this)) continue;
                 if (IsQuarantined)
                 {
-                    Console.WriteLine(Name + " is quarantined, sitting out this round :(");
-                    Console.WriteLine("");
+                    Console.WriteLine(Name + " is quarantined, sitting out this round :(\n");
                     IsQuarantined = false;
                     dealer.CloseAccess();
                     return;
