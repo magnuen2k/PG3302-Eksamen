@@ -26,7 +26,7 @@ namespace PG3302_Eksamen
             }
             
             // Deal initial hand to players
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
             {
                 foreach (Player player in players)
                 {

@@ -11,7 +11,7 @@ namespace PG3302_Eksamen
         public Hand()
         {
             _hand = new List<ICard>();
-            MaxHandSize = 4;
+            MaxHandSize = GameConfig.DefaultMaxHandSize;
         }
 
 
