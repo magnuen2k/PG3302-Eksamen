@@ -34,6 +34,64 @@ namespace PG3302_Eksamen
             return Name + " has hand: " + _hand;
         }
 
+        private static void HandleCard(Player player, ICard card)
+        {
+            switch (card.GetCardType())
+            {
+                case CardType.Bomb:
+                    HandleBomb(player, card);
+                    break;
+                case CardType.Quarantine:
+                    HandleQuarantine(player, card);
+                    break;
+                case CardType.Vulture:
+                    HandleVulture(player, card);
+                    break;
+                case CardType.Joker:
+                    HandleJoker(player, card);
+                    break;
+                case CardType.Normal:
+                    HandleNormalCard(player, card);
+                    break;
+                default:
+                    throw new NotImplementedException("You drew a card with a type that cannot be handled. Code needs review.");
+            }
+        }
+
+        private static void HandleBomb(Player player, ICard card)
+        {
+            Console.WriteLine("Handling DA BOMB");
+        }
+
+        private static void HandleQuarantine(Player player, ICard card)
+        {
+            Console.WriteLine("Handling a Quarantine card");
+            Dealer dealer = Dealer.GetDealer();
+            player.IsQuarantined = true;
+            dealer.ReturnCard(card);
+            player._hand.RemoveCard(card);
+            Console.WriteLine(player.Name + " is now quarantined!");
+            Console.WriteLine(player.Name + " returned card: " + card);
+            Console.WriteLine("");
+            dealer.CloseAccess();
+        }
+
+        private static void HandleVulture(Player player, ICard card)
+        {
+            Console.WriteLine("Handling a Vulture card");
+        }
+
+        private static void HandleJoker(Player player, ICard card)
+        {
+            Console.WriteLine("Handling a Joker card");
+        }
+
+        private static void HandleNormalCard(Player player, ICard card)
+        {
+            Console.WriteLine("Handling a normal card");
+        }
+
+
         protected override void Play()
         {
             Dealer dealer = Dealer.GetDealer();
@@ -69,6 +127,8 @@ namespace PG3302_Eksamen
                 int numOfSpades = 0;
                 int numOfClubs = 0;
                 int numOfHearts = 0;
+
+                HandleCard(this, newCard);
                     
 
                 foreach (ICard card in _hand.GetHand())
@@ -98,7 +158,7 @@ namespace PG3302_Eksamen
                         break;
                     }
 
-                    if (card.GetCardType() == CardType.Quarantine)
+                    /*if (card.GetCardType() == CardType.Quarantine)
                     {
                         IsQuarantined = true;
                         dealer.ReturnCard(card);
@@ -109,7 +169,7 @@ namespace PG3302_Eksamen
                         Console.WriteLine("");
                         dealer.CloseAccess();
                         return;
-                    }
+                    }*/
 
                     if (card.GetCardType() == CardType.Bomb)
                     {
