@@ -233,8 +233,7 @@ namespace PG3302_Eksamen
                 {
                     if (newCard.GetCardType() == CardType.Vulture)
                     {
-                        Console.WriteLine("Because card drawn was vulture, we don't throw a card!");
-                        Console.WriteLine("");
+                        Console.WriteLine("Because card drawn was vulture, we don't throw a card!\n");
                         dealer.CloseAccess();
                         return;
                     }
