@@ -37,7 +37,7 @@ namespace PG3302_Eksamen
         private static void HandleCard(Player player, ICard card)
         {
             //A bool for the joker check
-            bool cardIsJoker = false;
+            /*bool cardIsJoker = false;*/
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
@@ -52,19 +52,21 @@ namespace PG3302_Eksamen
                 case CardType.Joker:
                     //HandleJoker(player, card);
                     //Setting the bool to true
-                    cardIsJoker = true;
+                    /*cardIsJoker = true;*/
                     break;
                 case CardType.Normal:
-                    HandleNormalCard(player, card);
+                    //HandleNormalCard(player, card);
+                    // Do nothing here because nothing to do - maybe ifCheck in start of HandleCard?
+                    // but is ifCheck better than a case where we do nothing?
                     break;
                 default:
                     throw new NotImplementedException("You drew a card with a type that cannot be handled. Code needs review.");
             }
-            if (cardIsJoker == true)
+            /*if (cardIsJoker == true)
             {
                 //Handle the case of joker card here?
                 Console.WriteLine("Handle the joker here ?");
-            }
+            }*/
         }
 
         private static void HandleBomb(Player player)
@@ -100,7 +102,9 @@ namespace PG3302_Eksamen
             player._hand.RemoveCard(card);
             Console.WriteLine(player.Name + " is now quarantined!");
             Console.WriteLine(player.Name + " returned card: " + card +"\n");
-            dealer.CloseAccess();
+            // TODO this doesn't actually break out of the game loop if (!dealer.GetAccess(this)) continue; in Play()
+            // HOW DO WE FIX?
+            dealer.CloseAccess(); // this does nothing! because this 'dealer' is not the one we want to close!!
         }
 
         private static void HandleVulture(Player player, ICard card)
@@ -111,7 +115,7 @@ namespace PG3302_Eksamen
             player._hand.RemoveCard(card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
             //dealer.ReturnCard(card); // TODO - allow vulture to go back in deck? but then it needs to be in random spot, or shuffle?
             player._hand.MaxHandSize++;
-            Console.WriteLine("New max hand size: " + player._hand.MaxHandSize);
+            Console.WriteLine("New max hand size: " + player._hand.MaxHandSize + "\n");
         }
 
         private static void HandleJoker(Player player, ICard card)
@@ -122,6 +126,139 @@ namespace PG3302_Eksamen
         private static void HandleNormalCard(Player player, ICard card)
         {
             Console.WriteLine("Handling a normal card - not yet extracted to Handle");
+        }
+
+        private static void HandleHand(Player player)
+        {
+ 
+            // Where is the best place to declare this to make them useable everywhere?
+            int numOfDiamonds = 0;
+            int numOfSpades = 0;
+            int numOfClubs = 0;
+            int numOfHearts = 0;
+            
+            foreach (ICard card in player._hand.GetHand())
+            {
+                // Ignore special cards when counting
+                // In a scenario where special card would count for max suit count, this would need adjustment
+                if (card.GetCardType() != CardType.Normal)
+                {
+                    continue;
+                }
+
+                switch (card.GetSuit())
+                {
+                    case Suit.Clubs:
+                        numOfClubs++;
+                        break;
+                    case Suit.Diamonds:
+                        numOfDiamonds++;
+                        break;
+                    case Suit.Hearts:
+                        numOfHearts++;
+                        break;
+                    case Suit.Spades:
+                        numOfSpades++;
+                        break;
+                    default:
+                        throw new NotImplementedException("You tried to handle a card with a suit that's not considered. Code needs review.");
+                }
+            }
+            
+            foreach (ICard card in player._hand.GetHand())
+            {
+                if (card.GetCardType() == CardType.Joker)
+                {
+                    var highestSuit = new[]
+                        {
+                            Tuple.Create(numOfDiamonds, "diamonds"),
+                            Tuple.Create(numOfSpades, "spades"),
+                            Tuple.Create(numOfClubs, "clubs"),
+                            Tuple.Create(numOfHearts, "hearts")
+                        }.Max()
+                        .Item2;
+                    Console.WriteLine("Joker handling, Max: " + highestSuit);
+
+                    switch (highestSuit)
+                    {
+                        case "diamonds":
+                            numOfDiamonds++;
+                            card.SetSuit(Suit.Diamonds);
+                            break;
+                        case "spades":
+                            numOfSpades++;
+                            card.SetSuit(Suit.Spades);
+                            break;
+                        case "clubs":
+                            numOfClubs++;
+                            card.SetSuit(Suit.Clubs);
+                            break;
+                        case "hearts":
+                            numOfHearts++;
+                            card.SetSuit(Suit.Hearts);
+                            break;
+                    }
+                }
+            }
+            
+            Console.WriteLine(player.Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
+            
+            Dealer dealer = Dealer.GetDealer();
+            
+            // Win condition
+            if (numOfDiamonds >= GameConfig.WinConditionCount || numOfClubs >= GameConfig.WinConditionCount || numOfHearts >= GameConfig.WinConditionCount || numOfSpades >= GameConfig.WinConditionCount)
+            {
+                Console.WriteLine(player.Name + " won the game with hand: " + player);
+                dealer.GameEnded = true;
+            }
+            else
+            {
+                /*if (newCard.GetCardType() == CardType.Vulture)
+                {
+                    Console.WriteLine("Because card drawn was vulture, we don't throw a card!\n");
+                    dealer.CloseAccess();
+                    return;
+                }*/
+                int minCount = 100;
+                Suit minSuit = player._hand.GetHand()[0].GetSuit(); //??
+                if (numOfDiamonds > 0 && numOfDiamonds < minCount)
+                {
+                    minCount = numOfDiamonds;
+                    minSuit = Suit.Diamonds;
+                }
+                        
+                if (numOfClubs > 0 && numOfClubs < minCount)
+                {
+                    minCount = numOfClubs;
+                    minSuit = Suit.Clubs;
+                }
+                        
+                if (numOfHearts > 0 && numOfHearts < minCount)
+                {
+                    minCount = numOfHearts;
+                    minSuit = Suit.Hearts;
+                }
+                        
+                if (numOfSpades > 0 && numOfSpades < minCount)
+                {
+                    minCount = numOfSpades;
+                    minSuit = Suit.Spades;
+                }
+                                
+                
+
+                int i = 0;
+                while (player._hand.GetHand()[i].GetSuit() != minSuit)
+                {
+                    i++;
+                }
+                        
+                ICard returnCard = player._hand.GetHand()[i];
+                dealer.ReturnCard(returnCard);
+                player._hand.RemoveCard(returnCard);
+                Console.WriteLine(player.Name + " returned card: " + returnCard + "\n");
+                dealer.CloseAccess();
+            }
         }
 
 
@@ -138,6 +275,7 @@ namespace PG3302_Eksamen
                     dealer.CloseAccess();
                     return;
                 }
+                
 
                 /*if (IsQuarantined)
                     IsQuarantined = false;
@@ -147,141 +285,22 @@ namespace PG3302_Eksamen
                     
                 // Draw card
                 ICard newCard = dealer.GetCard();
-                    
-                // TODO handle special cards
-                    
                 _hand.GiveCard(newCard);
                 Console.WriteLine(Name + " drew card: " + newCard);
 
-                Console.WriteLine(this); // TODO this is for debugging
-
-                int numOfDiamonds = 0;
-                int numOfSpades = 0;
-                int numOfClubs = 0;
-                int numOfHearts = 0;
+                Console.WriteLine(this + " (" + _hand.Count() + " cards in hand)"); // TODO this is for debugging
 
                 HandleCard(this, newCard);
-                
-                /*
-                 HandleHand(); // handles which suit has the most
-                  
-                 */
 
-                foreach (ICard card in _hand.GetHand())
+                // How do we move this into HandleVulture that effectively stops the code here?? 
+                if (newCard.GetCardType() == CardType.Vulture || newCard.GetCardType() == CardType.Quarantine )
                 {
-                    // Ignore special cards when counting
-                    if (card.GetCardType() != CardType.Normal)
-                    {
-                        continue;
-                    }
-
-                    switch (card.GetSuit())
-                    {
-                        case Suit.Clubs:
-                            numOfClubs++;
-                            break;
-                        case Suit.Diamonds:
-                            numOfDiamonds++;
-                            break;
-                        case Suit.Hearts:
-                            numOfHearts++;
-                            break;
-                        case Suit.Spades:
-                            numOfSpades++;
-                            break;
-                    }
-                }
-
-                foreach (ICard card in _hand.GetHand())
-                {
-                    if (card.GetCardType() == CardType.Joker)
-                    {
-                        var highestSuit = new[]
-                            {
-                                Tuple.Create(numOfDiamonds, "diamonds"),
-                                Tuple.Create(numOfSpades, "spades"),
-                                Tuple.Create(numOfClubs, "clubs"),
-                                Tuple.Create(numOfHearts, "hearts")
-                            }.Max()
-                            .Item2;
-                        Console.WriteLine("Joker handling, Max: " + highestSuit);
-
-                        switch (highestSuit)
-                        {
-                            case "diamonds":
-                                numOfDiamonds++;
-                                card.SetSuit(Suit.Diamonds);
-                                break;
-                            case "spades":
-                                numOfSpades++;
-                                card.SetSuit(Suit.Spades);
-                                break;
-                            case "clubs":
-                                numOfClubs++;
-                                card.SetSuit(Suit.Clubs);
-                                break;
-                            case "hearts":
-                                numOfHearts++;
-                                card.SetSuit(Suit.Hearts);
-                                break;
-                        }
-                    }
-                }
-                    
-                Console.WriteLine(Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
-
-                // If player has 4 or more cards of same suit
-                if (numOfDiamonds > 3 || numOfClubs > 3 || numOfHearts > 3 || numOfSpades > 3)
-                {
-                    Console.WriteLine(Name + " won the game with hand: " + ToString());
-                    dealer.GameEnded = true;
-                }
-                else
-                {
-                    if (newCard.GetCardType() == CardType.Vulture)
-                    {
-                        Console.WriteLine("Because card drawn was vulture, we don't throw a card!\n");
-                        dealer.CloseAccess();
-                        return;
-                    }
-                    int minCount = 100;
-                    Suit minSuit = _hand.GetHand()[0].GetSuit(); //??
-                    if (numOfDiamonds > 0 && numOfDiamonds < minCount)
-                    {
-                        minCount = numOfDiamonds;
-                        minSuit = Suit.Diamonds;
-                    }
-                        
-                    if (numOfClubs > 0 && numOfClubs < minCount)
-                    {
-                        minCount = numOfClubs;
-                        minSuit = Suit.Clubs;
-                    }
-                        
-                    if (numOfHearts > 0 && numOfHearts < minCount)
-                    {
-                        minCount = numOfHearts;
-                        minSuit = Suit.Hearts;
-                    }
-                        
-                    if (numOfSpades > 0 && numOfSpades < minCount)
-                    {
-                        minCount = numOfSpades;
-                        minSuit = Suit.Spades;
-                    }
-
-                    int i = 0;
-                    while (_hand.GetHand()[i].GetSuit() != minSuit)
-                    {
-                        i++;
-                    }
-                        
-                    ICard returnCard = _hand.GetHand()[i];
-                    dealer.ReturnCard(returnCard);
-                    _hand.RemoveCard(returnCard);
-                    Console.WriteLine(Name + " returned card: " + returnCard + "\n");
                     dealer.CloseAccess();
+                    return;
                 }
+                
+                HandleHand(this);
+                
             }
             Console.WriteLine(Name + " leaving game");
             Stop();
