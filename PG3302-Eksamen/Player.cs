@@ -36,6 +36,8 @@ namespace PG3302_Eksamen
 
         private static void HandleCard(Player player, ICard card)
         {
+            //A bool for the joker check
+            bool cardIsJoker = false;
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
@@ -48,13 +50,20 @@ namespace PG3302_Eksamen
                     HandleVulture(player, card);
                     break;
                 case CardType.Joker:
-                    HandleJoker(player, card);
+                    //HandleJoker(player, card);
+                    //Setting the bool to true
+                    cardIsJoker = true;
                     break;
                 case CardType.Normal:
                     HandleNormalCard(player, card);
                     break;
                 default:
                     throw new NotImplementedException("You drew a card with a type that cannot be handled. Code needs review.");
+            }
+            if (cardIsJoker == true)
+            {
+                //Handle the case of joker card here?
+                Console.WriteLine("Handle the joker here ?");
             }
         }
 
