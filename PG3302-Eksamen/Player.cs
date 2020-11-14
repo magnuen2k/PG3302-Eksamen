@@ -62,6 +62,8 @@ namespace PG3302_Eksamen
         {
             Dealer dealer = Dealer.GetDealer();
             
+            // TODO extract different operations to own functions (SRP)
+            
             Console.WriteLine(player.Name + " has to throw away all his cards :(");
             for (int i = player._hand.Count() - 1; i >= 0; i--)
             {
@@ -79,10 +81,6 @@ namespace PG3302_Eksamen
                 // New hand can not give special cards
                 dealer.DrawNormalCard(player);
             }
-
-            //Console.WriteLine(this);
-                            
-            //break;
         }
 
         private static void HandleQuarantine(Player player, ICard card)
@@ -101,23 +99,11 @@ namespace PG3302_Eksamen
         {
             Console.WriteLine("Laying spider mines...");
             Dealer dealer = Dealer.GetDealer();
-            while (true)
-            {
-                ICard newVultureCard = dealer.GetCard();
-                // TODO call on special method to only get a normal card? :3 uwu
-                if (newVultureCard.GetCardType() == CardType.Normal)
-                {
-                    player._hand.GiveCard(newVultureCard);
-                    Console.WriteLine(player.Name + " drew VultureCard: " + newVultureCard);
-                    break;
-                }
-            }
-            player._hand.RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+            dealer.DrawNormalCard(player);
+            player._hand.RemoveCard(card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+            //dealer.ReturnCard(card); // TODO - allow vulture to go back in deck? but then it needs to be in random spot, or shuffle?
             player._hand.MaxHandSize++;
             Console.WriteLine("New max hand size: " + player._hand.MaxHandSize);
-            //Console.WriteLine(this);
-            //break;
-            
         }
 
         private static void HandleJoker(Player player, ICard card)
