@@ -6,9 +6,17 @@ namespace PG3302_Eksamen
 {
     public class Deck
     {
-        private List<ICard> _cards;
-        private readonly Random _rng = new Random();
-        private readonly List<int> _ranNums = new List<int>();
+        private readonly List<ICard> _cards;
+
+        // To make sure you cannot new empty deck
+        private Deck()
+        {
+        }
+
+        public Deck(List<ICard> cards)
+        {
+            _cards = cards;
+        }
         
         public ICard GetNextCard()
         {
@@ -21,12 +29,6 @@ namespace PG3302_Eksamen
         {
             _cards.Add(card);
         }
-
-        public void GenerateDeck()
-        {
-            _cards = DeckFactory.CreateDeck();
-        }
-
 
         public override string ToString()
         {

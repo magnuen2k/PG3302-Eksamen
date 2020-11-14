@@ -17,9 +17,7 @@ namespace PG3302_Eksamen
         private Dealer()
         {
             _lock = new object();
-            _deck = new Deck();
-            _deck.GenerateDeck();
-            Console.WriteLine("HER KOMMER STOKKEN: " + _deck);
+            _deck = DeckFactory.CreateDeck();
             Started = false;
             GameEnded = false;
         }

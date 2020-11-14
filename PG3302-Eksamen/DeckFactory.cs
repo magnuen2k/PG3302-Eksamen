@@ -7,14 +7,13 @@ namespace PG3302_Eksamen
     {
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
-        private static readonly List<int> RanNums = new List<int>();
 
-        public static List<ICard> CreateDeck()
+        public static Deck CreateDeck()
         {
             GenerateNormalCards();
             GenerateSpecialCards();
             Shuffle(Cards);
-            return Cards;
+            return new Deck(Cards);
         }
 
         private static void GenerateNormalCards()
@@ -55,10 +54,8 @@ namespace PG3302_Eksamen
             while (true)
             {
                 int num = Rng.Next(Cards.Count);
-                if (RanNums.Contains(num)) continue;
-                ICard card = Cards[num];
-                RanNums.Add(num);
-                return card;
+                if (Cards[num].GetCardType() == CardType.Normal)
+                    return Cards[num];
             }
         }
         
