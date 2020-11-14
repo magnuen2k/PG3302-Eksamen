@@ -39,7 +39,7 @@ namespace PG3302_Eksamen
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
-                    HandleBomb(player, card);
+                    HandleBomb(player);
                     break;
                 case CardType.Quarantine:
                     HandleQuarantine(player, card);
@@ -58,9 +58,8 @@ namespace PG3302_Eksamen
             }
         }
 
-        private static void HandleBomb(Player player, ICard card)
+        private static void HandleBomb(Player player)
         {
-            Console.WriteLine("Handling DA BOMB");
             Dealer dealer = Dealer.GetDealer();
             
             Console.WriteLine(player.Name + " has to throw away all his cards :(");
@@ -88,7 +87,6 @@ namespace PG3302_Eksamen
 
         private static void HandleQuarantine(Player player, ICard card)
         {
-            Console.WriteLine("(Handling a Quarantine card");
             Dealer dealer = Dealer.GetDealer();
             player.IsQuarantined = true;
             dealer.ReturnCard(card);
@@ -101,7 +99,7 @@ namespace PG3302_Eksamen
 
         private static void HandleVulture(Player player, ICard card)
         {
-            Console.WriteLine("Handling a Vulture card");
+            Console.WriteLine("Laying spider mines...");
             Dealer dealer = Dealer.GetDealer();
             while (true)
             {
@@ -124,12 +122,12 @@ namespace PG3302_Eksamen
 
         private static void HandleJoker(Player player, ICard card)
         {
-            Console.WriteLine("Handling a Joker card");
+            Console.WriteLine("Handling a Joker card - not yet extracted to Handle");
         }
 
         private static void HandleNormalCard(Player player, ICard card)
         {
-            Console.WriteLine("Handling a normal card");
+            Console.WriteLine("Handling a normal card - not yet extracted to Handle");
         }
 
 
@@ -170,6 +168,11 @@ namespace PG3302_Eksamen
                 int numOfHearts = 0;
 
                 HandleCard(this, newCard);
+                
+                /*
+                 HandleHand(); // handles which suit has the most
+                  
+                 */
 
                 foreach (ICard card in _hand.GetHand())
                 {
