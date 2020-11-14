@@ -17,7 +17,7 @@ namespace PG3302_Eksamen
         public Player(string name, int id)
         {
             Name = name;
-            this.Id = id;
+            Id = id;
             IsQuarantined = false;
 
             _hand = new Hand();
@@ -61,6 +61,29 @@ namespace PG3302_Eksamen
         private static void HandleBomb(Player player, ICard card)
         {
             Console.WriteLine("Handling DA BOMB");
+            Dealer dealer = Dealer.GetDealer();
+            
+            Console.WriteLine(player.Name + " has to throw away all his cards :(");
+            for (int i = player._hand.Count() - 1; i >= 0; i--)
+            {
+                ICard c = player._hand.GetHand()[i];
+                dealer.ReturnCard(c);
+                player._hand.RemoveCard(c);
+                Console.WriteLine(player.Name + " returned card: " + c);
+            }
+
+            Console.WriteLine(player.Name + " draws a new hand...");
+                            
+            // draws amount of new cards depending if 
+            for (int i = 0; i < player._hand.MaxHandSize; i++)
+            {
+                // New hand can not give special cards
+                dealer.DrawNormalCard(player);
+            }
+
+            //Console.WriteLine(this);
+                            
+            //break;
         }
 
         private static void HandleQuarantine(Player player, ICard card)
@@ -189,7 +212,7 @@ namespace PG3302_Eksamen
                         return;
                     }*/
 
-                    if (card.GetCardType() == CardType.Bomb)
+                    /*if (card.GetCardType() == CardType.Bomb)
                     {
                         Console.WriteLine(Name + " has to throw away all his cards :(");
                         /*foreach (Card c in _hand)
@@ -198,7 +221,7 @@ namespace PG3302_Eksamen
                                 dealer.ReturnCard(c);
                                 //_hand.Remove(c);
                                 Console.WriteLine(Name + " returned card: " + c);
-                            }*/
+                            }#1#
                         for (int i = _hand.Count() - 1; i >= 0; i--)
                         {
                             var c = _hand.GetHand()[i];
@@ -219,7 +242,7 @@ namespace PG3302_Eksamen
                         Console.WriteLine(this);
                             
                         break;
-                    }
+                    }*/
                 }
                     
                 foreach (ICard card in _hand.GetHand())
