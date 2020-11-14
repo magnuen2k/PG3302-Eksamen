@@ -65,7 +65,7 @@ namespace PG3302_Eksamen
 
         private static void HandleQuarantine(Player player, ICard card)
         {
-            Console.WriteLine("Handling a Quarantine card");
+            Console.WriteLine("(Handling a Quarantine card");
             Dealer dealer = Dealer.GetDealer();
             player.IsQuarantined = true;
             dealer.ReturnCard(card);
@@ -79,6 +79,24 @@ namespace PG3302_Eksamen
         private static void HandleVulture(Player player, ICard card)
         {
             Console.WriteLine("Handling a Vulture card");
+            Dealer dealer = Dealer.GetDealer();
+            while (true)
+            {
+                ICard newVultureCard = dealer.GetCard();
+                // TODO call on special method to only get a normal card? :3 uwu
+                if (newVultureCard.GetCardType() == CardType.Normal)
+                {
+                    player._hand.GiveCard(newVultureCard);
+                    Console.WriteLine(player.Name + " drew VultureCard: " + newVultureCard);
+                    break;
+                }
+            }
+            player._hand.RemoveCard(card); // we gain another card so our hand size is 5. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+            player._hand.MaxHandSize++;
+            Console.WriteLine("New max hand size: " + player._hand.MaxHandSize);
+            //Console.WriteLine(this);
+            //break;
+            
         }
 
         private static void HandleJoker(Player player, ICard card)
@@ -139,7 +157,7 @@ namespace PG3302_Eksamen
                         continue;
                     }
                         
-                    if (card.GetCardType() == CardType.Vulture)
+                    /*if (card.GetCardType() == CardType.Vulture)
                     {
                         while (true)
                         {
@@ -156,7 +174,7 @@ namespace PG3302_Eksamen
                         Console.WriteLine("New max hand size: " + _hand.MaxHandSize);
                         Console.WriteLine(this);
                         break;
-                    }
+                    }*/
 
                     /*if (card.GetCardType() == CardType.Quarantine)
                     {
@@ -241,7 +259,7 @@ namespace PG3302_Eksamen
                                 Tuple.Create(numOfHearts, "hearts")
                             }.Max()
                             .Item2;
-                        Console.WriteLine("Max: " + highestSuit);
+                        Console.WriteLine("Joker handling, Max: " + highestSuit);
 
                         switch (highestSuit)
                         {
