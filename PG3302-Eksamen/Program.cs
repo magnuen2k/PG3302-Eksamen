@@ -34,9 +34,8 @@ namespace PG3302_Eksamen
             {
                 Console.WriteLine($"Nope, try again. How many players? ({minPlayers}-{maxPlayers})");
             }
-            Console.WriteLine("Good job u know how to get that input slap");
-            Console.WriteLine("");
-            
+            Console.WriteLine("Good job u know how to get that input slap\n");
+
             Game game = new Game(playerAmount);
             game.Run();
         }
