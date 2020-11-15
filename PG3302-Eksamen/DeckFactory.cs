@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PG3302_Eksamen
 {
-    static class DeckFactory
+    public static class DeckFactory
     {
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
