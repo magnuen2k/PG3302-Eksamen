@@ -44,5 +44,14 @@ namespace PG3302_Eksamen
         {
             return _hand;
         }
+
+        public static void DrawFullHand(Player player)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            for (int i = 0; i < player.Hand.MaxHandSize; i++)
+            {
+                dealer.DrawNormalCard(player);
+            }
+        }
     }
 }

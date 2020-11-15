@@ -20,12 +20,8 @@ namespace PG3302_Eksamen
             }
 
             Console.WriteLine(player.Name + " draws a new hand...");
-                            
-            // draws amount of new cards depending if 
-            for (int i = 0; i < player.Hand.MaxHandSize; i++)
-            {
-                dealer.DrawNormalCard(player);
-            }
+            
+            Hand.DrawFullHand(player);
         }
 
         public static void Quarantine(Player player, ICard card)
