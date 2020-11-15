@@ -15,12 +15,12 @@ namespace PG3302_Eksamen
         public void Run()
         {
             List<Player> players = CreatePlayers();
-
             GameMessages.DebugLog("");
-
             DealInitialHand(players);
-
-            /*GameMessages.DebugLog("");
+            GameMessages.Space();
+            
+            /*
+            GameMessages.DebugLog("");
             // print hands after cards are dealt for console
             foreach (Player player in players)
             {

@@ -4,8 +4,6 @@ namespace PG3302_Eksamen
 {
     public static class GameMessages
     {
-        private static bool _showDebug = false;
-        
         public static void WelcomeMessage()
         {
             Console.WriteLine
@@ -31,7 +29,7 @@ namespace PG3302_Eksamen
 
         public static void SuccessfulInput()
         {
-            Console.WriteLine("Good job u know how to get that input slap\n");
+            Console.WriteLine("Let's play!\n");
         }
 
         public static void DrawCard(string name, ICard card)
@@ -64,9 +62,9 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " returned card: " + card +"\n");
         }
 
-        public static void Vulture(int maxHandSize)
+        public static void Vulture(Player player)
         {
-            Console.WriteLine("New max hand size: " + maxHandSize);
+            Console.WriteLine(player.Name + " new max hand size: " + player.Hand.MaxHandSize);
         }
 
         public static void Bomb(string name)
@@ -92,8 +90,13 @@ namespace PG3302_Eksamen
 
         public static void DebugLog(string log)
         {
-            if (_showDebug)
+            if (GameConfig.Debug)
                 Console.WriteLine(log);
+        }
+
+        public static void Space()
+        {
+            Console.WriteLine("");
         }
     }
 }
