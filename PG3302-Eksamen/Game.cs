@@ -24,7 +24,7 @@ namespace PG3302_Eksamen
                 players.Add(new Player("Player" + (i + 1), i + 1));
             }
 
-            Console.WriteLine("");
+            GameMessages.DebugLog("");
 
             // Deal initial hand to players
             for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
@@ -35,18 +35,18 @@ namespace PG3302_Eksamen
                 }
             }
 
-            Console.WriteLine("");
+            GameMessages.DebugLog("");
             // print hands after cards are dealt for console
             foreach (Player player in players)
             {
-                Console.WriteLine(player);
+                GameMessages.DebugLog(player.ToString());
             }
             
-            Console.WriteLine("");
+            GameMessages.DebugLog("");
             
             // TODO just prints the whole deck at start for debugging
-            Console.WriteLine("Deck: " + dealer.GetDeck());
-            Console.WriteLine("");
+            GameMessages.DebugLog("Deck: " + dealer.GetDeck());
+            GameMessages.DebugLog("");
 
             // Start threads
             for (int i = 0; i < _players; i++)

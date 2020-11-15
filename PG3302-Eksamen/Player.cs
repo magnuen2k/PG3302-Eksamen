@@ -50,12 +50,6 @@ namespace PG3302_Eksamen
                 }
                 
                 dealer.CloseAccess();
-                
-                // To avoid the quarantined player from getting immediate access
-                if (IsQuarantined)
-                {
-                    System.Threading.Thread.Sleep(500);
-                }
             }
             GameMessages.LeavingGame(Name);
             Stop();

@@ -7,9 +7,9 @@ namespace PG3302_Eksamen
     {
         private static Dealer _dealer = null;
 
-        private Deck _deck = null;
-        public Boolean Started { set; get;}
-        public Boolean GameEnded { set; get; }
+        private readonly Deck _deck = null;
+        public bool Started { set; get;}
+        public bool GameEnded { set; get; }
         private int _activePlayer = 0;
         private readonly object _lock;
 
@@ -98,7 +98,7 @@ namespace PG3302_Eksamen
                     continue;
                 }
                 player.AddToHand(card);
-                Console.WriteLine(player.Name + " receives card: " + card);
+                GameMessages.ReceiveCard(player.Name, card);
                 break;
             }
         }

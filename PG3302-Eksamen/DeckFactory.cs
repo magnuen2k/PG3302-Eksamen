@@ -44,8 +44,7 @@ namespace PG3302_Eksamen
                     CardType.Quarantine => new QuarantineCard(card),
                     _ => card
                 };
-                // TODO this is for debugging
-                Console.WriteLine("Assigned " + card.GetValue() + " of " + card.GetSuit() + ", " + card);
+                GameMessages.DebugLog("Assigned " + card.GetValue() + " of " + card.GetSuit() + ", " + card);
             }
         }
 

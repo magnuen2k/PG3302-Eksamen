@@ -7,7 +7,7 @@ namespace PG3302_Eksamen
         public static void Handle(Player player, ICard card)
         {
             player.AddToHand(card);
-            Console.WriteLine(player + " (" + player.Hand.Count() + " cards in hand)"); // TODO this is for debugging
+            GameMessages.DebugLog(player + " (" + player.Hand.Count() + " cards in hand)");
             switch (card.GetCardType())
             {
                 case CardType.Bomb:

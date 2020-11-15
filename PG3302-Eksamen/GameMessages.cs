@@ -4,7 +4,7 @@ namespace PG3302_Eksamen
 {
     public static class GameMessages
     {
-        private static bool _showDebug = true;
+        private static bool _showDebug = false;
         
         public static void WelcomeMessage()
         {
@@ -37,6 +37,11 @@ namespace PG3302_Eksamen
         public static void DrawCard(string name, ICard card)
         {
             Console.WriteLine(name + " drew card: " + card);
+        }
+        
+        public static void ReceiveCard(string name, ICard card)
+        {
+            Console.WriteLine(name + " receives card: " + card);
         }
 
         public static void LeavingGame(string name)
