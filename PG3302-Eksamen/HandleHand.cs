@@ -46,7 +46,7 @@ namespace PG3302_Eksamen
             {
                 if (card.GetCardType() == CardType.Joker)
                 {
-                    var highestSuit = new[]
+                    string highestSuit = new[]
                         {
                             Tuple.Create(numOfDiamonds, "diamonds"),
                             Tuple.Create(numOfSpades, "spades"),
@@ -54,7 +54,7 @@ namespace PG3302_Eksamen
                             Tuple.Create(numOfHearts, "hearts")
                         }.Max()
                         .Item2;
-                    Console.WriteLine("Joker handling, Max: " + highestSuit);
+                    Console.WriteLine("Joker handling, Max: " + highestSuit); // TODO temp for debugging
 
                     switch (highestSuit)
                     {
@@ -85,7 +85,7 @@ namespace PG3302_Eksamen
             // Win condition
             if (numOfDiamonds >= GameConfig.WinConditionCount || numOfClubs >= GameConfig.WinConditionCount || numOfHearts >= GameConfig.WinConditionCount || numOfSpades >= GameConfig.WinConditionCount)
             {
-                Console.WriteLine(player.Name + " won the game with hand: " + player);
+                GameMessages.WinningMessage(player);
                 dealer.GameEnded = true;
             }
             else
@@ -124,7 +124,7 @@ namespace PG3302_Eksamen
                         
                 ICard returnCard = player.Hand.GetHand()[i];
                 HandleCard.RemoveCard(player, returnCard);
-                Console.WriteLine(player.Name + " returned card: " + returnCard + "\n");
+                GameMessages.ReturnCard(player.Name, returnCard);
                 dealer.CloseAccess();
             }
         }

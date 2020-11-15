@@ -6,7 +6,7 @@ namespace PG3302_Eksamen
     {
         public static void Bomb(Player player)
         {
-            Console.WriteLine(player.Name + " has to throw away all his cards :(");
+            GameMessages.Bomb(player.Name);
             Hand.ReturnFullHand(player);
             Hand.DrawNewHand(player);
         }
@@ -16,22 +16,20 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             player.IsQuarantined = true;
             HandleCard.RemoveCard(player, card);
-            Console.WriteLine(player.Name + " is now quarantined!");
-            Console.WriteLine(player.Name + " returned card: " + card +"\n");
+            GameMessages.PlayerGotQuarantined(player.Name);
+            GameMessages.ReturnCard(player.Name, card);
             Game.ShouldWeContinueTheLoop = true;
             dealer.CloseAccess();
         }
-
-
+        
         public static void Vulture(Player player, ICard card)
         {
             Dealer dealer = Dealer.GetDealer();
-            Console.WriteLine("Laying spider mines...");
+            GameMessages.Vulture();
             dealer.DrawNormalCard(player);
             HandleCard.RemoveCard(player, card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
             player.Hand.MaxHandSize++;
-            Console.WriteLine("New max hand size: " + player.Hand.MaxHandSize);
-            Console.WriteLine(player.Name + " returned card: " + card +"\n");
+            GameMessages.ReturnCard(player.Name, card);
             Game.ShouldWeContinueTheLoop = true;
             dealer.CloseAccess(); 
         }

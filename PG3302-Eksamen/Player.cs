@@ -39,7 +39,7 @@ namespace PG3302_Eksamen
                 
                 if (IsQuarantined)
                 {
-                    Console.WriteLine(Name + " is quarantined, sitting out this round :(\n");
+                    GameMessages.PlayerInQuarantine(Name);
                     IsQuarantined = false;
                     dealer.CloseAccess();
                     return;
@@ -47,7 +47,7 @@ namespace PG3302_Eksamen
                 
                 HandleAccessGranted();
             }
-            Console.WriteLine(Name + ": gg");
+            GameMessages.LeavingGame(Name);
             Stop();
         }
 
@@ -56,7 +56,7 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             // Draw card
             ICard newCard = dealer.GetCard();
-            Console.WriteLine(Name + " drew card: " + newCard);
+            GameMessages.DrawCard(Name, newCard);
             HandleCard.Handle(this, newCard);
 
             // Exit condition if we do not wish to consider the hand
