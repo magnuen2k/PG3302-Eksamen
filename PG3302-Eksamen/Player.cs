@@ -104,6 +104,7 @@ namespace PG3302_Eksamen
             Console.WriteLine(player.Name + " returned card: " + card +"\n");
             // TODO this doesn't actually break out of the game loop if (!dealer.GetAccess(this)) continue; in Play()
             // HOW DO WE FIX?
+            Game.shouldWeContinueTheLoop = true;
             dealer.CloseAccess(); // this does nothing! because this 'dealer' is not the one we want to close!!
         }
 
@@ -116,6 +117,8 @@ namespace PG3302_Eksamen
             //dealer.ReturnCard(card); // TODO - allow vulture to go back in deck? but then it needs to be in random spot, or shuffle?
             player._hand.MaxHandSize++;
             Console.WriteLine("New max hand size: " + player._hand.MaxHandSize + "\n");
+            Game.shouldWeContinueTheLoop = true;
+            dealer.CloseAccess(); 
         }
 
         private static void HandleJoker(Player player, ICard card)
@@ -267,6 +270,9 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             while (!dealer.GameEnded)
             {
+
+                
+                
                 if (!dealer.GetAccess(this)) continue;
                 if (IsQuarantined)
                 {
@@ -292,11 +298,12 @@ namespace PG3302_Eksamen
 
                 HandleCard(this, newCard);
 
-                // How do we move this into HandleVulture that effectively stops the code here?? 
-                if (newCard.GetCardType() == CardType.Vulture || newCard.GetCardType() == CardType.Quarantine )
+                // Exit condition if we do not wish to consider the hand
+                // TODO but how can we do this from handleVulture/handleQuarantine directly??
+                if (Game.shouldWeContinueTheLoop)
                 {
-                    dealer.CloseAccess();
-                    return;
+                    Game.shouldWeContinueTheLoop = false;
+                    continue;
                 }
                 
                 HandleHand(this);

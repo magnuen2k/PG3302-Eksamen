@@ -7,6 +7,7 @@ namespace PG3302_Eksamen
     public class Game
     {
         private int _players;
+        public static bool shouldWeContinueTheLoop = false;
 
         public Game(int players)
         {
