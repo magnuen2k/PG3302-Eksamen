@@ -27,5 +27,12 @@ namespace PG3302_Eksamen
                     throw new NotImplementedException("You drew a card with a type that cannot be handled. Code needs review.");
             }
         }
+        
+        public static void RemoveCard(Player player, ICard card)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            dealer.ReturnCard(card);
+            player.Hand.RemoveCard(card);
+        }
     }
 }
