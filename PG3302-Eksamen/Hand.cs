@@ -65,7 +65,7 @@ namespace PG3302_Eksamen
                 if (card.GetCardType() == CardType.Normal)
                     dealer.ReturnCard(card);
                 else
-                    dealer.ReturnSpecialCard(card);
+                    dealer.ReturnCard(card);
                 
                 player.Hand.RemoveCard(card);
                 Console.WriteLine(player.Name + " returned card: " + card);

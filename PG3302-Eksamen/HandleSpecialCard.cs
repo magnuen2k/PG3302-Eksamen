@@ -15,7 +15,7 @@ namespace PG3302_Eksamen
         {
             Dealer dealer = Dealer.GetDealer();
             player.IsQuarantined = true;
-            dealer.ReturnSpecialCard(card);
+            dealer.ReturnCard(card);
             player.Hand.RemoveCard(card);
             Console.WriteLine(player.Name + " is now quarantined!");
             Console.WriteLine(player.Name + " returned card: " + card +"\n");
@@ -28,7 +28,7 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             Console.WriteLine("Laying spider mines...");
             dealer.DrawNormalCard(player);
-            dealer.ReturnSpecialCard(card);
+            dealer.ReturnCard(card);
             player.Hand.RemoveCard(card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
             player.Hand.MaxHandSize++;
             Console.WriteLine("New max hand size: " + player.Hand.MaxHandSize);
