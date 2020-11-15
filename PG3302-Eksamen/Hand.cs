@@ -49,7 +49,7 @@ namespace PG3302_Eksamen
         public static void DrawNewHand(Player player)
         {
             Dealer dealer = Dealer.GetDealer();
-            Console.WriteLine(player.Name + " draws a new hand...");
+            GameMessages.DrawNewHand(player.Name);
             for (int i = 0; i < player.Hand.MaxHandSize; i++)
             {
                 dealer.DrawNormalCard(player);
@@ -68,7 +68,6 @@ namespace PG3302_Eksamen
                     dealer.ReturnCard(card);
                 
                 player.Hand.RemoveCard(card);
-                Console.WriteLine(player.Name + " returned card: " + card);
             }
         }
     }

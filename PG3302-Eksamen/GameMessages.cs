@@ -71,6 +71,10 @@ namespace PG3302_Eksamen
         {
             Console.WriteLine(player.Name + " won the game with hand: " + player);
         }
-        
+
+        public static void DrawNewHand(string name)
+        {
+            Console.WriteLine(name + " draws a new hand...");
+        }
     }
 }

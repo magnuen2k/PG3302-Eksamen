@@ -55,8 +55,7 @@ namespace PG3302_Eksamen
         {
             Dealer dealer = Dealer.GetDealer();
             // Draw card
-            ICard newCard = dealer.GetCard();
-            GameMessages.DrawCard(Name, newCard);
+            ICard newCard = DrawCard();
             HandleCard.Handle(this, newCard);
 
             // Exit condition if we do not wish to consider the hand
@@ -68,6 +67,14 @@ namespace PG3302_Eksamen
             }
 
             HandleHand.Handle(this);
+        }
+
+        private ICard DrawCard()
+        {
+            Dealer dealer = Dealer.GetDealer();
+            ICard newCard = dealer.GetCard();
+            GameMessages.DrawCard(Name, newCard);
+            return newCard;
         }
     }
 }
