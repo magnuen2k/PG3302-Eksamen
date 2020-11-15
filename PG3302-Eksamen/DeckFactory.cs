@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PG3302_Eksamen
 {
-    static class DeckFactory
+    public static class DeckFactory
     {
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
@@ -44,8 +44,7 @@ namespace PG3302_Eksamen
                     CardType.Quarantine => new QuarantineCard(card),
                     _ => card
                 };
-                // TODO this is for debugging
-                Console.WriteLine("Assigned " + card.GetValue() + " of " + card.GetSuit() + ", " + card);
+                GameMessages.DebugLog("Assigned " + card.GetValue() + " of " + card.GetSuit() + ", " + card);
             }
         }
 

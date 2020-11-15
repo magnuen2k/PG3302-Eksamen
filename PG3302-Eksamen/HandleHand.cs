@@ -7,126 +7,27 @@ namespace PG3302_Eksamen
     {
         public static void Handle(Player player)
         {
- 
-            // Where is the best place to declare this to make them useable everywhere?
-            int numOfDiamonds = 0;
-            int numOfSpades = 0;
-            int numOfClubs = 0;
-            int numOfHearts = 0;
-            
-            foreach (ICard card in player.Hand.GetHand())
-            {
-                // Ignore special cards when counting
-                // In a scenario where special card would count for max suit count, this would need adjustment
-                if (card.GetCardType() != CardType.Normal)
-                {
-                    continue;
-                }
-
-                switch (card.GetSuit())
-                {
-                    case Suit.Clubs:
-                        numOfClubs++;
-                        break;
-                    case Suit.Diamonds:
-                        numOfDiamonds++;
-                        break;
-                    case Suit.Hearts:
-                        numOfHearts++;
-                        break;
-                    case Suit.Spades:
-                        numOfSpades++;
-                        break;
-                    default:
-                        throw new NotImplementedException("You tried to handle a card with a suit that's not considered. Code needs review.");
-                }
-            }
-            
-            foreach (ICard card in player.Hand.GetHand())
-            {
-                if (card.GetCardType() == CardType.Joker)
-                {
-                    string highestSuit = new[]
-                        {
-                            Tuple.Create(numOfDiamonds, "diamonds"),
-                            Tuple.Create(numOfSpades, "spades"),
-                            Tuple.Create(numOfClubs, "clubs"),
-                            Tuple.Create(numOfHearts, "hearts")
-                        }.Max()
-                        .Item2;
-                    Console.WriteLine("Joker handling, Max: " + highestSuit); // TODO temp for debugging
-
-                    switch (highestSuit)
-                    {
-                        case "diamonds":
-                            numOfDiamonds++;
-                            card.SetSuit(Suit.Diamonds);
-                            break;
-                        case "spades":
-                            numOfSpades++;
-                            card.SetSuit(Suit.Spades);
-                            break;
-                        case "clubs":
-                            numOfClubs++;
-                            card.SetSuit(Suit.Clubs);
-                            break;
-                        case "hearts":
-                            numOfHearts++;
-                            card.SetSuit(Suit.Hearts);
-                            break;
-                    }
-                }
-            }
-            
-            Console.WriteLine(player.Name + ": Spades: " + numOfSpades + ", Clubs: " + numOfClubs + ", Diamonds: " + numOfDiamonds + ", Hearts: " + numOfHearts); // TODO: temp for debugging
-            
             Dealer dealer = Dealer.GetDealer();
+            int bestSuitCount = player.Hand.BestSuitCount();
+            
+            if (player.Hand.HasJoker)
+                bestSuitCount++;
+            
+            GameMessages.DebugLog(player.Name + ": Spades: " + player.Hand.NumOfSpades + ", Clubs: " + player.Hand.NumOfClubs + ", Diamonds: " + player.Hand.NumOfDiamonds + ", Hearts: " + player.Hand.NumOfHearts); // TODO: temp for debugging
+            GameMessages.DebugLog(player.Hand.BestSuit() + " - " + bestSuitCount + " (Including joker if u have)");
             
             // Win condition
-            if (numOfDiamonds >= GameConfig.WinConditionCount || numOfClubs >= GameConfig.WinConditionCount || numOfHearts >= GameConfig.WinConditionCount || numOfSpades >= GameConfig.WinConditionCount)
-            {
-                GameMessages.WinningMessage(player);
-                dealer.GameEnded = true;
-            }
-            else
-            {
-                int minCount = 100;
-                Suit minSuit = player.Hand.GetHand()[0].GetSuit(); //??
-                if (numOfDiamonds > 0 && numOfDiamonds < minCount)
-                {
-                    minCount = numOfDiamonds;
-                    minSuit = Suit.Diamonds;
-                }
-                        
-                if (numOfClubs > 0 && numOfClubs < minCount)
-                {
-                    minCount = numOfClubs;
-                    minSuit = Suit.Clubs;
-                }
-                        
-                if (numOfHearts > 0 && numOfHearts < minCount)
-                {
-                    minCount = numOfHearts;
-                    minSuit = Suit.Hearts;
-                }
-                        
-                if (numOfSpades > 0 && numOfSpades < minCount)
-                {
-                    minCount = numOfSpades;
-                    minSuit = Suit.Spades;
-                }
-                
-                int i = 0;
-                while (player.Hand.GetHand()[i].GetSuit() != minSuit)
-                {
-                    i++;
-                }
-                        
-                ICard returnCard = player.Hand.GetHand()[i];
-                HandleCard.RemoveCard(player, returnCard);
-                GameMessages.ReturnCard(player.Name, returnCard);
-                dealer.CloseAccess();
-            }
+            if (bestSuitCount >= GameConfig.WinConditionCount)
+                dealer.ClaimVictory(player);
+            else if (!player.IsQuarantined && !player.DrewVulture)
+                ReturnCard(player);
+        }
+
+        private static void ReturnCard(Player player)
+        {
+            ICard returnCard = player.Hand.CardOfWorstSuit();
+            HandleCard.RemoveCard(player, returnCard);
+            GameMessages.ReturnCard(player.Name, returnCard);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace PG3302_Eksamen
     {
         private static Dealer _dealer = null;
 
-        private Deck _deck = null;
-        public Boolean Started { set; get;}
-        public Boolean GameEnded { set; get; }
+        private readonly Deck _deck = null;
+        public bool Started { set; get;}
+        public bool GameEnded { set; get; }
         private int _activePlayer = 0;
         private readonly object _lock;
 
@@ -30,16 +30,20 @@ namespace PG3302_Eksamen
             return _dealer;
         }
 
-        public Boolean GetAccess(Player player)
+        private void RandomSleep()
         {
-            // TODO add this to its own method?
-            // Each thread sleeps a random number of milliseconds to randomize access
             Random r = new Random();
             Thread.Sleep(r.Next(100));
+        }
+
+        public Boolean GetAccess(Player player)
+        {
+            // Each thread sleeps a random number of milliseconds to randomize access
+            RandomSleep();
             
             lock (_lock)
             {
-                if (!Started)
+                if (!Started || GameEnded)
                     return false;
                 
                 if (_activePlayer != 0 && _activePlayer != player.Id)
@@ -94,9 +98,15 @@ namespace PG3302_Eksamen
                     continue;
                 }
                 player.AddToHand(card);
-                Console.WriteLine(player.Name + " receives card: " + card);
+                GameMessages.ReceiveCard(player.Name, card);
                 break;
             }
+        }
+
+        public void ClaimVictory(Player player)
+        {
+            GameMessages.WinningMessage(player);
+            GameEnded = true;
         }
     }
 }

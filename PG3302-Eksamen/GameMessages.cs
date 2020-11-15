@@ -29,12 +29,17 @@ namespace PG3302_Eksamen
 
         public static void SuccessfulInput()
         {
-            Console.WriteLine("Good job u know how to get that input slap\n");
+            Console.WriteLine("Let's play!\n");
         }
 
         public static void DrawCard(string name, ICard card)
         {
             Console.WriteLine(name + " drew card: " + card);
+        }
+        
+        public static void ReceiveCard(string name, ICard card)
+        {
+            Console.WriteLine(name + " receives card: " + card);
         }
 
         public static void LeavingGame(string name)
@@ -57,9 +62,9 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " returned card: " + card +"\n");
         }
 
-        public static void Vulture(int maxHandSize)
+        public static void Vulture(Player player)
         {
-            Console.WriteLine("New max hand size: " + maxHandSize);
+            Console.WriteLine(player.Name + " new max hand size: " + player.Hand.MaxHandSize);
         }
 
         public static void Bomb(string name)
@@ -75,6 +80,23 @@ namespace PG3302_Eksamen
         public static void DrawNewHand(string name)
         {
             Console.WriteLine(name + " draws a new hand...");
+        }
+
+        public static void GameEnded()
+        {
+            Console.Write("\n\nPress any key to continue...");
+            Console.ReadKey(true);
+        }
+
+        public static void DebugLog(string log)
+        {
+            if (GameConfig.Debug)
+                Console.WriteLine(log);
+        }
+
+        public static void Space()
+        {
+            Console.WriteLine("");
         }
     }
 }

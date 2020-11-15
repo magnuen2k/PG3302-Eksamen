@@ -6,7 +6,6 @@ namespace PG3302_Eksamen
     public class Game
     {
         private readonly int _players;
-        public static bool ShouldWeContinueTheLoop = false;
 
         public Game(int players)
         {
@@ -15,47 +14,58 @@ namespace PG3302_Eksamen
 
         public void Run()
         {
-            // create the dealer
-            Dealer dealer = Dealer.GetDealer();
+            List<Player> players = CreatePlayers();
+            GameMessages.DebugLog("");
+            DealInitialHand(players);
+            GameMessages.Space();
             
-            // Create players
+            /*
+            GameMessages.DebugLog("");
+            // print hands after cards are dealt for console
+            foreach (Player player in players)
+            {
+                GameMessages.DebugLog(player.ToString());
+            }
+            
+            GameMessages.DebugLog("");
+            GameMessages.DebugLog("Deck: " + dealer.GetDeck());
+            GameMessages.DebugLog("");*/
+
+            StartGame(players);
+        }
+
+        private void StartGame(List<Player> players)
+        {
+            Dealer dealer = Dealer.GetDealer();
+
+            for (int i = 0; i < _players; i++)
+            {
+                players[i].Start();
+            }
+            dealer.Started = true;
+        }
+
+        private void DealInitialHand(List<Player> players)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
+            {
+                foreach (Player player in players)
+                {
+                    dealer.DrawNormalCard(player);
+                }
+            }
+        }
+
+        private List<Player> CreatePlayers()
+        {
             List<Player> players = new List<Player>();
             for (int i = 0; i < _players; i++)
             {
                 players.Add(new Player("Player" + (i + 1), i + 1));
             }
 
-            Console.WriteLine("");
-
-            // Deal initial hand to players
-            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
-            {
-                foreach (Player player in players)
-                {
-                   dealer.DrawNormalCard(player);
-                }
-            }
-
-            Console.WriteLine("");
-            // print hands after cards are dealt for console
-            foreach (Player player in players)
-            {
-                Console.WriteLine(player);
-            }
-            
-            Console.WriteLine("");
-            
-            // TODO just prints the whole deck at start for debugging
-            Console.WriteLine("Deck: " + dealer.GetDeck());
-            Console.WriteLine("");
-
-            // Start threads
-            for (int i = 0; i < _players; i++)
-            {
-                players[i].Start();
-            }
-
-            dealer.Started = true;
+            return players;
         }
     }
 }
