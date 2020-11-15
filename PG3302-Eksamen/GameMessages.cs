@@ -84,6 +84,12 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " draws a new hand...");
         }
 
+        public static void GameEnded()
+        {
+            Console.Write("\n\nPress any key to continue...");
+            Console.ReadKey(true);
+        }
+
         public static void DebugLog(string log)
         {
             if (_showDebug)

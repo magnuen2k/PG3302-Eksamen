@@ -14,28 +14,13 @@ namespace PG3302_Eksamen
 
         public void Run()
         {
-            // create the dealer
-            Dealer dealer = Dealer.GetDealer();
-            
-            // Create players
-            List<Player> players = new List<Player>();
-            for (int i = 0; i < _players; i++)
-            {
-                players.Add(new Player("Player" + (i + 1), i + 1));
-            }
+            List<Player> players = CreatePlayers();
 
             GameMessages.DebugLog("");
 
-            // Deal initial hand to players
-            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
-            {
-                foreach (Player player in players)
-                {
-                   dealer.DrawNormalCard(player);
-                }
-            }
+            DealInitialHand(players);
 
-            GameMessages.DebugLog("");
+            /*GameMessages.DebugLog("");
             // print hands after cards are dealt for console
             foreach (Player player in players)
             {
@@ -43,18 +28,44 @@ namespace PG3302_Eksamen
             }
             
             GameMessages.DebugLog("");
-            
-            // TODO just prints the whole deck at start for debugging
             GameMessages.DebugLog("Deck: " + dealer.GetDeck());
-            GameMessages.DebugLog("");
+            GameMessages.DebugLog("");*/
 
-            // Start threads
+            StartGame(players);
+        }
+
+        private void StartGame(List<Player> players)
+        {
+            Dealer dealer = Dealer.GetDealer();
+
             for (int i = 0; i < _players; i++)
             {
                 players[i].Start();
             }
-
             dealer.Started = true;
+        }
+
+        private void DealInitialHand(List<Player> players)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
+            {
+                foreach (Player player in players)
+                {
+                    dealer.DrawNormalCard(player);
+                }
+            }
+        }
+
+        private List<Player> CreatePlayers()
+        {
+            List<Player> players = new List<Player>();
+            for (int i = 0; i < _players; i++)
+            {
+                players.Add(new Player("Player" + (i + 1), i + 1));
+            }
+
+            return players;
         }
     }
 }
