@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace PG3302_Eksamen
 {
     public class Game
     {
-        private int _players;
+        private readonly int _players;
+        public static bool ShouldWeContinueTheLoop = false;
 
         public Game(int players)
         {
@@ -24,9 +24,11 @@ namespace PG3302_Eksamen
             {
                 players.Add(new Player("Player" + (i + 1), i + 1));
             }
-            
+
+            Console.WriteLine("");
+
             // Deal initial hand to players
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
             {
                 foreach (Player player in players)
                 {
@@ -40,9 +42,12 @@ namespace PG3302_Eksamen
             {
                 Console.WriteLine(player);
             }
-
+            
             Console.WriteLine("");
-
+            
+            // TODO just prints the whole deck at start for debugging
+            Console.WriteLine("Deck: " + dealer.GetDeck());
+            Console.WriteLine("");
 
             // Start threads
             for (int i = 0; i < _players; i++)

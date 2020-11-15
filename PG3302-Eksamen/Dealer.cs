@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace PG3302_Eksamen
@@ -17,9 +16,7 @@ namespace PG3302_Eksamen
         private Dealer()
         {
             _lock = new object();
-            _deck = new Deck();
-            _deck.GenerateDeck();
-            Console.WriteLine("HER KOMMER STOKKEN: " + _deck);
+            _deck = DeckFactory.CreateDeck();
             Started = false;
             GameEnded = false;
         }
@@ -49,27 +46,28 @@ namespace PG3302_Eksamen
                     return false;
                 
                 // Make each thread sleep before playing round
-                Thread.Sleep(500);
+                Thread.Sleep(GameConfig.GameSpeed);
                 _activePlayer = player.Id;
                 return true;
             }
         }
         
-
         public ICard GetCard()
         {
-            lock (_lock)
-            {
-                return _deck.GetNextCard();
-            }
+            return _deck.GetNextCard();
         }
         public void ReturnCard(ICard card)
         {
-            
-            lock (_lock)
-            {
+            if (card.GetCardType() != CardType.Normal)
+                ReturnSpecialCard(card);
+            else
                 _deck.RestoreCard(card);
-            }
+        }
+
+        private void ReturnSpecialCard(ICard card)
+        {
+            Random r = new Random();
+            _deck.RestoreCard(card, r.Next(_deck.Size()));
         }
 
         public Deck GetDeck()
@@ -90,8 +88,12 @@ namespace PG3302_Eksamen
             while (true)
             {
                 ICard card = GetCard();
-                if (card.GetCardType() != CardType.Normal) continue;
-                player.TakeCard(card);
+                if (card.GetCardType() != CardType.Normal)
+                {
+                    ReturnSpecialCard(card);
+                    continue;
+                }
+                player.AddToHand(card);
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;
             }

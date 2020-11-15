@@ -10,33 +10,15 @@ namespace PG3302_Eksamen
     {
         static void Main(string[] args)
         {
-            //These values could be changed if you want to add fewer or more players
-            const int minPlayers = 2;
-            const int maxPlayers = 4;                     
-                                    
-            Console.WriteLine
-            ("  ,___________________________________\n" +
-             " /      _____ _  _       poki <3      \\\n" +
-             "||     / ____| || |                   ||\n" +
-             "||    | |    | || |_                  ||\n" +
-             "||    | |    |__   _|                 ||\n" +
-             "||    | |____   | |      The game!    ||\n" +
-             "||     \\_____|  |_|                   ||\n" +
-             " \\   ______________________________  //\n" +
-             "  -=|          by Team RP          |=-\n" +
-             "    |______________________________|\n" +
-             "Hi, and welcome to this wonderful card game! :3\n" +
-             $"How many players? ({minPlayers}-{maxPlayers})"
-            );
+            GameMessages.WelcomeMessage();
             
             int playerAmount;
-            while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= minPlayers && playerAmount <= maxPlayers))
+            while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= GameConfig.MinPlayers && playerAmount <= GameConfig.MaxPlayers))
             {
-                Console.WriteLine($"Nope, try again. How many players? ({minPlayers}-{maxPlayers})");
+                GameMessages.PlayerLimit();
             }
-            Console.WriteLine("Good job u know how to get that input slap");
-            Console.WriteLine("");
-            
+            GameMessages.SuccessfulInput();
+
             Game game = new Game(playerAmount);
             game.Run();
         }

@@ -7,14 +7,13 @@ namespace PG3302_Eksamen
     {
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
-        private static readonly List<int> RanNums = new List<int>();
 
-        public static List<ICard> CreateDeck()
+        public static Deck CreateDeck()
         {
             GenerateNormalCards();
             GenerateSpecialCards();
             Shuffle(Cards);
-            return Cards;
+            return new Deck(Cards);
         }
 
         private static void GenerateNormalCards()
@@ -37,16 +36,16 @@ namespace PG3302_Eksamen
                 
                 ICard card = GetRandomCard();
 
-                if (type == CardType.Joker)
-                    card = new JokerCard(card);
-                else if (type == CardType.Bomb)
-                    card = new BombCard(card);
-                else if (type == CardType.Vulture)
-                    card = new VultureCard(card);
-                else if (type == CardType.Quarantine)
-                    card = new QuarantineCard(card);
-
-                Console.WriteLine(card + " " + card.GetSuit() + " " + card.GetValue());
+                card = type switch
+                {
+                    CardType.Joker => new JokerCard(card),
+                    CardType.Bomb => new BombCard(card),
+                    CardType.Vulture => new VultureCard(card),
+                    CardType.Quarantine => new QuarantineCard(card),
+                    _ => card
+                };
+                // TODO this is for debugging
+                Console.WriteLine("Assigned " + card.GetValue() + " of " + card.GetSuit() + ", " + card);
             }
         }
 
@@ -55,10 +54,8 @@ namespace PG3302_Eksamen
             while (true)
             {
                 int num = Rng.Next(Cards.Count);
-                if (RanNums.Contains(num)) continue;
-                ICard card = Cards[num];
-                RanNums.Add(num);
-                return card;
+                if (Cards[num].GetCardType() == CardType.Normal)
+                    return Cards[num];
             }
         }
         

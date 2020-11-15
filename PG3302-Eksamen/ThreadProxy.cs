@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace PG3302_Eksamen
 {
-    internal abstract class ThreadProxy {
+    public abstract class ThreadProxy {
         private readonly Thread _thread;
         private bool _running;
 

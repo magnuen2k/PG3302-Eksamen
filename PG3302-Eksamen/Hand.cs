@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace PG3302_Eksamen
 {
-    class Hand
+    public class Hand
     {
         private readonly List<ICard> _hand;
         public int MaxHandSize { get; set; }
@@ -11,10 +12,9 @@ namespace PG3302_Eksamen
         public Hand()
         {
             _hand = new List<ICard>();
-            MaxHandSize = 4;
+            MaxHandSize = GameConfig.DefaultMaxHandSize;
         }
-
-
+        
         public override string ToString()
         {
             StringBuilder hand = new StringBuilder();
@@ -44,6 +44,31 @@ namespace PG3302_Eksamen
         public List<ICard> GetHand()
         {
             return _hand;
+        }
+
+        public static void DrawNewHand(Player player)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            GameMessages.DrawNewHand(player.Name);
+            for (int i = 0; i < player.Hand.MaxHandSize; i++)
+            {
+                dealer.DrawNormalCard(player);
+            }
+        }
+        
+        public static void ReturnFullHand(Player player)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            for (int i = player.Hand.Count() - 1; i >= 0; i--)
+            {
+                ICard card = player.Hand.GetHand()[i];
+                if (card.GetCardType() == CardType.Normal)
+                    dealer.ReturnCard(card);
+                else
+                    dealer.ReturnCard(card);
+                
+                player.Hand.RemoveCard(card);
+            }
         }
     }
 }
