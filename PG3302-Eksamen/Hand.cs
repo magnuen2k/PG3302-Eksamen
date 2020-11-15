@@ -61,10 +61,14 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             for (int i = player.Hand.Count() - 1; i >= 0; i--)
             {
-                ICard c = player.Hand.GetHand()[i];
-                dealer.ReturnCard(c);
-                player.Hand.RemoveCard(c);
-                Console.WriteLine(player.Name + " returned card: " + c);
+                ICard card = player.Hand.GetHand()[i];
+                if (card.GetCardType() == CardType.Normal)
+                    dealer.ReturnCard(card);
+                else
+                    dealer.ReturnSpecialCard(card);
+                
+                player.Hand.RemoveCard(card);
+                Console.WriteLine(player.Name + " returned card: " + card);
             }
         }
     }

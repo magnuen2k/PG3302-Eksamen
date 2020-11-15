@@ -87,7 +87,7 @@ namespace PG3302_Eksamen
                 ICard card = GetCard();
                 if (card.GetCardType() != CardType.Normal)
                 {
-                    ReturnCard(card);
+                    ReturnSpecialCard(card);
                     continue;
                 }
                 player.AddToHand(card);
