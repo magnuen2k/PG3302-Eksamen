@@ -30,7 +30,7 @@ namespace PG3302_Eksamen
         {
             StringBuilder hand = new StringBuilder();
             
-            foreach (var c in _hand)
+            foreach (ICard c in _hand)
             {
                 hand.Append(c + ", ");
             }
