@@ -57,6 +57,10 @@ namespace PG3302_Eksamen
                 }
                 
                 HandleHand.Handle(this);
+                
+                // TODO temp debugging: prints out deck after each player has played
+                Console.WriteLine("Deck: " + dealer.GetDeck());
+                Console.WriteLine("");
             }
             Console.WriteLine(Name + " leaving game");
             Stop();

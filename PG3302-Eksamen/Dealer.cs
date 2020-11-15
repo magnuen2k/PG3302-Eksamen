@@ -58,9 +58,13 @@ namespace PG3302_Eksamen
         }
         public void ReturnCard(ICard card)
         {
-
             _deck.RestoreCard(card);
-  
+        }
+
+        public void ReturnSpecialCard(ICard card)
+        {
+            Random r = new Random();
+            _deck.RestoreCard(card, r.Next(_deck.Size()));
         }
 
         public Deck GetDeck()

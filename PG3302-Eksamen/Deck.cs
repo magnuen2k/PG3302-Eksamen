@@ -17,6 +17,11 @@ namespace PG3302_Eksamen
         {
             _cards = cards;
         }
+
+        public int Size()
+        {
+            return _cards.Count;
+        }
         
         public ICard GetNextCard()
         {
@@ -28,6 +33,11 @@ namespace PG3302_Eksamen
         public void RestoreCard(ICard card)
         {
             _cards.Add(card);
+        }
+
+        public void RestoreCard(ICard card, int position)
+        {
+            _cards.Insert(position, card);
         }
 
         public override string ToString()

@@ -44,6 +44,8 @@ namespace PG3302_Eksamen
             }
             
             Console.WriteLine("");
+            
+            // TODO just prints the whole deck at start for debugging
             Console.WriteLine("Deck: " + dealer.GetDeck());
             Console.WriteLine("");
 
