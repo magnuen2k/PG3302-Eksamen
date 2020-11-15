@@ -4,6 +4,8 @@ namespace PG3302_Eksamen
 {
     public static class GameMessages
     {
+        private static bool _showDebug = true;
+        
         public static void WelcomeMessage()
         {
             Console.WriteLine
@@ -75,6 +77,12 @@ namespace PG3302_Eksamen
         public static void DrawNewHand(string name)
         {
             Console.WriteLine(name + " draws a new hand...");
+        }
+
+        public static void DebugLog(string log)
+        {
+            if (_showDebug)
+                Console.WriteLine(log);
         }
     }
 }

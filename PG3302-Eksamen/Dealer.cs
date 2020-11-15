@@ -30,12 +30,16 @@ namespace PG3302_Eksamen
             return _dealer;
         }
 
-        public Boolean GetAccess(Player player)
+        private void RandomSleep()
         {
-            // TODO add this to its own method?
-            // Each thread sleeps a random number of milliseconds to randomize access
             Random r = new Random();
             Thread.Sleep(r.Next(100));
+        }
+
+        public Boolean GetAccess(Player player)
+        {
+            // Each thread sleeps a random number of milliseconds to randomize access
+            RandomSleep();
             
             lock (_lock)
             {
@@ -97,6 +101,12 @@ namespace PG3302_Eksamen
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;
             }
+        }
+
+        public void ClaimVictory(Player player)
+        {
+            GameMessages.WinningMessage(player);
+            GameEnded = true;
         }
     }
 }

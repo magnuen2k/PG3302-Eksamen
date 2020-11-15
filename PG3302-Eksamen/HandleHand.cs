@@ -13,25 +13,21 @@ namespace PG3302_Eksamen
             if (player.Hand.HasJoker)
                 bestSuitCount++;
             
-            
-            Console.WriteLine(player.Name + ": Spades: " + player.Hand.NumOfSpades + ", Clubs: " + player.Hand.NumOfClubs + ", Diamonds: " + player.Hand.NumOfDiamonds + ", Hearts: " + player.Hand.NumOfHearts); // TODO: temp for debugging
-            Console.WriteLine(player.Hand.BestSuit() + " - " + bestSuitCount + " (Including joker if u have)");
+            GameMessages.DebugLog(player.Name + ": Spades: " + player.Hand.NumOfSpades + ", Clubs: " + player.Hand.NumOfClubs + ", Diamonds: " + player.Hand.NumOfDiamonds + ", Hearts: " + player.Hand.NumOfHearts); // TODO: temp for debugging
+            GameMessages.DebugLog(player.Hand.BestSuit() + " - " + bestSuitCount + " (Including joker if u have)");
             
             // Win condition
             if (bestSuitCount >= GameConfig.WinConditionCount)
-            {
-                GameMessages.WinningMessage(player);
-                dealer.GameEnded = true;
-            }
-            else
-            {
-                if (player.IsQuarantined == false && player.DrewVulture == false)
-                {
-                    ICard returnCard = player.Hand.CardOfWorstSuit();
-                    HandleCard.RemoveCard(player, returnCard);
-                    GameMessages.ReturnCard(player.Name, returnCard);
-                }
-            }
+                dealer.ClaimVictory(player);
+            else if (!player.IsQuarantined && !player.DrewVulture)
+                ReturnCard(player);
+        }
+
+        private static void ReturnCard(Player player)
+        {
+            ICard returnCard = player.Hand.CardOfWorstSuit();
+            HandleCard.RemoveCard(player, returnCard);
+            GameMessages.ReturnCard(player.Name, returnCard);
         }
     }
 }
