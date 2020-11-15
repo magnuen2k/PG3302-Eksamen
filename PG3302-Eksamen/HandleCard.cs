@@ -6,8 +6,8 @@ namespace PG3302_Eksamen
     {
         public static void Handle(Player player, ICard card)
         {
-            // TODO why does the line above not work?
-            //player.Hand.GiveCard(card);
+            player.AddToHand(card);
+            Console.WriteLine(player + " (" + player.Hand.Count() + " cards in hand)"); // TODO this is for debugging
             switch (card.GetCardType())
             {
                 case CardType.Bomb:

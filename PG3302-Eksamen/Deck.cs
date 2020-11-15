@@ -38,7 +38,6 @@ namespace PG3302_Eksamen
             {
                 hand.Append(card.GetValue() + " of " + card.GetSuit() + " of type " + card.GetCardType() + ", ");
             }
-        
             return hand.ToString();
         }
     }

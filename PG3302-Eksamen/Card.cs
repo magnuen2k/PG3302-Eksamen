@@ -8,8 +8,8 @@ namespace PG3302_Eksamen
 
         public Card(Suit suit, Value value)
         {
-            this._suit = suit;
-            this._value = value;
+            _suit = suit;
+            _value = value;
             _cardType = CardType.Normal;
         }
 
@@ -44,7 +44,7 @@ namespace PG3302_Eksamen
             {
                 return "The " + _cardType;
             }
-            return _value + " of " + _suit + " with type " + _cardType;
+            return _value + " of " + _suit;// + " with type " + _cardType;
         }
     }
 }

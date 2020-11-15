@@ -45,11 +45,7 @@ namespace PG3302_Eksamen
                 
                 // Draw card
                 ICard newCard = dealer.GetCard();
-                Hand.GiveCard(newCard); // Move this into HandleCard.Handle?
-                Console.WriteLine(Name + " drew card: " + newCard);
-
-                Console.WriteLine(this + " (" + Hand.Count() + " cards in hand)"); // TODO this is for debugging
-
+                Console.WriteLine(Name + " drew card: " + newCard); // TODO add this to player.AddToHand ?
                 HandleCard.Handle(this, newCard);
 
                 // Exit condition if we do not wish to consider the hand
