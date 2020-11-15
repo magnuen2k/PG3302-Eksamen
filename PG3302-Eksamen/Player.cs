@@ -34,7 +34,9 @@ namespace PG3302_Eksamen
             Dealer dealer = Dealer.GetDealer();
             while (!dealer.GameEnded)
             {
-                if (!dealer.GetAccess(this)) continue;
+                if (!dealer.GetAccess(this)) 
+                    continue;
+                
                 if (IsQuarantined)
                 {
                     Console.WriteLine(Name + " is quarantined, sitting out this round :(\n");
@@ -43,27 +45,29 @@ namespace PG3302_Eksamen
                     return;
                 }
                 
-                // Draw card
-                ICard newCard = dealer.GetCard();
-                Console.WriteLine(Name + " drew card: " + newCard); // TODO add this to player.AddToHand ?
-                HandleCard.Handle(this, newCard);
-
-                // Exit condition if we do not wish to consider the hand
-                // TODO but how can we do this from handleVulture/handleQuarantine directly??
-                if (Game.ShouldWeContinueTheLoop)
-                {
-                    Game.ShouldWeContinueTheLoop = false;
-                    continue;
-                }
-                
-                HandleHand.Handle(this);
-                
-                // TODO temp debugging: prints out deck after each player has played
-                //Console.WriteLine("Deck: " + dealer.GetDeck());
-                //Console.WriteLine("");
+                HandleAccessGranted();
             }
-            Console.WriteLine(Name + " leaving game");
+            Console.WriteLine(Name + ": gg");
             Stop();
+        }
+
+        private void HandleAccessGranted()
+        {
+            Dealer dealer = Dealer.GetDealer();
+            // Draw card
+            ICard newCard = dealer.GetCard();
+            Console.WriteLine(Name + " drew card: " + newCard);
+            HandleCard.Handle(this, newCard);
+
+            // Exit condition if we do not wish to consider the hand
+            // TODO but how can we do this from handleVulture/handleQuarantine directly??
+            if (Game.ShouldWeContinueTheLoop)
+            {
+                Game.ShouldWeContinueTheLoop = false;
+                return;
+            }
+
+            HandleHand.Handle(this);
         }
     }
 }
