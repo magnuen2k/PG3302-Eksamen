@@ -46,6 +46,7 @@ namespace PG3302_Eksamen
                 }
                 
                 HandleAccessGranted();
+                //dealer.CloseAccess();
             }
             GameMessages.LeavingGame(Name);
             Stop();
@@ -53,7 +54,6 @@ namespace PG3302_Eksamen
 
         private void HandleAccessGranted()
         {
-            Dealer dealer = Dealer.GetDealer();
             // Draw card
             ICard newCard = DrawCard();
             HandleCard.Handle(this, newCard);

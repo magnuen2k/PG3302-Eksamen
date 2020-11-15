@@ -7,7 +7,6 @@ namespace PG3302_Eksamen
         public static void Bomb(Player player)
         {
             GameMessages.Bomb(player.Name);
-            Hand.ReturnFullHand(player);
             Hand.DrawNewHand(player);
         }
 
