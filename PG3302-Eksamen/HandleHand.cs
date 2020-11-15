@@ -5,9 +5,6 @@ namespace PG3302_Eksamen
 {
     public static class HandleHand
     {
-
-        
-        
         public static void Handle(Player player)
         {
             Dealer dealer = Dealer.GetDealer();
@@ -28,10 +25,12 @@ namespace PG3302_Eksamen
             }
             else
             {
-                ICard returnCard = player.Hand.CardOfWorstSuit();
-                HandleCard.RemoveCard(player, returnCard);
-                GameMessages.ReturnCard(player.Name, returnCard);
-                //dealer.CloseAccess();
+                if (player.IsQuarantined == false && player.DrewVulture == false)
+                {
+                    ICard returnCard = player.Hand.CardOfWorstSuit();
+                    HandleCard.RemoveCard(player, returnCard);
+                    GameMessages.ReturnCard(player.Name, returnCard);
+                }
             }
         }
     }

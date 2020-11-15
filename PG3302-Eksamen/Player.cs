@@ -7,6 +7,7 @@ namespace PG3302_Eksamen
         public string Name { get; set; }
         public int Id { get; set; }
         public bool IsQuarantined { get; set; }
+        public bool DrewVulture { get; set; }
 
         public readonly Hand Hand;
 
@@ -41,12 +42,18 @@ namespace PG3302_Eksamen
                 {
                     GameMessages.PlayerInQuarantine(Name);
                     IsQuarantined = false;
-                    dealer.CloseAccess();
-                    return;
+                }
+                else
+                {
+                    DrewVulture = false;
+                    HandleAccessGranted();
                 }
                 
-                HandleAccessGranted();
                 dealer.CloseAccess();
+                if (IsQuarantined)
+                {
+                    System.Threading.Thread.Sleep(500);
+                }
             }
             GameMessages.LeavingGame(Name);
             Stop();
@@ -57,15 +64,6 @@ namespace PG3302_Eksamen
             // Draw card
             ICard newCard = DrawCard();
             HandleCard.Handle(this, newCard);
-
-            // Exit condition if we do not wish to consider the hand
-            // TODO but how can we do this from handleVulture/handleQuarantine directly??
-            if (Game.ShouldWeContinueTheLoop)
-            {
-                Game.ShouldWeContinueTheLoop = false;
-                return;
-            }
-
             HandleHand.Handle(this);
         }
 
