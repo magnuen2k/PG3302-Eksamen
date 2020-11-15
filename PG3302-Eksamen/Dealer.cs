@@ -46,7 +46,7 @@ namespace PG3302_Eksamen
                     return false;
                 
                 // Make each thread sleep before playing round
-                Thread.Sleep(500);
+                Thread.Sleep(GameConfig.GameSpeed);
                 _activePlayer = player.Id;
                 return true;
             }

@@ -10,5 +10,8 @@
         // TODO document that setting WinConditionCount 2 higher than DefaultMaxHandSize will make the game run forever unless vulture is put back in the deck
         public const int DefaultMaxHandSize = 6;
         public const int WinConditionCount = 6;
+
+        // Slow up/down the game. This is only for console output speed
+        public const int GameSpeed = 500;
     }
 }
