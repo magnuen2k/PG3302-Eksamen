@@ -166,11 +166,7 @@ namespace PG3302_Eksamen
             for (int i = player.Hand.Count() - 1; i >= 0; i--)
             {
                 ICard card = player.Hand.GetHand()[i];
-                if (card.GetCardType() == CardType.Normal)
-                    dealer.ReturnCard(card);
-                else
-                    dealer.ReturnCard(card);
-                
+                dealer.ReturnCard(card);
                 player.Hand.RemoveCard(card);
             }
         }
