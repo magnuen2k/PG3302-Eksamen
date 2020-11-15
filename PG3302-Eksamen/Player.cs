@@ -46,7 +46,7 @@ namespace PG3302_Eksamen
                 }
                 
                 HandleAccessGranted();
-                //dealer.CloseAccess();
+                dealer.CloseAccess();
             }
             GameMessages.LeavingGame(Name);
             Stop();

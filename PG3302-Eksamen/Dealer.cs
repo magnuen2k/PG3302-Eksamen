@@ -39,7 +39,7 @@ namespace PG3302_Eksamen
             
             lock (_lock)
             {
-                if (!Started)
+                if (!Started || GameEnded)
                     return false;
                 
                 if (_activePlayer != 0 && _activePlayer != player.Id)

@@ -31,7 +31,7 @@ namespace PG3302_Eksamen
                 ICard returnCard = player.Hand.CardOfWorstSuit();
                 HandleCard.RemoveCard(player, returnCard);
                 GameMessages.ReturnCard(player.Name, returnCard);
-                dealer.CloseAccess();
+                //dealer.CloseAccess();
             }
         }
     }

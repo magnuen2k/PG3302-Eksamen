@@ -18,7 +18,7 @@ namespace PG3302_Eksamen
             GameMessages.PlayerGotQuarantined(player.Name);
             GameMessages.ReturnCard(player.Name, card);
             Game.ShouldWeContinueTheLoop = true;
-            dealer.CloseAccess();
+            //dealer.CloseAccess();
         }
         
         public static void Vulture(Player player, ICard card)
@@ -30,7 +30,7 @@ namespace PG3302_Eksamen
             HandleCard.RemoveCard(player, card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
             GameMessages.ReturnCard(player.Name, card);
             Game.ShouldWeContinueTheLoop = true;
-            dealer.CloseAccess(); 
+            //dealer.CloseAccess(); 
         }
     }
 }
