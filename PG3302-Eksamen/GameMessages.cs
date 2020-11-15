@@ -57,9 +57,9 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " returned card: " + card +"\n");
         }
 
-        public static void Vulture()
+        public static void Vulture(int maxHandSize)
         {
-            Console.WriteLine("Laying spider mines...");
+            Console.WriteLine("New max hand size: " + maxHandSize);
         }
 
         public static void Bomb(string name)

@@ -25,10 +25,10 @@ namespace PG3302_Eksamen
         public static void Vulture(Player player, ICard card)
         {
             Dealer dealer = Dealer.GetDealer();
-            GameMessages.Vulture();
+            player.Hand.MaxHandSize++;
+            GameMessages.Vulture(player.Hand.MaxHandSize);
             dealer.DrawNormalCard(player);
             HandleCard.RemoveCard(player, card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
-            player.Hand.MaxHandSize++;
             GameMessages.ReturnCard(player.Name, card);
             Game.ShouldWeContinueTheLoop = true;
             dealer.CloseAccess(); 
