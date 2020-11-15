@@ -10,8 +10,6 @@ namespace PG3302_Eksamen
     {
         static void Main(string[] args)
         {
-
-                                    
             Console.WriteLine
             ("  ,___________________________________\n" +
              " /      _____ _  _       poki <3      \\\n" +

@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace PG3302_Eksamen
 {
     public class Game
     {
-        private int _players;
-        public static bool shouldWeContinueTheLoop = false;
+        private readonly int _players;
+        public static bool ShouldWeContinueTheLoop = false;
 
         public Game(int players)
         {
@@ -43,7 +42,6 @@ namespace PG3302_Eksamen
             }
 
             Console.WriteLine("");
-
 
             // Start threads
             for (int i = 0; i < _players; i++)

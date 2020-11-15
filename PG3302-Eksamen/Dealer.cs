@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace PG3302_Eksamen
@@ -53,7 +52,6 @@ namespace PG3302_Eksamen
             }
         }
         
-
         public ICard GetCard()
         {
             lock (_lock)
@@ -89,7 +87,7 @@ namespace PG3302_Eksamen
             {
                 ICard card = GetCard();
                 if (card.GetCardType() != CardType.Normal) continue;
-                player.TakeCard(card);
+                player.AddToHand(card);
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;
             }

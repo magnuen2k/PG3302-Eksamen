@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PG3302_Eksamen
 {
-    class Hand
+    public class Hand
     {
         private readonly List<ICard> _hand;
         public int MaxHandSize { get; set; }
@@ -13,8 +13,7 @@ namespace PG3302_Eksamen
             _hand = new List<ICard>();
             MaxHandSize = GameConfig.DefaultMaxHandSize;
         }
-
-
+        
         public override string ToString()
         {
             StringBuilder hand = new StringBuilder();
