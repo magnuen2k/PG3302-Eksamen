@@ -6,22 +6,9 @@ namespace PG3302_Eksamen
     {
         public static void Bomb(Player player)
         {
-            Dealer dealer = Dealer.GetDealer();
-            
-            // TODO extract different operations to own functions (SRP)
-            
             Console.WriteLine(player.Name + " has to throw away all his cards :(");
-            for (int i = player.Hand.Count() - 1; i >= 0; i--)
-            {
-                ICard c = player.Hand.GetHand()[i];
-                dealer.ReturnCard(c);
-                player.Hand.RemoveCard(c);
-                Console.WriteLine(player.Name + " returned card: " + c);
-            }
-
-            Console.WriteLine(player.Name + " draws a new hand...");
-            
-            Hand.DrawFullHand(player);
+            Hand.ReturnFullHand(player);
+            Hand.DrawNewHand(player);
         }
 
         public static void Quarantine(Player player, ICard card)

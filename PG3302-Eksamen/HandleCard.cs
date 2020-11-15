@@ -6,7 +6,8 @@ namespace PG3302_Eksamen
     {
         public static void Handle(Player player, ICard card)
         {
-            player.AddToHand(card);
+            // TODO why does the line above not work?
+            //player.Hand.GiveCard(card);
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
