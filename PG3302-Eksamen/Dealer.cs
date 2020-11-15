@@ -54,18 +54,13 @@ namespace PG3302_Eksamen
         
         public ICard GetCard()
         {
-            lock (_lock)
-            {
-                return _deck.GetNextCard();
-            }
+            return _deck.GetNextCard();
         }
         public void ReturnCard(ICard card)
         {
-            
-            lock (_lock)
-            {
-                _deck.RestoreCard(card);
-            }
+
+            _deck.RestoreCard(card);
+  
         }
 
         public Deck GetDeck()
@@ -86,7 +81,11 @@ namespace PG3302_Eksamen
             while (true)
             {
                 ICard card = GetCard();
-                if (card.GetCardType() != CardType.Normal) continue;
+                if (card.GetCardType() != CardType.Normal)
+                {
+                    ReturnCard(card);
+                    continue;
+                }
                 player.AddToHand(card);
                 Console.WriteLine(player.Name + " receives card: " + card);
                 break;

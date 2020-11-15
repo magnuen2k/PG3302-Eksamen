@@ -24,7 +24,9 @@ namespace PG3302_Eksamen
             {
                 players.Add(new Player("Player" + (i + 1), i + 1));
             }
-            
+
+            Console.WriteLine("");
+
             // Deal initial hand to players
             for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
             {
@@ -40,7 +42,9 @@ namespace PG3302_Eksamen
             {
                 Console.WriteLine(player);
             }
-
+            
+            Console.WriteLine("");
+            Console.WriteLine("Deck: " + dealer.GetDeck());
             Console.WriteLine("");
 
             // Start threads
