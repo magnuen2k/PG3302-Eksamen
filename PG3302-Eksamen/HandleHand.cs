@@ -123,8 +123,7 @@ namespace PG3302_Eksamen
                 }
                         
                 ICard returnCard = player.Hand.GetHand()[i];
-                dealer.ReturnCard(returnCard);
-                player.Hand.RemoveCard(returnCard);
+                HandleCard.RemoveCard(player, returnCard);
                 Console.WriteLine(player.Name + " returned card: " + returnCard + "\n");
                 dealer.CloseAccess();
             }
