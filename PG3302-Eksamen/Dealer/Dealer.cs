@@ -33,12 +33,6 @@ namespace PG3302_Eksamen.Dealer
             return _dealer;
         }
 
-        private void RandomTimeout()
-        {
-            Random r = new Random();
-            Thread.Sleep(r.Next(100));
-        }
-
         public Boolean GetAccess(Player.Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
@@ -111,6 +105,12 @@ namespace PG3302_Eksamen.Dealer
             if (sender.GetType() != typeof(Player.Player)) return;
             GameMessages.WinningMessage((Player.Player) sender);
             GameEnded = true;
+        }
+        
+        private void RandomTimeout()
+        {
+            Random r = new Random();
+            Thread.Sleep(r.Next(100));
         }
     }
 }
