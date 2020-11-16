@@ -24,6 +24,7 @@ namespace PG3302_Eksamen.Dealer
             GameEnded = false;
         }
 
+        // Using Singleton to get the same dealer object throughout the game
         public static Dealer GetDealer()
         {
             if (_dealer == null)
@@ -33,6 +34,7 @@ namespace PG3302_Eksamen.Dealer
             return _dealer;
         }
 
+        // Give a player access to play
         public Boolean GetAccess(Player.Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
@@ -57,6 +59,7 @@ namespace PG3302_Eksamen.Dealer
         {
             return _deck.GetNextCard();
         }
+        
         public void ReturnCard(ICard card)
         {
             if (card.GetCardType() != CardType.Normal)
@@ -76,6 +79,7 @@ namespace PG3302_Eksamen.Dealer
             return _deck;
         }
         
+        // Remove a players access to play
         public void CloseAccess()
         {
             lock (_lock)
@@ -107,6 +111,7 @@ namespace PG3302_Eksamen.Dealer
 
         public void ClaimVictory(object sender, EventArgs e)
         {
+            // Only do action of provided object is a player
             if (sender.GetType() != typeof(Player.Player)) return;
             GameMessages.WinningMessage((Player.Player) sender);
             GameEnded = true;

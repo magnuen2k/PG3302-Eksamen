@@ -156,7 +156,9 @@ namespace PG3302_Eksamen.Hand
             ReturnFullHand(player);
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             GameMessages.DrawNewHand(player.Name);
-            for (int i = 0; i < player.Hand.MaxHandSize; i++)
+            
+            // draws new hand with one extra card so there is room to throw one card without ending at wrong hand size
+            for (int i = 0; i < player.Hand.MaxHandSize + 1; i++)
             {
                 dealer.DrawNormalCard(player);
             }

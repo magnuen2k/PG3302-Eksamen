@@ -8,8 +8,10 @@ namespace PG3302_Eksamen.GameHandlers
     {
         public static bool Handle(Player.Player player)
         {
+            // Count of best suit on hand
             int bestSuitCount = player.Hand.BestSuitCount();
             
+            // Use joker as preferred suit
             if (player.Hand.HasJoker)
                 bestSuitCount++;
             
@@ -19,6 +21,8 @@ namespace PG3302_Eksamen.GameHandlers
             // Win condition
             if (bestSuitCount >= GameConfig.WinConditionCount)
                 return true;
+            
+            // Only return card if player drew normal card
             if (!player.IsQuarantined && !player.DrewVulture)
                 ReturnCard(player);
             

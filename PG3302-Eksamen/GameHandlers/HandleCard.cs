@@ -7,12 +7,16 @@ namespace PG3302_Eksamen.GameHandlers
 {
     public static class HandleCard
     {
+        // Using EventHandler to handle bomb card
         public static event EventHandler BombIdentified = null!;
         
         public static void Handle(Player.Player player, ICard card)
         {
+            // Adding card to hand
             player.AddToHand(card);
             GameMessages.DebugLog(player + " (" + player.Hand.Count() + " cards in hand)");
+            
+            // Checking type of card to decide action
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
@@ -35,6 +39,7 @@ namespace PG3302_Eksamen.GameHandlers
         
         public static void OnBombIdentified(object? player, EventArgs e)
         {
+            // Only do action of provided object is a player
             if (player?.GetType() != typeof(Player.Player)) return;
             GameMessages.Bomb((Player.Player)player);
             Hand.Hand.DrawNewHand((Player.Player)player);
