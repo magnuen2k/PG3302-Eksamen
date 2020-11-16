@@ -8,12 +8,16 @@ namespace PG3302_Eksamen.Game
     {
         private readonly int _players;
         
+        // Keep track of how many threads running
+        private int _activeThreads;
+        
         // Using EventHandler to start the game
         public event EventHandler StartGame;
 
         public Game(int players)
         {
             _players = players;
+            this._activeThreads = 0;
         }
 
         public void Run()
@@ -85,8 +89,19 @@ namespace PG3302_Eksamen.Game
             for (int i = 0; i < _players; i++)
             {
                 players[i].Start();
+                players[i].LeaveGame += PlayerLeftGame;
+                _activeThreads++;
             }
             OnStartGame();
+        }
+
+        private void PlayerLeftGame(object sender, EventArgs e)
+        {
+            _activeThreads--;
+            if (_activeThreads == 0)
+            {
+                GameMessages.GameEnded();
+            }
         }
 
         protected virtual void OnStartGame()

@@ -13,8 +13,9 @@ namespace PG3302_Eksamen.Player
         public bool IsQuarantined { get; set; }
         public bool DrewVulture { get; set; }
 
-        // Using EventHandler to claim victory
+        // Using EventHandler to claim victory and leave game
         public event EventHandler ClaimVictory;
+        public event EventHandler LeaveGame;
 
         public readonly IHand Hand;
 
@@ -61,6 +62,7 @@ namespace PG3302_Eksamen.Player
             
             // Leave the game when game is over
             GameMessages.LeavingGame(Name);
+            OnLeaveGame();
             Stop();
         }
 
@@ -90,6 +92,11 @@ namespace PG3302_Eksamen.Player
         public override string ToString()
         {
             return Hand.ToString();
+        }
+
+        protected virtual void OnLeaveGame()
+        {
+            LeaveGame?.Invoke(this, EventArgs.Empty);
         }
     }
 }

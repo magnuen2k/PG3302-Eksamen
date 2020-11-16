@@ -89,6 +89,7 @@ namespace PG3302_Eksamen.Game
         {
             Console.Write("\n\nPress any key to continue...");
             Console.ReadKey(true);
+            Environment.Exit(0);
         }
 
         public static void DebugLog(string log)
