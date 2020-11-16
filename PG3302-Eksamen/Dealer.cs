@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace PG3302_Eksamen
 {
-    class Dealer
+    public class Dealer
     {
         private static Dealer _dealer = null;
 

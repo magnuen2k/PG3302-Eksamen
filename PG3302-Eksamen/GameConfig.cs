@@ -15,6 +15,6 @@
         public const int GameSpeed = 500;
         
         // Run the game in debug mode
-        public const bool Debug = true;
+        public const bool Debug = false;
     }
 }
