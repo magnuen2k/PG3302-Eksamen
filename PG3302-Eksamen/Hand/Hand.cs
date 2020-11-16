@@ -28,17 +28,8 @@ namespace PG3302_Eksamen.Hand
             MaxHandSize = GameConfig.DefaultMaxHandSize;
         }
         
-        public override string ToString()
-        {
-            StringBuilder hand = new StringBuilder();
-            
-            foreach (ICard c in _hand)
-            {
-                hand.Append(c + ", ");
-            }
-            return hand.ToString().TrimEnd(',', ' ');
-        }
 
+        // Keep track of how many there is of each suit on the hand at all time
         public void CountSuit(ICard card, bool addCard)
         {
             if (card.GetCardType() == CardType.Joker)
@@ -68,6 +59,7 @@ namespace PG3302_Eksamen.Hand
             }
         }
 
+        // Return the best suit on the hand
         public Suit BestSuit()
         {
             return new[]
@@ -80,6 +72,7 @@ namespace PG3302_Eksamen.Hand
                 .Item2;
         }
         
+        // Count of best suit
         public int BestSuitCount()
         {
             return new[]
@@ -91,6 +84,7 @@ namespace PG3302_Eksamen.Hand
                 }.Max();
         }
 
+        // Return the card with worst count of suit
         public ICard CardOfWorstSuit()
         {
             int minCount = 100;
@@ -156,7 +150,9 @@ namespace PG3302_Eksamen.Hand
             ReturnFullHand(player);
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             GameMessages.DrawNewHand(player.Name);
-            for (int i = 0; i < player.Hand.MaxHandSize; i++)
+            
+            // draws new hand with one extra card so there is room to throw one card without ending at wrong hand size
+            for (int i = 0; i < player.Hand.MaxHandSize + 1; i++)
             {
                 dealer.DrawNormalCard(player);
             }
@@ -171,6 +167,17 @@ namespace PG3302_Eksamen.Hand
                 dealer.ReturnCard(card);
                 player.Hand.RemoveCard(card);
             }
+        }
+        
+        public override string ToString()
+        {
+            StringBuilder hand = new StringBuilder();
+            
+            foreach (ICard c in _hand)
+            {
+                hand.Append(c + ", ");
+            }
+            return hand.ToString().TrimEnd(',', ' ');
         }
     }
 }

@@ -62,13 +62,14 @@ namespace PG3302_Eksamen_UnitTesting
         {
             Player p = new Player("TestPlayer", 1);
             Hand.DrawNewHand(p);
-            Assert.IsTrue(p.Hand.MaxHandSize == p.Hand.Count());
+            Assert.IsTrue(p.Hand.MaxHandSize == p.Hand.Count() - 1);
         }
 
         [Test]
         public void CheckBombHandling()
         {
             Player p = new Player("TestPlayer", 1);
+            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
             ExampleHand(p);
             ICard card = new Card(Suit.Diamonds, Value.Jack);
             p.AddToHand(new BombCard(card));
@@ -125,8 +126,8 @@ namespace PG3302_Eksamen_UnitTesting
             Assert.IsTrue(p.IsQuarantined);
             Assert.AreEqual(GameConfig.DefaultMaxHandSize, p.Hand.MaxHandSize);
         }
-        
-        public static void ExampleHand(Player p)
+
+        private static void ExampleHand(Player p)
         {
             p.AddToHand(new Card(Suit.Clubs, Value.Eight));
             p.AddToHand(new Card(Suit.Clubs, Value.Ace));

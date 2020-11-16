@@ -11,7 +11,7 @@ namespace PG3302_Eksamen.Dealer
         private static Dealer _dealer = null;
 
         private readonly IDeck _deck = null;
-        public bool Started { set; get;}
+        private bool _started;
         public bool GameEnded { set; get; }
         private int _activePlayer = 0;
         private readonly object _lock;
@@ -20,10 +20,11 @@ namespace PG3302_Eksamen.Dealer
         {
             _lock = new object();
             _deck = DeckFactory.CreateDeck();
-            Started = false;
+            _started = false;
             GameEnded = false;
         }
 
+        // Using Singleton to get the same dealer object throughout the game
         public static Dealer GetDealer()
         {
             if (_dealer == null)
@@ -33,12 +34,7 @@ namespace PG3302_Eksamen.Dealer
             return _dealer;
         }
 
-        private void RandomTimeout()
-        {
-            Random r = new Random();
-            Thread.Sleep(r.Next(100));
-        }
-
+        // Give a player access to play
         public Boolean GetAccess(Player.Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
@@ -46,7 +42,7 @@ namespace PG3302_Eksamen.Dealer
             
             lock (_lock)
             {
-                if (!Started || GameEnded)
+                if (!_started || GameEnded)
                     return false;
                 
                 if (_activePlayer != 0 && _activePlayer != player.Id)
@@ -63,6 +59,7 @@ namespace PG3302_Eksamen.Dealer
         {
             return _deck.GetNextCard();
         }
+        
         public void ReturnCard(ICard card)
         {
             if (card.GetCardType() != CardType.Normal)
@@ -82,6 +79,7 @@ namespace PG3302_Eksamen.Dealer
             return _deck;
         }
         
+        // Remove a players access to play
         public void CloseAccess()
         {
             lock (_lock)
@@ -106,10 +104,23 @@ namespace PG3302_Eksamen.Dealer
             }
         }
 
-        public void ClaimVictory(Player.Player player)
+        public void StartGame(object sender, EventArgs e)
         {
-            GameMessages.WinningMessage(player);
+            _started = true;
+        }
+
+        public void ClaimVictory(object sender, EventArgs e)
+        {
+            // Only do action of provided object is a player
+            if (sender.GetType() != typeof(Player.Player)) return;
+            GameMessages.WinningMessage((Player.Player) sender);
             GameEnded = true;
+        }
+        
+        private void RandomTimeout()
+        {
+            Random r = new Random();
+            Thread.Sleep(r.Next(100));
         }
     }
 }

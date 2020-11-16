@@ -10,13 +10,16 @@ namespace PG3302_Eksamen
             GameMessages.WelcomeMessage();
             
             int playerAmount;
+            
+            // Ask for player input until acceptable input is given 
             while (!int.TryParse(Console.ReadLine(), out playerAmount) || !(playerAmount >= GameConfig.MinPlayers && playerAmount <= GameConfig.MaxPlayers))
             {
                 GameMessages.PlayerLimit();
             }
             GameMessages.SuccessfulInput();
 
-            Game.Game game = new Game.Game(playerAmount);
+            // Create game and start it with the selected amount of players
+            IGame game = new Game.Game(playerAmount);
             game.Run();
         }
     }

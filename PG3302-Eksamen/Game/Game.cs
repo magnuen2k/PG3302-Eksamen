@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
+using PG3302_Eksamen.GameHandlers;
 
 namespace PG3302_Eksamen.Game
 {
-    public class Game
+    public class Game : IGame
     {
         private readonly int _players;
+        
+        // Using EventHandler to start the game
+        public event EventHandler StartGame;
 
         public Game(int players)
         {
@@ -15,6 +20,9 @@ namespace PG3302_Eksamen.Game
         {
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             List<Player.Player> players = CreatePlayers();
+            
+            CreateSubscribers(players);
+            
             GameMessages.DebugLog("");
             DealInitialHand(players);
             GameMessages.Space();
@@ -34,18 +42,30 @@ namespace PG3302_Eksamen.Game
             GameMessages.DebugLog("");
             //---------
 
-            StartGame(players);
+            // Start player threads and start game
+            InitializeGame(players);
         }
-
-        private void StartGame(List<Player.Player> players)
+        
+        private List<Player.Player> CreatePlayers()
         {
-            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
-
+            List<Player.Player> players = new List<Player.Player>();
             for (int i = 0; i < _players; i++)
             {
-                players[i].Start();
+                players.Add(PlayerFactory.CreatePlayer("Player" + (i + 1), i + 1));
             }
-            dealer.Started = true;
+
+            return players;
+        }
+
+        private void CreateSubscribers(List<Player.Player> players)
+        {
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
+            foreach (Player.Player player in players)
+            {
+                player.ClaimVictory += dealer.ClaimVictory;
+            }
+            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
+            StartGame += dealer.StartGame;
         }
 
         private void DealInitialHand(List<Player.Player> players)
@@ -59,16 +79,19 @@ namespace PG3302_Eksamen.Game
                 }
             }
         }
-
-        private List<Player.Player> CreatePlayers()
+        
+        private void InitializeGame(List<Player.Player> players)
         {
-            List<Player.Player> players = new List<Player.Player>();
             for (int i = 0; i < _players; i++)
             {
-                players.Add(PlayerFactory.CreatePlayer("Player" + (i + 1), i + 1));
+                players[i].Start();
             }
+            OnStartGame();
+        }
 
-            return players;
+        protected virtual void OnStartGame()
+        {
+            StartGame?.Invoke(this, EventArgs.Empty);
         }
     }
 }

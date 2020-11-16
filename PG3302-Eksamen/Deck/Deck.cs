@@ -46,7 +46,6 @@ namespace PG3302_Eksamen.Deck
 
             foreach (ICard card in _cards)
             {
-                //hand.Append(card.GetValue() + " of " + card.GetSuit() + " of type " + card.GetCardType() + ", ");
                 hand.Append(card + ", ");
             }
             return hand.ToString();
