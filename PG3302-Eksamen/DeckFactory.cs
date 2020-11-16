@@ -11,6 +11,7 @@ namespace PG3302_Eksamen
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
 
+        // Create a new shuffled deck
         public static IDeck CreateDeck()
         {
             GenerateNormalCards();

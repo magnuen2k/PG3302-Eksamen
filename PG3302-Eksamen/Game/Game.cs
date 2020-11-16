@@ -7,6 +7,8 @@ namespace PG3302_Eksamen.Game
     public class Game : IGame
     {
         private readonly int _players;
+        
+        // Using EventHandler to start the game
         public event EventHandler StartGame;
 
         public Game(int players)
@@ -18,6 +20,7 @@ namespace PG3302_Eksamen.Game
         {
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             List<Player.Player> players = CreatePlayers();
+            
             CreateSubscribers(players);
             
             GameMessages.DebugLog("");
@@ -39,6 +42,7 @@ namespace PG3302_Eksamen.Game
             GameMessages.DebugLog("");
             //---------
 
+            // Start player threads and start game
             InitializeGame(players);
         }
         
@@ -78,8 +82,6 @@ namespace PG3302_Eksamen.Game
         
         private void InitializeGame(List<Player.Player> players)
         {
-            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
-
             for (int i = 0; i < _players; i++)
             {
                 players[i].Start();
