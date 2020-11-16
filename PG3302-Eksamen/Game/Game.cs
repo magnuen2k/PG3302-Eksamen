@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace PG3302_Eksamen.Game
 {
-    public class Game
+    public class Game : IGame
     {
         private readonly int _players;
 
