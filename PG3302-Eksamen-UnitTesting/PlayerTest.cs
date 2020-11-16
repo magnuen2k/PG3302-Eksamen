@@ -62,7 +62,7 @@ namespace PG3302_Eksamen_UnitTesting
         {
             Player p = new Player("TestPlayer", 1);
             Hand.DrawNewHand(p);
-            Assert.IsTrue(p.Hand.MaxHandSize == p.Hand.Count());
+            Assert.IsTrue(p.Hand.MaxHandSize == p.Hand.Count() - 1);
         }
 
         [Test]
