@@ -30,7 +30,7 @@ namespace PG3302_Eksamen
             return _dealer;
         }
 
-        private void RandomSleep()
+        private void RandomTimeout()
         {
             Random r = new Random();
             Thread.Sleep(r.Next(100));
@@ -39,7 +39,7 @@ namespace PG3302_Eksamen
         public Boolean GetAccess(Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
-            RandomSleep();
+            RandomTimeout();
             
             lock (_lock)
             {
