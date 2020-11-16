@@ -4,6 +4,8 @@ namespace PG3302_Eksamen
 {
     public static class GameMessages
     {
+        private static bool _showDebug = GameConfig.Debug;
+        
         public static void WelcomeMessage()
         {
             Console.WriteLine
@@ -90,7 +92,7 @@ namespace PG3302_Eksamen
 
         public static void DebugLog(string log)
         {
-            if (GameConfig.Debug)
+            if (_showDebug)
                 Console.WriteLine(log);
         }
 
