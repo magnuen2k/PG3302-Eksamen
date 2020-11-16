@@ -125,8 +125,8 @@ namespace PG3302_Eksamen_UnitTesting
             Assert.IsTrue(p.IsQuarantined);
             Assert.AreEqual(GameConfig.DefaultMaxHandSize, p.Hand.MaxHandSize);
         }
-        
-        public static void ExampleHand(Player p)
+
+        private static void ExampleHand(Player p)
         {
             p.AddToHand(new Card(Suit.Clubs, Value.Eight));
             p.AddToHand(new Card(Suit.Clubs, Value.Ace));
