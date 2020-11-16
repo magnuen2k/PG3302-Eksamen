@@ -8,7 +8,7 @@ namespace PG3302_Eksamen
         private static readonly Random Rng = new Random();
         private static readonly List<ICard> Cards = new List<ICard>();
 
-        public static Deck CreateDeck()
+        public static IDeck CreateDeck()
         {
             GenerateNormalCards();
             GenerateSpecialCards();
@@ -22,7 +22,7 @@ namespace PG3302_Eksamen
             {
                 foreach (Suit suit in Enum.GetValues(typeof(Suit)))
                 {
-                    Cards.Add(new Card(suit, value));
+                    Cards.Add(CardFactory.CreateCard(suit, value));
                 }
             }
         }

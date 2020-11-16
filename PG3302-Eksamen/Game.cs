@@ -62,7 +62,7 @@ namespace PG3302_Eksamen
             List<Player> players = new List<Player>();
             for (int i = 0; i < _players; i++)
             {
-                players.Add(new Player("Player" + (i + 1), i + 1));
+                players.Add(PlayerFactory.CreatePlayer("Player" + (i + 1), i + 1));
             }
 
             return players;

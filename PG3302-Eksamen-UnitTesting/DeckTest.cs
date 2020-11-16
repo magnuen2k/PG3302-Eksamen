@@ -16,7 +16,7 @@ namespace PG3302_Eksamen_UnitTesting
         [Test]
         public void CheckDeckSizeAfterDealingInitCards()
         {
-            Deck deck = DeckFactory.CreateDeck();
+            IDeck deck = DeckFactory.CreateDeck();
             Player p = new Player("Test", 2);
             p.AddToHand(deck.GetNextCard());
             p.AddToHand(deck.GetNextCard());

@@ -15,7 +15,7 @@ namespace PG3302_Eksamen
             _running = false;
         }
 
-        protected abstract void Play ();
+        protected abstract void Play();
 
         private void ThreadLoop () {
             while(_running) {
