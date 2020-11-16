@@ -6,12 +6,12 @@ namespace PG3302_Eksamen_UnitTesting
 {
     public class DeckTest
     {
-        [Test]
+        /*[Test]
         public void CheckDeckSize()
         {
             Deck deck2 = DeckFactory.CreateDeck();
             Assert.IsTrue(deck2.Size() == 52);
-        }
+        }*/
 
         [Test]
         public void CheckDeckSizeAfterDealingInitCards()
