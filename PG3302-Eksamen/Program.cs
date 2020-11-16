@@ -16,7 +16,7 @@ namespace PG3302_Eksamen
             }
             GameMessages.SuccessfulInput();
 
-            Game.IGame game = new Game.Game(playerAmount);
+            IGame game = new Game.Game(playerAmount);
             game.Run();
         }
     }
