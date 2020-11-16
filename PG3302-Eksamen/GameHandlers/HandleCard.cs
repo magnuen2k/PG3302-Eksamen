@@ -1,6 +1,5 @@
 ﻿#nullable enable
 using System;
-using System.Diagnostics;
 using PG3302_Eksamen.Card;
 using PG3302_Eksamen.Game;
 
@@ -13,7 +12,7 @@ namespace PG3302_Eksamen.GameHandlers
 
         private static void OnBombIdentified(Player.Player player)
         {
-            BombIdentified?.Invoke(player, EventArgs.Empty);
+            BombIdentified(player, EventArgs.Empty);
         }
         
         public static void Handle(Player.Player player, ICard card)
@@ -42,7 +41,7 @@ namespace PG3302_Eksamen.GameHandlers
         
         public static void OnBombIdentified(object? player, EventArgs e)
         {
-            if (player.GetType() != typeof(Player.Player)) return;
+            if (player?.GetType() != typeof(Player.Player)) return;
             GameMessages.Bomb((Player.Player)player);
             Hand.Hand.DrawNewHand((Player.Player)player);
         }
