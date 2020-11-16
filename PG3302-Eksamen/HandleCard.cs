@@ -11,13 +11,13 @@ namespace PG3302_Eksamen
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
-                    HandleSpecialCard.Bomb(player);
+                    Bomb(player);
                     break;
                 case CardType.Quarantine:
-                    HandleSpecialCard.Quarantine(player, card);
+                    Quarantine(player, card);
                     break;
                 case CardType.Vulture:
-                    HandleSpecialCard.Vulture(player, card);
+                    Vulture(player, card);
                     break;
                 case CardType.Joker:
                     break;
@@ -26,6 +26,31 @@ namespace PG3302_Eksamen
                 default:
                     throw new NotImplementedException("You drew a card with a type that cannot be handled. Code needs review.");
             }
+        }
+        
+        private static void Bomb(Player player)
+        {
+            GameMessages.Bomb(player.Name);
+            Hand.DrawNewHand(player);
+        }
+
+        private static void Quarantine(Player player, ICard card)
+        {
+            player.IsQuarantined = true;
+            RemoveCard(player, card);
+            GameMessages.PlayerGotQuarantined(player.Name);
+            GameMessages.ReturnCard(player.Name, card);
+        }
+        
+        private static void Vulture(Player player, ICard card)
+        {
+            Dealer dealer = Dealer.GetDealer();
+            player.Hand.MaxHandSize++;
+            GameMessages.Vulture(player);
+            dealer.DrawNormalCard(player);
+            RemoveCard(player, card); // we gain another card so our hand size is incremented by 1. Vulture effect is present by not removing a card, but we dont want to count the suit from it
+            GameMessages.ReturnCard(player.Name, card);
+            player.DrewVulture = true;
         }
         
         public static void RemoveCard(Player player, ICard card)

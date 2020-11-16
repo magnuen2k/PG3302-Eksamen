@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PG3302_Eksamen
 {
-    public class Hand
+    public class Hand : IHand
     {
         private readonly List<ICard> _hand;
         public int MaxHandSize { get; set; }
@@ -37,7 +37,7 @@ namespace PG3302_Eksamen
             return hand.ToString().TrimEnd(',', ' ');
         }
 
-        private void CountSuit(ICard card, bool addCard)
+        public void CountSuit(ICard card, bool addCard)
         {
             if (card.GetCardType() == CardType.Joker)
             {

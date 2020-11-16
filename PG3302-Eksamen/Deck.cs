@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PG3302_Eksamen
 {
-    public class Deck
+    public class Deck : IDeck
     {
         private readonly List<ICard> _cards;
 

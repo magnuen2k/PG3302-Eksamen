@@ -9,7 +9,7 @@ namespace PG3302_Eksamen
         public bool IsQuarantined { get; set; }
         public bool DrewVulture { get; set; }
 
-        public readonly Hand Hand;
+        public readonly IHand Hand;
 
         public Player(string name, int id)
         {
@@ -17,7 +17,7 @@ namespace PG3302_Eksamen
             Id = id;
             IsQuarantined = false;
 
-            Hand = new Hand();
+            Hand = HandFactory.CreateHand();
         }
 
         public void AddToHand(ICard card)
@@ -29,7 +29,7 @@ namespace PG3302_Eksamen
         {
             return Name + " has hand: " + Hand;
         }
-        
+
         protected override void Play()
         {
             Dealer dealer = Dealer.GetDealer();

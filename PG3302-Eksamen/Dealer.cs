@@ -7,7 +7,7 @@ namespace PG3302_Eksamen
     {
         private static Dealer _dealer = null;
 
-        private readonly Deck _deck = null;
+        private readonly IDeck _deck = null;
         public bool Started { set; get;}
         public bool GameEnded { set; get; }
         private int _activePlayer = 0;
@@ -30,7 +30,7 @@ namespace PG3302_Eksamen
             return _dealer;
         }
 
-        private void RandomSleep()
+        private void RandomTimeout()
         {
             Random r = new Random();
             Thread.Sleep(r.Next(100));
@@ -39,7 +39,7 @@ namespace PG3302_Eksamen
         public Boolean GetAccess(Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
-            RandomSleep();
+            RandomTimeout();
             
             lock (_lock)
             {
@@ -74,7 +74,7 @@ namespace PG3302_Eksamen
             _deck.RestoreCard(card, r.Next(_deck.Size()));
         }
 
-        public Deck GetDeck()
+        public IDeck GetDeck()
         {
             return _deck;
         }
