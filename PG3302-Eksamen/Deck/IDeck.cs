@@ -1,4 +1,6 @@
-namespace PG3302_Eksamen
+using PG3302_Eksamen.Card;
+
+namespace PG3302_Eksamen.Deck
 {
     public interface IDeck
     {

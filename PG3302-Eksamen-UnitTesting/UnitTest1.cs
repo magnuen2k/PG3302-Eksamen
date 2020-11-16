@@ -1,6 +1,11 @@
 using System;
 using NUnit.Framework;
 using PG3302_Eksamen;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
+using PG3302_Eksamen.GameHandlers;
+using PG3302_Eksamen.Hand;
+using PG3302_Eksamen.Player;
 
 namespace PG3302_Eksamen_UnitTesting
 {

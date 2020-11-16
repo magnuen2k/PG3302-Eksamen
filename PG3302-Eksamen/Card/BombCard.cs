@@ -1,8 +1,8 @@
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Card
 {
     public class BombCard : CardDecorator
     {
-        private const CardType CardType = PG3302_Eksamen.CardType.Bomb;
+        private const CardType CardType = PG3302_Eksamen.Card.CardType.Bomb;
 
         public BombCard(ICard originalCard) : base(originalCard)
         {

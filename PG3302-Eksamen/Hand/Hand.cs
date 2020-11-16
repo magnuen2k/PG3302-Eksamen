@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Hand
 {
     public class Hand : IHand
     {
@@ -149,10 +151,10 @@ namespace PG3302_Eksamen
             return _hand;
         }
 
-        public static void DrawNewHand(Player player)
+        public static void DrawNewHand(Player.Player player)
         {
             ReturnFullHand(player);
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             GameMessages.DrawNewHand(player.Name);
             for (int i = 0; i < player.Hand.MaxHandSize; i++)
             {
@@ -160,9 +162,9 @@ namespace PG3302_Eksamen
             }
         }
         
-        private static void ReturnFullHand(Player player)
+        private static void ReturnFullHand(Player.Player player)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             for (int i = player.Hand.Count() - 1; i >= 0; i--)
             {
                 ICard card = player.Hand.GetHand()[i];

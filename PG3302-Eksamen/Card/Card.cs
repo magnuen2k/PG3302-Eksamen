@@ -1,4 +1,4 @@
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Card
 {
     public class Card : ICard
     {

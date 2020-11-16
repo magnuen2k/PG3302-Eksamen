@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
+using PG3302_Eksamen.Card;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Deck
 {
     public class Deck : IDeck
     {

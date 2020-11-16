@@ -1,6 +1,7 @@
 using System;
+using PG3302_Eksamen.Card;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Game
 {
     public static class GameMessages
     {
@@ -64,7 +65,7 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " returned card: " + card +"\n");
         }
 
-        public static void Vulture(Player player)
+        public static void Vulture(Player.Player player)
         {
             Console.WriteLine(player.Name + " new max hand size: " + player.Hand.MaxHandSize);
         }
@@ -74,7 +75,7 @@ namespace PG3302_Eksamen
             Console.WriteLine(name + " has to throw away all his cards :(");
         }
 
-        public static void WinningMessage(Player player)
+        public static void WinningMessage(Player.Player player)
         {
             Console.WriteLine(player.Name + " won the game with hand: " + player);
         }

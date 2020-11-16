@@ -1,7 +1,10 @@
 using System;
 using System.Threading;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Deck;
+using PG3302_Eksamen.Game;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Dealer
 {
     public class Dealer
     {
@@ -36,7 +39,7 @@ namespace PG3302_Eksamen
             Thread.Sleep(r.Next(100));
         }
 
-        public Boolean GetAccess(Player player)
+        public Boolean GetAccess(Player.Player player)
         {
             // Each thread sleeps a random number of milliseconds to randomize access
             RandomTimeout();
@@ -87,7 +90,7 @@ namespace PG3302_Eksamen
             }
         }
 
-        public void DrawNormalCard(Player player)
+        public void DrawNormalCard(Player.Player player)
         {
             while (true)
             {
@@ -103,7 +106,7 @@ namespace PG3302_Eksamen
             }
         }
 
-        public void ClaimVictory(Player player)
+        public void ClaimVictory(Player.Player player)
         {
             GameMessages.WinningMessage(player);
             GameEnded = true;

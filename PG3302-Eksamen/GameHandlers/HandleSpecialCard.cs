@@ -1,16 +1,17 @@
-﻿using System;
+﻿using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.GameHandlers
 {
     public static class HandleSpecialCard
     {
-        public static void Bomb(Player player)
+        public static void Bomb(Player.Player player)
         {
             GameMessages.Bomb(player.Name);
-            Hand.DrawNewHand(player);
+            Hand.Hand.DrawNewHand(player);
         }
 
-        public static void Quarantine(Player player, ICard card)
+        public static void Quarantine(Player.Player player, ICard card)
         {
             player.IsQuarantined = true;
             HandleCard.RemoveCard(player, card);
@@ -18,9 +19,9 @@ namespace PG3302_Eksamen
             GameMessages.ReturnCard(player.Name, card);
         }
         
-        public static void Vulture(Player player, ICard card)
+        public static void Vulture(Player.Player player, ICard card)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             player.Hand.MaxHandSize++;
             GameMessages.Vulture(player);
             dealer.DrawNormalCard(player);

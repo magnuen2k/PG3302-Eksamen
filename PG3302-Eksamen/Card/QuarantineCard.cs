@@ -1,8 +1,8 @@
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Card
 {
     public class QuarantineCard : CardDecorator
     {
-        private const CardType CardType = PG3302_Eksamen.CardType.Quarantine;
+        private const CardType CardType = PG3302_Eksamen.Card.CardType.Quarantine;
         
         public QuarantineCard(ICard originalCard) : base(originalCard)
         {

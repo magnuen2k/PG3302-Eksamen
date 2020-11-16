@@ -1,6 +1,8 @@
 using System;
 using NUnit.Framework;
 using PG3302_Eksamen;
+using PG3302_Eksamen.Deck;
+using PG3302_Eksamen.Player;
 
 namespace PG3302_Eksamen_UnitTesting
 {

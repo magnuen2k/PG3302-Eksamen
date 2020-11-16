@@ -1,6 +1,9 @@
-using System;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
+using PG3302_Eksamen.GameHandlers;
+using PG3302_Eksamen.Hand;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Player
 {
     public class Player : ThreadProxy
     {
@@ -32,7 +35,7 @@ namespace PG3302_Eksamen
 
         protected override void Play()
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             while (!dealer.GameEnded)
             {
                 if (!dealer.GetAccess(this)) 
@@ -65,7 +68,7 @@ namespace PG3302_Eksamen
 
         private ICard DrawCard()
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             ICard newCard = dealer.GetCard();
             GameMessages.DrawCard(Name, newCard);
             return newCard;

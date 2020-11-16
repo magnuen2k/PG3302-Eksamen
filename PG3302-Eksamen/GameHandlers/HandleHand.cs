@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.GameHandlers
 {
     public static class HandleHand
     {
-        public static void Handle(Player player)
+        public static void Handle(Player.Player player)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             int bestSuitCount = player.Hand.BestSuitCount();
             
             if (player.Hand.HasJoker)
@@ -23,7 +23,7 @@ namespace PG3302_Eksamen
                 ReturnCard(player);
         }
 
-        private static void ReturnCard(Player player)
+        private static void ReturnCard(Player.Player player)
         {
             ICard returnCard = player.Hand.CardOfWorstSuit();
             HandleCard.RemoveCard(player, returnCard);

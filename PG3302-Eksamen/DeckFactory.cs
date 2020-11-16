@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Deck;
+using PG3302_Eksamen.Game;
 
 namespace PG3302_Eksamen
 {
@@ -13,7 +16,7 @@ namespace PG3302_Eksamen
             GenerateNormalCards();
             GenerateSpecialCards();
             Shuffle(Cards);
-            return new Deck(Cards);
+            return new Deck.Deck(Cards);
         }
 
         private static void GenerateNormalCards()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using PG3302_Eksamen.Card;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Hand
 {
     public interface IHand
     {

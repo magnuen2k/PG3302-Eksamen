@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.Game
 {
     public class Game
     {
@@ -14,7 +13,7 @@ namespace PG3302_Eksamen
 
         public void Run()
         {
-            List<Player> players = CreatePlayers();
+            List<Player.Player> players = CreatePlayers();
             GameMessages.DebugLog("");
             DealInitialHand(players);
             GameMessages.Space();
@@ -34,9 +33,9 @@ namespace PG3302_Eksamen
             StartGame(players);
         }
 
-        private void StartGame(List<Player> players)
+        private void StartGame(List<Player.Player> players)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
 
             for (int i = 0; i < _players; i++)
             {
@@ -45,21 +44,21 @@ namespace PG3302_Eksamen
             dealer.Started = true;
         }
 
-        private void DealInitialHand(List<Player> players)
+        private void DealInitialHand(List<Player.Player> players)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             for (int i = 0; i < GameConfig.DefaultMaxHandSize; i++)
             {
-                foreach (Player player in players)
+                foreach (Player.Player player in players)
                 {
                     dealer.DrawNormalCard(player);
                 }
             }
         }
 
-        private List<Player> CreatePlayers()
+        private List<Player.Player> CreatePlayers()
         {
-            List<Player> players = new List<Player>();
+            List<Player.Player> players = new List<Player.Player>();
             for (int i = 0; i < _players; i++)
             {
                 players.Add(PlayerFactory.CreatePlayer("Player" + (i + 1), i + 1));

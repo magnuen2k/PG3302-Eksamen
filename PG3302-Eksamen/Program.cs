@@ -1,4 +1,5 @@
 ﻿using System;
+using PG3302_Eksamen.Game;
 
 namespace PG3302_Eksamen
 {
@@ -15,7 +16,7 @@ namespace PG3302_Eksamen
             }
             GameMessages.SuccessfulInput();
 
-            Game game = new Game(playerAmount);
+            Game.Game game = new Game.Game(playerAmount);
             game.Run();
         }
     }

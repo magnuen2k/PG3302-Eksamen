@@ -1,10 +1,12 @@
 ﻿using System;
+using PG3302_Eksamen.Card;
+using PG3302_Eksamen.Game;
 
-namespace PG3302_Eksamen
+namespace PG3302_Eksamen.GameHandlers
 {
     public static class HandleCard
     {
-        public static void Handle(Player player, ICard card)
+        public static void Handle(Player.Player player, ICard card)
         {
             player.AddToHand(card);
             GameMessages.DebugLog(player + " (" + player.Hand.Count() + " cards in hand)");
@@ -28,13 +30,13 @@ namespace PG3302_Eksamen
             }
         }
         
-        private static void Bomb(Player player)
+        private static void Bomb(Player.Player player)
         {
             GameMessages.Bomb(player.Name);
-            Hand.DrawNewHand(player);
+            Hand.Hand.DrawNewHand(player);
         }
 
-        private static void Quarantine(Player player, ICard card)
+        private static void Quarantine(Player.Player player, ICard card)
         {
             player.IsQuarantined = true;
             RemoveCard(player, card);
@@ -42,9 +44,9 @@ namespace PG3302_Eksamen
             GameMessages.ReturnCard(player.Name, card);
         }
         
-        private static void Vulture(Player player, ICard card)
+        private static void Vulture(Player.Player player, ICard card)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             player.Hand.MaxHandSize++;
             GameMessages.Vulture(player);
             dealer.DrawNormalCard(player);
@@ -53,9 +55,9 @@ namespace PG3302_Eksamen
             player.DrewVulture = true;
         }
         
-        public static void RemoveCard(Player player, ICard card)
+        public static void RemoveCard(Player.Player player, ICard card)
         {
-            Dealer dealer = Dealer.GetDealer();
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             dealer.ReturnCard(card);
             player.Hand.RemoveCard(card);
         }
