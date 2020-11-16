@@ -33,7 +33,7 @@ namespace PG3302_Eksamen.Player
         
         public override string ToString()
         {
-            return Name + " has hand: " + Hand;
+            return Hand.ToString();
         }
 
         protected override void Play()
