@@ -1,13 +1,13 @@
-﻿using PG3302_Eksamen.Card;
+﻿using System;
+using PG3302_Eksamen.Card;
 using PG3302_Eksamen.Game;
 
 namespace PG3302_Eksamen.GameHandlers
 {
     public static class HandleHand
     {
-        public static void Handle(Player.Player player)
+        public static bool Handle(Player.Player player)
         {
-            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             int bestSuitCount = player.Hand.BestSuitCount();
             
             if (player.Hand.HasJoker)
@@ -18,9 +18,11 @@ namespace PG3302_Eksamen.GameHandlers
             
             // Win condition
             if (bestSuitCount >= GameConfig.WinConditionCount)
-                dealer.ClaimVictory(player);
-            else if (!player.IsQuarantined && !player.DrewVulture)
+                return true;
+            if (!player.IsQuarantined && !player.DrewVulture)
                 ReturnCard(player);
+            
+            return false;
         }
 
         private static void ReturnCard(Player.Player player)

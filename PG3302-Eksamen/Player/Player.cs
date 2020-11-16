@@ -1,3 +1,4 @@
+using System;
 using PG3302_Eksamen.Card;
 using PG3302_Eksamen.Game;
 using PG3302_Eksamen.GameHandlers;
@@ -11,6 +12,8 @@ namespace PG3302_Eksamen.Player
         public int Id { get; set; }
         public bool IsQuarantined { get; set; }
         public bool DrewVulture { get; set; }
+
+        public event EventHandler ClaimVictory;
 
         public readonly IHand Hand;
 
@@ -63,7 +66,8 @@ namespace PG3302_Eksamen.Player
             // Draw card
             ICard newCard = DrawCard();
             HandleCard.Handle(this, newCard);
-            HandleHand.Handle(this);
+            if (HandleHand.Handle(this))
+                OnClaimVictory();
         }
 
         private ICard DrawCard()
@@ -72,6 +76,11 @@ namespace PG3302_Eksamen.Player
             ICard newCard = dealer.GetCard();
             GameMessages.DrawCard(Name, newCard);
             return newCard;
+        }
+
+        protected virtual void OnClaimVictory()
+        {
+            ClaimVictory?.Invoke(this, EventArgs.Empty);
         }
     }
 }

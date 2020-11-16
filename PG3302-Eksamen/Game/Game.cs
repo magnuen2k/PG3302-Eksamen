@@ -15,6 +15,8 @@ namespace PG3302_Eksamen.Game
         {
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             List<Player.Player> players = CreatePlayers();
+            CreateSubscribers(players);
+            
             GameMessages.DebugLog("");
             DealInitialHand(players);
             GameMessages.Space();
@@ -35,6 +37,15 @@ namespace PG3302_Eksamen.Game
             //---------
 
             StartGame(players);
+        }
+
+        private static void CreateSubscribers(List<Player.Player> players)
+        {
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
+            foreach (Player.Player player in players)
+            {
+                player.ClaimVictory += dealer.ClaimVictory;
+            }
         }
 
         private void StartGame(List<Player.Player> players)

@@ -106,9 +106,10 @@ namespace PG3302_Eksamen.Dealer
             }
         }
 
-        public void ClaimVictory(Player.Player player)
+        public void ClaimVictory(object sender, EventArgs e)
         {
-            GameMessages.WinningMessage(player);
+            if (sender.GetType() != typeof(Player.Player)) return;
+            GameMessages.WinningMessage((Player.Player) sender);
             GameEnded = true;
         }
     }
