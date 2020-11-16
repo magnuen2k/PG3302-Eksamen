@@ -13,22 +13,26 @@ namespace PG3302_Eksamen.Game
 
         public void Run()
         {
+            Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             List<Player.Player> players = CreatePlayers();
             GameMessages.DebugLog("");
             DealInitialHand(players);
             GameMessages.Space();
             
-            /*
+            //---------
+            GameMessages.DebugLog("ENTERED DEBUG MODE");
             GameMessages.DebugLog("");
+            
             // print hands after cards are dealt for console
-            foreach (Player player in players)
+            foreach (Player.Player player in players)
             {
                 GameMessages.DebugLog(player.ToString());
             }
             
             GameMessages.DebugLog("");
             GameMessages.DebugLog("Deck: " + dealer.GetDeck());
-            GameMessages.DebugLog("");*/
+            GameMessages.DebugLog("");
+            //---------
 
             StartGame(players);
         }
