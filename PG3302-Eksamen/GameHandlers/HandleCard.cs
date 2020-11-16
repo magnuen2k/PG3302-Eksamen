@@ -1,11 +1,21 @@
-﻿using System;
+﻿#nullable enable
+using System;
+using System.Diagnostics;
 using PG3302_Eksamen.Card;
 using PG3302_Eksamen.Game;
 
 namespace PG3302_Eksamen.GameHandlers
 {
+
     public static class HandleCard
     {
+        public static event EventHandler BombIdentified = null!;
+
+        private static void OnBombIdentified(Player.Player player)
+        {
+            BombIdentified?.Invoke(player, EventArgs.Empty);
+        }
+        
         public static void Handle(Player.Player player, ICard card)
         {
             player.AddToHand(card);
@@ -13,7 +23,8 @@ namespace PG3302_Eksamen.GameHandlers
             switch (card.GetCardType())
             {
                 case CardType.Bomb:
-                    Bomb(player);
+                    OnBombIdentified(player);
+                    //Bomb(player);
                     break;
                 case CardType.Quarantine:
                     Quarantine(player, card);
@@ -30,10 +41,16 @@ namespace PG3302_Eksamen.GameHandlers
             }
         }
         
-        private static void Bomb(Player.Player player)
+        /*private static void Bomb(Player.Player player)
         {
             GameMessages.Bomb(player.Name);
             Hand.Hand.DrawNewHand(player);
+        }     */   
+        public static void OnBombIdentified(object? player, EventArgs e)
+        {
+            Debug.Assert(player != null, nameof(player) + " != null");
+            //GameMessages.Bomb(player.Name);
+            Hand.Hand.DrawNewHand((Player.Player)player);
         }
 
         private static void Quarantine(Player.Player player, ICard card)

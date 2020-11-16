@@ -1,5 +1,6 @@
 ﻿using System;
 using PG3302_Eksamen.Game;
+using PG3302_Eksamen.GameHandlers;
 
 namespace PG3302_Eksamen
 {
@@ -17,6 +18,8 @@ namespace PG3302_Eksamen
             GameMessages.SuccessfulInput();
 
             IGame game = new Game.Game(playerAmount);
+            //HandleCard.BombIdentified += HandleCard.OnBombIdentified;
+            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
             game.Run();
         }
     }
