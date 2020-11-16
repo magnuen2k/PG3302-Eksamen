@@ -5,15 +5,9 @@ using PG3302_Eksamen.Game;
 
 namespace PG3302_Eksamen.GameHandlers
 {
-
     public static class HandleCard
     {
         public static event EventHandler BombIdentified = null!;
-
-        private static void OnBombIdentified(Player.Player player)
-        {
-            BombIdentified(player, EventArgs.Empty);
-        }
         
         public static void Handle(Player.Player player, ICard card)
         {
@@ -70,6 +64,11 @@ namespace PG3302_Eksamen.GameHandlers
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             dealer.ReturnCard(card);
             player.Hand.RemoveCard(card);
+        }
+        
+        private static void OnBombIdentified(Player.Player player)
+        {
+            BombIdentified(player, EventArgs.Empty);
         }
     }
 }
