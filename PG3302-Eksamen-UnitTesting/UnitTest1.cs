@@ -10,15 +10,7 @@ namespace PG3302_Eksamen_UnitTesting
         public void Setup()
         {
         }
-
-        [Test]
-        public void CheckDeckSize()
-        {
-            Deck deck = DeckFactory.CreateDeck();
-            Console.WriteLine(deck.Size());
-            Assert.IsTrue(deck.Size() == 52);
-        }
-
+        
         [Test]
         public void CheckHandSize()
         {
@@ -26,17 +18,7 @@ namespace PG3302_Eksamen_UnitTesting
             ExampleHand(p);
             Assert.IsTrue(p.Hand.Count() == 4);
         }
-        
-        /*[Test]
-        public void CheckDeckSizeAfterDealingInitCards()
-        {
-            Deck deck = DeckFactory.CreateDeck();
-            Player p = new Player("TestPlayer", 1);
-            ExampleHand(p);
-            Console.WriteLine(deck.Size());
-            Assert.IsTrue(deck.Size() == 52);
-        }*/
-        
+
         [Test]
         public void CheckMaxSuitOnHand()
         {
@@ -88,8 +70,58 @@ namespace PG3302_Eksamen_UnitTesting
             HandleCard.Handle(p, card);
             Assert.IsFalse(p.Hand.GetHand().Contains(card));
         }
+        
+        [Test]
+        public void CheckJokerHandling()
+        {
+            Player p = new Player("TestPlayer", 1);
+            ExampleHand(p);
+            ICard card = new Card(Suit.Diamonds, Value.Jack);
+            p.AddToHand(new JokerCard(card));
+            HandleCard.Handle(p, card);
+            HandleHand.Handle(p);
+            Assert.IsTrue(p.Hand.HasJoker);
+        }
 
-        private void ExampleHand(Player p)
+        [Test]
+        public void CheckVultureHandling()
+        {
+            // Create player with hand
+            Player p = new Player("TestPlayer", 1);
+            ExampleHand(p);
+            
+            // Draw vulture card
+            ICard card = new Card(Suit.Diamonds, Value.Jack);
+            p.AddToHand(new VultureCard(card));
+            
+            // Handle Card
+            HandleCard.Handle(p, card);
+            
+            // Assertion
+            Assert.IsTrue(p.DrewVulture);
+            Assert.AreEqual(GameConfig.DefaultMaxHandSize + 1, p.Hand.MaxHandSize);
+        }
+
+        [Test]
+        public void CheckQuarantineHandling()
+        {
+            // Create player with hand
+            Player p = new Player("TestPlayer", 1);
+            ExampleHand(p);
+            
+            // Draw vulture card
+            ICard card = new Card(Suit.Diamonds, Value.Jack);
+            p.AddToHand(new QuarantineCard(card));
+            
+            // Handle Card
+            HandleCard.Handle(p, card);
+            
+            // Assertion
+            Assert.IsTrue(p.IsQuarantined);
+            Assert.AreEqual(GameConfig.DefaultMaxHandSize, p.Hand.MaxHandSize);
+        }
+        
+        public static void ExampleHand(Player p)
         {
             p.AddToHand(new Card(Suit.Clubs, Value.Eight));
             p.AddToHand(new Card(Suit.Clubs, Value.Ace));
