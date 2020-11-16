@@ -11,7 +11,7 @@ namespace PG3302_Eksamen.Dealer
         private static Dealer _dealer = null;
 
         private readonly IDeck _deck = null;
-        public bool Started { set; get;}
+        private bool _started;
         public bool GameEnded { set; get; }
         private int _activePlayer = 0;
         private readonly object _lock;
@@ -20,7 +20,7 @@ namespace PG3302_Eksamen.Dealer
         {
             _lock = new object();
             _deck = DeckFactory.CreateDeck();
-            Started = false;
+            _started = false;
             GameEnded = false;
         }
 
@@ -40,7 +40,7 @@ namespace PG3302_Eksamen.Dealer
             
             lock (_lock)
             {
-                if (!Started || GameEnded)
+                if (!_started || GameEnded)
                     return false;
                 
                 if (_activePlayer != 0 && _activePlayer != player.Id)
@@ -98,6 +98,11 @@ namespace PG3302_Eksamen.Dealer
                 GameMessages.ReceiveCard(player.Name, card);
                 break;
             }
+        }
+
+        public void StartGame(object sender, EventArgs e)
+        {
+            _started = true;
         }
 
         public void ClaimVictory(object sender, EventArgs e)

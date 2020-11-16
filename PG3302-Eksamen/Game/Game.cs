@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PG3302_Eksamen.GameHandlers;
 
@@ -6,6 +7,7 @@ namespace PG3302_Eksamen.Game
     public class Game : IGame
     {
         private readonly int _players;
+        public event EventHandler StartGame;
 
         public Game(int players)
         {
@@ -37,7 +39,7 @@ namespace PG3302_Eksamen.Game
             GameMessages.DebugLog("");
             //---------
 
-            StartGame(players);
+            InitializeGame(players);
         }
         
         private List<Player.Player> CreatePlayers()
@@ -51,7 +53,7 @@ namespace PG3302_Eksamen.Game
             return players;
         }
 
-        private static void CreateSubscribers(List<Player.Player> players)
+        private void CreateSubscribers(List<Player.Player> players)
         {
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
             foreach (Player.Player player in players)
@@ -59,6 +61,7 @@ namespace PG3302_Eksamen.Game
                 player.ClaimVictory += dealer.ClaimVictory;
             }
             HandleCard.BombIdentified += HandleCard.OnBombIdentified;
+            StartGame += dealer.StartGame;
         }
 
         private void DealInitialHand(List<Player.Player> players)
@@ -73,7 +76,7 @@ namespace PG3302_Eksamen.Game
             }
         }
         
-        private void StartGame(List<Player.Player> players)
+        private void InitializeGame(List<Player.Player> players)
         {
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();
 
@@ -81,7 +84,12 @@ namespace PG3302_Eksamen.Game
             {
                 players[i].Start();
             }
-            dealer.Started = true;
+            OnStartGame();
+        }
+
+        protected virtual void OnStartGame()
+        {
+            StartGame?.Invoke(this, EventArgs.Empty);
         }
     }
 }

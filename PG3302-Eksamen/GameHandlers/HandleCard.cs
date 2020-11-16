@@ -24,7 +24,6 @@ namespace PG3302_Eksamen.GameHandlers
             {
                 case CardType.Bomb:
                     OnBombIdentified(player);
-                    //Bomb(player);
                     break;
                 case CardType.Quarantine:
                     Quarantine(player, card);
@@ -41,15 +40,10 @@ namespace PG3302_Eksamen.GameHandlers
             }
         }
         
-        /*private static void Bomb(Player.Player player)
-        {
-            GameMessages.Bomb(player.Name);
-            Hand.Hand.DrawNewHand(player);
-        }     */   
         public static void OnBombIdentified(object? player, EventArgs e)
         {
-            Debug.Assert(player != null, nameof(player) + " != null");
-            //GameMessages.Bomb(player.Name);
+            if (player.GetType() != typeof(Player.Player)) return;
+            GameMessages.Bomb((Player.Player)player);
             Hand.Hand.DrawNewHand((Player.Player)player);
         }
 

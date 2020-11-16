@@ -151,7 +151,7 @@ namespace PG3302_Eksamen.Hand
             return _hand;
         }
 
-        public static void DrawNewHand(Player.Player? player)
+        public static void DrawNewHand(Player.Player player)
         {
             ReturnFullHand(player);
             Dealer.Dealer dealer = Dealer.Dealer.GetDealer();

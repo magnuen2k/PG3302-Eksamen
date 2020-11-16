@@ -70,9 +70,9 @@ namespace PG3302_Eksamen.Game
             Console.WriteLine(player.Name + " new max hand size: " + player.Hand.MaxHandSize);
         }
 
-        public static void Bomb(string name)
+        public static void Bomb(Player.Player player)
         {
-            Console.WriteLine(name + " has to throw away all his cards :(");
+            Console.WriteLine(player.Name + " has to throw away all his cards :(");
         }
 
         public static void WinningMessage(Player.Player player)
