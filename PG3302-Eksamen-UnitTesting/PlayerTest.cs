@@ -69,6 +69,7 @@ namespace PG3302_Eksamen_UnitTesting
         public void CheckBombHandling()
         {
             Player p = new Player("TestPlayer", 1);
+            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
             ExampleHand(p);
             ICard card = new Card(Suit.Diamonds, Value.Jack);
             p.AddToHand(new BombCard(card));
