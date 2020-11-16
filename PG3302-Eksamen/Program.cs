@@ -19,7 +19,6 @@ namespace PG3302_Eksamen
 
             IGame game = new Game.Game(playerAmount);
             //HandleCard.BombIdentified += HandleCard.OnBombIdentified;
-            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
             game.Run();
         }
     }

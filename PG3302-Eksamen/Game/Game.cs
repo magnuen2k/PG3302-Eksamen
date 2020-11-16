@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PG3302_Eksamen.GameHandlers;
 
 namespace PG3302_Eksamen.Game
 {
@@ -57,6 +58,7 @@ namespace PG3302_Eksamen.Game
             {
                 player.ClaimVictory += dealer.ClaimVictory;
             }
+            HandleCard.BombIdentified += HandleCard.OnBombIdentified;
         }
 
         private void DealInitialHand(List<Player.Player> players)
